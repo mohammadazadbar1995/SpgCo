@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#ff3632</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+
+    <color name="transparentDialog">#77777777</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="Dialog">#77ffffff</color>
+    <color name="redColor">#D90000</color>
+    <color name="errorColor">#D90000</color>
+    <color name="greenColor">#008078</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="statusBarChange">#aa000000</color>
+
+    <color name="light_gray">#c7d1d8</color>
+    <color name="secondryTextColor">#757575</color>
+    <color name="oddW">#f8f8f8</color>
+    <color name="hintColor">#BDBDBD</color>
+    <color name="divider">#BDBDBD</color>
+    <color name="disableColor">#DDDDDD</color>
+    <color name="primaryTextColor">#333333</color>
+    <color name="backColor">#ECEDF0</color>
+    <color name="navigationBar">@color/colorPrimary</color>
+    <color name="statusBar">@color/colorPrimaryDark</color>
+
+
+    <color name="mdtp_white">#ffffff</color>
+    <color name="mdtp_background_color">@color/mdtp_white</color>
+    <color name="mdtp_circle_background">@color/mdtp_background_color</color>
+    <color name="mdtp_circle_color">#f5f5f5</color>
+    <color name="mdtp_line_background">#cccccc</color>
+    <color name="mdtp_ampm_text_color">@color/mdtp_numbers_text_color</color>
+    <color name="mdtp_done_text_color_normal">#ff212121</color>
+    <color name="mdtp_done_text_color_disabled">#cccccc</color>
+    <color name="mdtp_numbers_text_color">#ff212121</color>
+    <color name="historyorange">#f2711c</color>
+    <color name="historyellow">#fbbd08</color>
+    <color name="historygreenlight">#b5cc18</color>
+    <color name="historygreendark">#21ba45</color>
+    <color name="historygreenblue">#00b5ad</color>
+    <color name="historyblue">#2185d0</color>
+    <color name="historypinkdark">#6435c9</color>
+    <color name="historypinklight">#9333c8</color>
+    <color name="historyblered">#e03997</color>
+    <color name="historyred">#db2828</color>
+    <color name="alghaGreenColor">#0a008078</color>
+    <color name="alghaPrimeryColor">#CC2042a6</color>
+    <color name="alghaWhite">#eeffffff</color>
+    <color name="transparentLoding">#30000000</color>
+</resources>

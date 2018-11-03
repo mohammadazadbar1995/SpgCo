@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">SgpCo</string>
+
+    //Error String
+    <string name="internalError">خطای سرور</string>
+    <string name="jsonError">خطای نوع اطلاعات ورودی</string>
+    <string name="communicationError">خطا در برقراری ارتباط</string>
+    <string name="noNetworkConnectivity">عدم دسترسی به شبکه</string>
+    <string name="connectionTimeout">اتصال به سرور امکان پذیر نیست</string>
+    <string name="unauthorized">کاربر غیر مجاز</string>
+    <string name="notFound">اطلاعات یافت نشد</string>
+    <string name="mobile_hint">09xxxxxxxxx</string>
+    <string name="mobile_text">موبایل</string>
+    <string name="password_hint">*******</string>
+    <string name="password_text">رمز عبور</string>
+    <string name="login">ورود</string>
+    <string name="register">ثبت نام</string>
+    <string name="name_hint">نام</string>
+    <string name="name_text">نام</string>
+    <string name="family_hint">نام خانوادگی</string>
+    <string name="family_text">نام خانوادگی</string>
+
+
+</resources>
