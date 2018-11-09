@@ -19,6 +19,34 @@
     <string name="name_text">نام</string>
     <string name="family_hint">نام خانوادگی</string>
     <string name="family_text">نام خانوادگی</string>
+    <string name="drawer_opened">باز</string>
+    <string name="drawer_closed">بسته</string>
+    <string name="typeNameProject">نوع و نام پروژه</string>
+    <string name="next">بعدی</string>
+    <string name="befor">قبلی</string>
+    <string name="name_project">نام پروژه</string>
+    <string name="select_city">انتخاب شهر</string>
+    <string name="cancel">لغو</string>
+    <string name="useful_area">متراژ مساحت مفید</string>
+    <string name="cool_area">متراژ مساحت سرد</string>
+    <string name="calucate_text">محاسبه</string>
+    <string name="enter_title">%1$s را وارد کنید</string>
 
+    <string name="enter_mobile">موبایل را وارد کنید</string>
+    <string name="invalid_eleven">تلفن همراه کمتر از 11 رقم است.</string>
+    <string name="invalid_mobile">موبایل نامعتبر است</string>
+    <string name="enter_password">رمز عبور را وارد نمایید</string>
+    <string name="invalid_password">رمز عبور نامعبر است</string>
+    <string name="ok">باشه</string>
+    <string name="fill_following">پر کردن موارد زیر الزامی است</string>
+    <string name="dialog_yes">بله</string>
+    <string name="dialog_no">خیر</string>
+    <string name="retry_text">تلاش مجدد</string>
+    <string name="invalid_value">%1$s نامعتبر است</string>
+    <string name="code_verify">کد</string>
+    <string name="enter_code">کد مورد نظر را وارد کنید</string>
+    <string name="invalid_code">کد نامعتبر است</string>
+    <string name="inter_code">کد ارسال شده را وارد کنید</string>
+    <string name="send">ارسال</string>
 
 </resources>

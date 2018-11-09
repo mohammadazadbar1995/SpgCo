@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_gravity="center"
+    app:cardCornerRadius="@dimen/dialog_corner_radius"
+    tools:context=".activity.MainActivity">
+
+    <com.spg.sgpco.baseView.BaseRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <com.spg.sgpco.baseView.BaseLinearLayout
+            android:id="@+id/rlError"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/rlBtn">
+
+            <com.spg.sgpco.baseView.BaseLinearLayout
+                android:id="@+id/llError"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <com.spg.sgpco.baseView.BaseRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:background="@color/bluePrimaryColor"
+                    android:gravity="center_vertical">
+
+                    <com.spg.sgpco.baseView.BaseTextView
+                        android:id="@+id/tvShow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_2"
+                        app:fontType="Medium" />
+                </com.spg.sgpco.baseView.BaseRelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_width"
+                    android:background="@color/divider" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvShowError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_1"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:layout_marginEnd="@dimen/margin_1"
+                    android:layout_marginBottom="@dimen/margin_1" />
+
+
+            </com.spg.sgpco.baseView.BaseLinearLayout>
+
+
+        </com.spg.sgpco.baseView.BaseLinearLayout>
+
+
+        <com.spg.sgpco.baseView.BaseLinearLayout
+            android:id="@+id/rlBtn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottonDialog"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@color/divider"
+            android:orientation="horizontal">
+
+
+            <com.spg.sgpco.baseView.BaseTextView
+                android:id="@+id/btnOk"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/divider"
+                android:layout_marginTop="@dimen/size_width"
+                android:background="@drawable/ripplewhite_no_radius"
+                android:gravity="center"
+                android:textColor="@color/greenColor"
+                android:textSize="@dimen/text_size_2"
+                app:fontType="Medium" />
+
+        </com.spg.sgpco.baseView.BaseLinearLayout>
+
+    </com.spg.sgpco.baseView.BaseRelativeLayout>
+</android.support.v7.widget.CardView>

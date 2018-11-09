@@ -4,7 +4,11 @@
     <color name="colorPrimaryDark">#ff3632</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="toolbarBack">#efffc004</color>
+    <color name="toolbarFore">#ffffff</color>
+    <color name="bluePrimaryColor">#2042a6</color>
 
+    <color name="green">#21ba45</color>
 
     <color name="transparentDialog">#77777777</color>
     <color name="transparent">#00FFFFFF</color>
@@ -40,7 +44,7 @@
     <color name="historyorange">#f2711c</color>
     <color name="historyellow">#fbbd08</color>
     <color name="historygreenlight">#b5cc18</color>
-    <color name="historygreendark">#21ba45</color>
+
     <color name="historygreenblue">#00b5ad</color>
     <color name="historyblue">#2185d0</color>
     <color name="historypinkdark">#6435c9</color>

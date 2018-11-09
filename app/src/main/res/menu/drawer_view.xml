@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+
+        <item
+            android:id="@+id/nav_main_page"
+            android:icon="@drawable/ic_info_gray"
+            android:title="صفحه اصلی" />
+
+
+        <item
+            android:id="@+id/nav_first_fragment"
+            android:icon="@drawable/ic_info_gray"
+            android:title="درباره گیتی پسند" />
+        <item
+            android:id="@+id/nav_second_fragment"
+            android:icon="@drawable/ic_exit_to_app_gray"
+            android:title="خروج" />
+
+    </group>
+</menu>

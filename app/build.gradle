@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.sgpco"
+        applicationId "com.spg.sgpco"
         minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
@@ -41,4 +41,5 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.thefinestartist:finestwebview:1.2.7'
 }

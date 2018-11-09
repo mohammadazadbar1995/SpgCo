@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/outer_margin"
+    android:maxHeight="@dimen/dialog_height_max"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/all_raduis_app"
+    tools:context=".activity.MainActivity">
+
+    <com.spg.sgpco.baseView.BaseRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <com.spg.sgpco.baseView.BaseRelativeLayout
+            android:id="@+id/rlTitle"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:background="@color/bluePrimaryColor"
+            android:gravity="center_vertical">
+
+            <com.spg.sgpco.baseView.BaseTextView
+                android:id="@+id/tvTxtNameProject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/select_city"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_2"
+                app:fontType="Bold" />
+        </com.spg.sgpco.baseView.BaseRelativeLayout>
+
+
+        <com.spg.sgpco.customView.MaterialSpinner
+            android:id="@+id/spProvince"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottonDialog"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_below="@+id/rlTitle"
+            android:layout_marginStart="@dimen/margin_2"
+            android:layout_marginEnd="@dimen/margin_2"
+            android:background="@drawable/spinner_dwop_down"
+            android:layoutDirection="ltr"
+            android:verticalScrollbarPosition="left" />
+
+        <com.spg.sgpco.customView.MaterialSpinner
+            android:id="@+id/spCity"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottonDialog"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_below="@+id/spProvince"
+            android:layout_marginStart="@dimen/margin_2"
+            android:layout_marginEnd="@dimen/margin_2"
+            android:background="@drawable/spinner_dwop_down"
+            android:layoutDirection="ltr"
+            android:verticalScrollbarPosition="left" />
+
+
+        <com.spg.sgpco.baseView.BaseLinearLayout
+            android:id="@+id/rlBtn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottonDialog"
+            android:layout_below="@+id/spCity"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_4"
+            android:background="@color/divider"
+            android:orientation="horizontal">
+
+
+            <com.spg.sgpco.baseView.BaseTextView
+                android:id="@+id/btnOk"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/size_width"
+                android:layout_weight="5"
+                android:background="@drawable/ripplewhite"
+                android:gravity="center"
+                android:text="@string/next"
+                android:textColor="@color/greenColor"
+                android:textSize="@dimen/text_size_4"
+                android:visibility="visible"
+                app:fontType="Regular" />
+
+
+            <com.spg.sgpco.baseView.BaseTextView
+                android:id="@+id/btnCancel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/size_width"
+                android:layout_marginTop="@dimen/size_width"
+                android:layout_weight="5"
+                android:background="@drawable/ripplewhite"
+                android:gravity="center"
+                android:text="@string/befor"
+                android:textColor="@color/redColor"
+                android:textSize="@dimen/text_size_4"
+                android:visibility="visible"
+                app:fontType="Regular" />
+
+        </com.spg.sgpco.baseView.BaseLinearLayout>
+
+    </com.spg.sgpco.baseView.BaseRelativeLayout>
+</android.support.v7.widget.CardView>

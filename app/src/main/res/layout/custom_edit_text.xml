@@ -9,13 +9,13 @@
         app:cardCornerRadius="@dimen/all_raduis_app"
         android:layout_margin="@dimen/margin_1">
 
-        <com.example.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
 
 
-            <com.example.sgpco.baseView.BaseImageView
+            <com.spg.sgpco.baseView.BaseImageView
                 android:id="@+id/edtIcon"
                 android:layout_width="@dimen/margin_pic_24"
                 android:layout_height="@dimen/margin_pic_24"
@@ -26,7 +26,7 @@
                 android:visibility="visible" />
 
 
-            <com.example.sgpco.baseView.BaseTextView
+            <com.spg.sgpco.baseView.BaseTextView
                 android:id="@+id/tvTitle"
                 android:layout_width="85dp"
                 android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
                 android:layout_toEndOf="@+id/edtIcon"
                 android:text="" />
 
-            <com.example.sgpco.baseView.BaseEditText
+            <com.spg.sgpco.baseView.BaseEditText
                 android:id="@+id/edtBody"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_edit_text_view"
@@ -46,15 +46,15 @@
                 android:background="@null"
                 android:text="" />
 
-            <com.example.sgpco.baseView.BaseImageView
+            <com.spg.sgpco.baseView.BaseImageView
                 android:id="@+id/image"
-                android:layout_width="@dimen/margin_pic_24"
-                android:layout_height="@dimen/margin_pic_24"
+                android:layout_width="@dimen/icon_18"
+                android:layout_height="@dimen/icon_18"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="@dimen/inner_margin_content"
                 android:visibility="visible" />
-        </com.example.sgpco.baseView.BaseRelativeLayout>
+        </com.spg.sgpco.baseView.BaseRelativeLayout>
 
 
     </android.support.v7.widget.CardView>

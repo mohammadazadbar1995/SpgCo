@@ -14,6 +14,7 @@
             <enum name="MOBILE" value="2" />
             <enum name="PHONE" value="3" />
             <enum name="PASSWORD" value="4" />
+            <enum name="CODEVERIFY" value="5" />
 
         </attr>
 
@@ -37,5 +38,15 @@
             <enum name="Medium" value="2" />
             <enum name="Bold" value="3" />
         </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="NiceSpinner">
+        <attr name="arrowTint" format="color" />
+        <attr name="hideArrow" format="boolean" />
+        <attr name="arrowDrawable" format="reference|color"/>
+        <attr name="dropDownListPaddingBottom" format="dimension"/>
+        <attr name="backgroundSelector" format="integer"/>
+        <attr name="textTint" format="color"/>
     </declare-styleable>
 </resources>

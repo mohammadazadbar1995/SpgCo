@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:rsb="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:layout_gravity="center"
+    android:gravity="center">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabfilter"
+        android:layout_width="@dimen/fab_72"
+        android:layout_height="@dimen/fab_72"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="@dimen/margin_3"
+        android:layout_marginBottom="@dimen/margin_3"
+        android:visibility="visible"
+        app:backgroundTint="@color/historyblue"
+        app:layout_anchor="@id/list"
+        android:background="@drawable/rippleblue"
+        app:layout_anchorGravity="bottom|left"
+        app:srcCompat="@drawable/ic_playlist_add_white"
+        rsb:rippleColor="@color/white" />
+
+
+</com.spg.sgpco.baseView.BaseRelativeLayout>
+

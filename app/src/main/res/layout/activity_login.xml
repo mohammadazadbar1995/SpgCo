@@ -1,93 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.example.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/image"
-        android:scaleType="centerCrop"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <com.example.sgpco.baseView.BaseLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:scaleType="centerCrop" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <com.example.sgpco.customView.CustomEditText
-            android:id="@+id/edtMobile"
+        <com.spg.sgpco.baseView.BaseLinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_edit_text_view"
-            android:layout_marginStart="@dimen/margin_4"
-            android:layout_marginTop="@dimen/size_width"
-            android:layout_marginEnd="@dimen/margin_4"
-            android:focusableInTouchMode="false"
-            app:edtIcon="@drawable/ic_call_gray"
-            app:hint="@string/mobile_hint"
-            app:inputType="MOBILE"
-            app:isRequired="true"
-            app:tvTitle="@string/mobile_text" />
-
-        <com.example.sgpco.customView.CustomEditText
-            android:id="@+id/edtPassword"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_edit_text_view"
-            android:layout_marginStart="@dimen/margin_4"
-            android:layout_marginTop="@dimen/margin_2"
-            android:layout_marginEnd="@dimen/margin_4"
-            android:focusableInTouchMode="false"
-            app:edtIcon="@drawable/ic_call_gray"
-            app:hint="@string/password_hint"
-            app:inputType="PASSWORD"
-            app:isRequired="true"
-            app:tvTitle="@string/password_text" />
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
 
 
-        <com.example.sgpco.baseView.BaseLinearLayout
-            android:id="@+id/llButton"
-            android:layout_width="@dimen/width_linear"
-            android:layout_height="@dimen/button_height"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="@dimen/margin_2"
-            android:layout_marginTop="@dimen/margin_4"
-            android:layout_marginEnd="@dimen/margin_2"
-            android:orientation="horizontal"
-            android:weightSum="10">
-
-
-            <com.example.sgpco.baseView.BaseTextView
-                android:id="@+id/btnLogin"
+            <com.spg.sgpco.customView.CustomEditText
+                android:id="@+id/edtMobile"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/margin_1"
-                android:layout_weight="5"
-                android:background="@drawable/rippleblue"
-                android:gravity="center"
-                android:text="@string/login"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_1"
-                app:fontType="Medium" />
+                android:layout_height="@dimen/height_edit_text_view"
+                android:layout_marginStart="@dimen/margin_4"
+                android:layout_marginTop="@dimen/size_width"
+                android:layout_marginEnd="@dimen/margin_4"
+                android:focusableInTouchMode="false"
+                app:edtIcon="@drawable/ic_call_gray"
+                app:hint="@string/mobile_hint"
+                app:inputType="MOBILE"
+                app:isRequired="true"
+                app:tvTitle="@string/mobile_text" />
 
-            <com.example.sgpco.baseView.BaseTextView
-                android:id="@+id/btnRegister"
+            <com.spg.sgpco.customView.CustomEditText
+                android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/margin_1"
-                android:layout_weight="5"
-                android:background="@drawable/rippleblue"
-                android:gravity="center"
-                android:text="@string/register"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_1"
-                app:fontType="Medium" />
-        </com.example.sgpco.baseView.BaseLinearLayout>
-    </com.example.sgpco.baseView.BaseLinearLayout>
+                android:layout_height="@dimen/height_edit_text_view"
+                android:layout_marginStart="@dimen/margin_4"
+                android:layout_marginTop="@dimen/margin_2"
+                android:layout_marginEnd="@dimen/margin_4"
+                android:focusableInTouchMode="false"
+                app:edtIcon="@drawable/ic_call_gray"
+                app:hint="@string/password_hint"
+                app:inputType="PASSWORD"
+                app:isRequired="true"
+                app:tvTitle="@string/password_text" />
 
 
-</com.example.sgpco.baseView.BaseRelativeLayout>
+            <com.spg.sgpco.baseView.BaseLinearLayout
+                android:id="@+id/llButton"
+                android:layout_width="@dimen/width_linear"
+                android:layout_height="@dimen/button_height"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="@dimen/margin_2"
+                android:layout_marginTop="@dimen/margin_4"
+                android:layout_marginEnd="@dimen/margin_2"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+
+                <com.spg.sgpco.baseView.BaseTextView
+                    android:id="@+id/btnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_1"
+                    android:layout_weight="5"
+                    android:background="@drawable/rippleblue"
+                    android:gravity="center"
+                    android:text="@string/login"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_1"
+                    app:fontType="Medium" />
+
+                <com.spg.sgpco.baseView.BaseTextView
+                    android:id="@+id/btnRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/margin_1"
+                    android:layout_weight="5"
+                    android:background="@drawable/rippleblue"
+                    android:gravity="center"
+                    android:text="@string/register"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_1"
+                    app:fontType="Medium" />
+            </com.spg.sgpco.baseView.BaseLinearLayout>
+        </com.spg.sgpco.baseView.BaseLinearLayout>
+
+    </ScrollView>
+
+    <com.spg.sgpco.customView.RoundedLoadingView
+        android:id="@+id/roundedLoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</com.spg.sgpco.baseView.BaseRelativeLayout>
 

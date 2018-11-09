@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparentLoding"
+    android:gravity="center">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:background="@color/white"
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="@dimen/all_raduis_app"
+        app:cardElevation="0dp">
+
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_below="@+id/tvTitle"
+            android:layout_gravity="center|center_vertical"
+            android:visibility="visible" />
+    </android.support.v7.widget.CardView>
+
+</com.spg.sgpco.baseView.BaseRelativeLayout>

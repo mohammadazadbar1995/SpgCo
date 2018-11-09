@@ -112,4 +112,11 @@
     <dimen name="image_resize">500dp</dimen>
 
     <dimen name="image_size_on_boarding">200dp</dimen>
+    <dimen name="fab_72">72dp</dimen>
+
+    <dimen name="input_field_padding">6dp</dimen>
+    <dimen name="one_and_a_half_grid_unit">2dp</dimen>
+    <dimen name="three_grid_unit">24dp</dimen>
+
+    <dimen name="dialog_corner_radius">10dp</dimen>
 </resources>
