@@ -92,6 +92,26 @@
                     android:textSize="@dimen/text_size_1"
                     app:fontType="Medium" />
             </com.spg.sgpco.baseView.BaseLinearLayout>
+
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:id="@+id/rlForgetPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                app:mrl_rippleAlpha="0.1"
+                app:mrl_rippleColor="@color/bluePrimaryColor"
+                app:mrl_rippleOverlay="true"
+                >
+
+                <com.spg.sgpco.baseView.BaseTextView
+                    android:id="@+id/tvForgetPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/forget_password"
+                    android:textColor="@color/white" />
+            </com.balysv.materialripple.MaterialRippleLayout>
+
         </com.spg.sgpco.baseView.BaseLinearLayout>
 
     </ScrollView>

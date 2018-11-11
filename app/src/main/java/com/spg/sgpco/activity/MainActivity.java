@@ -26,6 +26,7 @@ import com.spg.sgpco.baseView.BaseImageView;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.baseView.BaseToolbar;
 import com.spg.sgpco.service.ResponseModel.Login;
+import com.spg.sgpco.utils.PreferencesData;
 
 import java.util.ArrayList;
 
@@ -67,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
         tvUserName = headerLayout.findViewById(R.id.tvUserName);
         tvMobile = headerLayout.findViewById(R.id.tvMobile);
 
-        tvUserName.setText(loginRes.getUser_display_name());
-        tvMobile.setText(loginRes.getUser_nicename());
+        tvUserName.setText(PreferencesData.getString(this, "name"));
+        tvMobile.setText(PreferencesData.getString(this, "mobile"));
 
         setupDrawer();
         setupDrawerContent(nvDrawer);

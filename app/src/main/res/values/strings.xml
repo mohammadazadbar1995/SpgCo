@@ -48,5 +48,11 @@
     <string name="invalid_code">کد نامعتبر است</string>
     <string name="inter_code">کد ارسال شده را وارد کنید</string>
     <string name="send">ارسال</string>
+    <string name="forget_password">رمز عبور خود را فراموش کرده اید؟</string>
+    <string name="send_code">ارسال کد</string>
+    <string name="desc_for_enter_mobile">برای دریافت کد شماره موبایل خود را وارد کنید</string>
+    <string name="desc_for_enter_code">کد مورد نظر را وارد کنید</string>
+    <string name="group_spg">گروه صنایع گیتی پسند</string>
+    <string name="group_spg_en">www.spgco.com</string>
 
 </resources>

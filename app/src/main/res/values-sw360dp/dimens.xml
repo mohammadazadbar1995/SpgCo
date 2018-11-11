@@ -63,5 +63,5 @@
     <integer name="coloum_count_register_estate">4</integer>
     <dimen name="coulem_offset_recycle_view_in_register_estate">4dp</dimen>
 
-    <dimen name="image_size_on_boarding">250dp</dimen>
+    <dimen name="image_size_on_splash">250dp</dimen>
 </resources>

@@ -31,7 +31,7 @@ public class ApiClient {
 
         final String basicAuth;
         if (TextUtils.isEmpty(PreferencesData.getToken(getContext()))) {
-            basicAuth = "Bearer " + PreferencesData.getToken(getContext());
+            basicAuth = "";
         } else {
             basicAuth = "";
         }

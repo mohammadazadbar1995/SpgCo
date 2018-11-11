@@ -1,10 +1,9 @@
-package com.spg.sgpco.login;
+package com.spg.sgpco.forgetPassword;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.spg.sgpco.R;
@@ -15,11 +14,11 @@ import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.customView.CustomEditText;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
-import com.spg.sgpco.forgetPassword.ForgetPasswordActivity;
-import com.spg.sgpco.register.RegisterActivity;
-import com.spg.sgpco.service.Request.LoginService;
+import com.spg.sgpco.login.LoginActivity;
+import com.spg.sgpco.service.Request.EnterCodePasswordService;
 import com.spg.sgpco.service.Request.ResponseListener;
-import com.spg.sgpco.service.RequestModel.LoginReq;
+import com.spg.sgpco.service.RequestModel.ForgetPassReq;
+import com.spg.sgpco.service.RequestModel.LoginWithCodeForgetPassReq;
 import com.spg.sgpco.service.ResponseModel.LoginResponse;
 import com.spg.sgpco.utils.PreferencesData;
 
@@ -29,63 +28,42 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends BaseActivity {
+public class EnterCodeForgetPassActivity extends BaseActivity {
 
 
     @BindView(R.id.image)
     AppCompatImageView image;
-    @BindView(R.id.edtMobile)
-    CustomEditText edtMobile;
-    @BindView(R.id.edtPassword)
-    CustomEditText edtPassword;
+    @BindView(R.id.edtEnterCode)
+    CustomEditText edtEnterCode;
     @BindView(R.id.btnLogin)
     BaseTextView btnLogin;
-    @BindView(R.id.btnRegister)
-    BaseTextView btnRegister;
     @BindView(R.id.roundedLoadingView)
     RoundedLoadingView roundedLoadingView;
     @BindView(R.id.root)
     BaseRelativeLayout root;
-    @BindView(R.id.tvForgetPassword)
-    BaseTextView tvForgetPassword;
-    private LoginReq req;
+    private LoginWithCodeForgetPassReq req;
+    private ForgetPassReq forgetPassReq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_enter_code_forget_pass);
         ButterKnife.bind(this);
+
+        Intent intent = getIntent();
+        forgetPassReq = intent.getParcelableExtra("phoneNumber");
         Glide.with(this).load(R.drawable.background_login).into(image);
     }
 
-    @OnClick({R.id.btnLogin, R.id.btnRegister, R.id.tvForgetPassword})
-    public void onViewClicked(View view) {
-        Intent intent = null;
-        switch (view.getId()) {
-            case R.id.btnLogin:
-                if (isValidData()) {
-                    loginRequest();
-                }
-                break;
-            case R.id.btnRegister:
-                intent = new Intent(this, RegisterActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.tvForgetPassword:
-                intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
-                startActivity(intent);
-                break;
-        }
-    }
 
-    private void loginRequest() {
+    private void enterCodePasss() {
         roundedLoadingView.setVisibility(View.VISIBLE);
         enableDisableViewGroup(root, false);
 
-        req = new LoginReq();
-        req.setPhonenumber(edtMobile.getValueString());
-        req.setPassword(edtPassword.getValueString());
-        LoginService.getInstance().login(getResources(), req, new ResponseListener<LoginResponse>() {
+        req = new LoginWithCodeForgetPassReq();
+        req.setPhonenumber(forgetPassReq.getPhonenumber());
+        req.setCode(edtEnterCode.getValueString());
+        EnterCodePasswordService.getInstance().enterCodePassword(getResources(), req, new ResponseListener<LoginResponse>() {
             @Override
             public void onGetErrore(String error) {
                 roundedLoadingView.setVisibility(View.GONE);
@@ -95,16 +73,14 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onSuccess(LoginResponse response) {
+
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess()) {
-                    PreferencesData.saveToken(LoginActivity.this, response.getResult().getToken());
-                    PreferencesData.saveString(LoginActivity.this, "name", response.getResult().getUser_display_name());
-                    PreferencesData.saveString(LoginActivity.this, "mobile", response.getResult().getUser_nicename());
-                    PreferencesData.isLogin(LoginActivity.this, true);
-                    Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
-                    loginIntent.putExtra("login", response.getResult());
-                    startActivity(loginIntent);
+                    PreferencesData.saveToken(EnterCodeForgetPassActivity.this, response.getResult().getToken());
+                    Intent enterCode = new Intent(EnterCodeForgetPassActivity.this, MainActivity.class);
+                    enterCode.putExtra("login", response.getResult());
+                    startActivity(enterCode);
                     finish();
 
                 }
@@ -112,16 +88,19 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
+    @OnClick(R.id.btnLogin)
+    public void onViewClicked() {
+        if (isValidData()) {
+            enterCodePasss();
+        }
+
+    }
     private boolean isValidData() {
 
         ArrayList<String> errorMsgList = new ArrayList<>();
 
-        if (edtMobile.getError() != null) {
-            errorMsgList.add(edtMobile.getError());
-        }
-
-        if (edtPassword.getError() != null) {
-            errorMsgList.add(edtPassword.getError());
+        if (edtEnterCode.getError() != null) {
+            errorMsgList.add(edtEnterCode.getError());
         }
 
         if (errorMsgList.size() > 0) {
@@ -138,7 +117,7 @@ public class LoginActivity extends BaseActivity {
         customDialog.setOkListener(getString(R.string.retry_text), view -> {
             customDialog.dismiss();
             roundedLoadingView.setVisibility(View.VISIBLE);
-            loginRequest();
+            enterCodePasss();
         });
         customDialog.setCancelListener(getString(R.string.cancel), view -> customDialog.dismiss());
         customDialog.setIcon(R.drawable.ic_error);
@@ -151,16 +130,6 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    public static void enableDisableViewGroup(ViewGroup viewGroup, boolean enabled) {
-        int childCount = viewGroup.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View view = viewGroup.getChildAt(i);
-            view.setEnabled(enabled);
-            if (view instanceof ViewGroup) {
-                enableDisableViewGroup((ViewGroup) view, enabled);
-            }
-        }
-    }
 
 
 }
