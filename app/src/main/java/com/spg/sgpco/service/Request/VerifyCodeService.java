@@ -36,7 +36,7 @@ public class VerifyCodeService {
 
 
     public void verifyCode(final Resources res, VerifyReq req, final ResponseListener<VerifyResponse> responseListener) {
-        new ServerTransaction().setCall(res, ApiClient.getClient().create(ReqInterface.class).verifyCode(req), new ServerListener() {
+        new ServerTransaction().setCall(res, ApiClient.getClientLogin().create(ReqInterface.class).verifyCode(req), new ServerListener() {
             @Override
             public void onFailure(String str) {
                 responseListener.onGetErrore(str);

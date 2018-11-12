@@ -36,7 +36,7 @@ public class RegisterService {
 
 
     public void regiter(final Resources res, RegisterReq req, final ResponseListener<LoginResponse> responseListener) {
-        new ServerTransaction().setCall(res, ApiClient.getClient().create(ReqInterface.class).register(req), new ServerListener() {
+        new ServerTransaction().setCall(res, ApiClient.getClientLogin().create(ReqInterface.class).register(req), new ServerListener() {
             @Override
             public void onFailure(String str) {
                 responseListener.onGetErrore(str);

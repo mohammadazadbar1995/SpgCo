@@ -35,7 +35,7 @@ public class EnterCodePasswordService {
 
 
     public void enterCodePassword(final Resources res, LoginWithCodeForgetPassReq req, final ResponseListener<LoginResponse> responseListener) {
-        new ServerTransaction().setCall(res, ApiClient.getClient().create(ReqInterface.class).loginWithCode(req), new ServerListener() {
+        new ServerTransaction().setCall(res, ApiClient.getClientLogin().create(ReqInterface.class).loginWithCode(req), new ServerListener() {
             @Override
             public void onFailure(String str) {
                 responseListener.onGetErrore(str);

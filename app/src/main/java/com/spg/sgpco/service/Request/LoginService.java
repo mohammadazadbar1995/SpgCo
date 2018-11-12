@@ -34,7 +34,7 @@ public class LoginService {
 
 
     public void login(final Resources res, LoginReq req, final ResponseListener<LoginResponse> responseListener) {
-        new ServerTransaction().setCall(res, ApiClient.getClient().create(ReqInterface.class).login(req), new ServerListener() {
+        new ServerTransaction().setCall(res, ApiClient.getClientLogin().create(ReqInterface.class).login(req), new ServerListener() {
             @Override
             public void onFailure(String str) {
                 responseListener.onGetErrore(str);

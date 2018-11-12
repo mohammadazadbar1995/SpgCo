@@ -35,7 +35,7 @@ public class ForgetPasswordService {
 
 
     public void forgetPassword(final Resources res, ForgetPassReq req, final ResponseListener<VerifyResponse> responseListener) {
-        new ServerTransaction().setCall(res, ApiClient.getClient().create(ReqInterface.class).forgetPass(req), new ServerListener() {
+        new ServerTransaction().setCall(res, ApiClient.getClientLogin().create(ReqInterface.class).forgetPass(req), new ServerListener() {
             @Override
             public void onFailure(String str) {
                 responseListener.onGetErrore(str);

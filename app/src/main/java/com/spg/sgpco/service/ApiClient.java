@@ -3,6 +3,8 @@ package com.spg.sgpco.service;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.spg.sgpco.controller.AppController;
 import com.spg.sgpco.utils.Constants;
 import com.spg.sgpco.utils.PreferencesData;
@@ -30,7 +32,7 @@ public class ApiClient {
     public static Retrofit getClient() {
 
         final String basicAuth;
-        if (TextUtils.isEmpty(PreferencesData.getToken(getContext()))) {
+        if (!TextUtils.isEmpty(PreferencesData.getToken(getContext()))) {
             basicAuth = "";
         } else {
             basicAuth = "";
@@ -39,7 +41,20 @@ public class ApiClient {
             Request.Builder ongoing;
             ongoing = chain.request().newBuilder().addHeader("Content-Type", "application/json; charset=utf-8");
             ongoing.addHeader("Authorization", basicAuth);
-            ongoing.addHeader("User-Agent","com.spg.sgpco");
+            ongoing.addHeader("User-Agent", "com.spg.sgpco");
+            return chain.proceed(ongoing.build());
+        }).connectTimeout(60, TimeUnit.SECONDS).readTimeout(60, TimeUnit.SECONDS).build();
+        return new Builder().baseUrl(Constants.URL_API).addConverterFactory(GsonConverterFactory.create()).client(myClient).build();
+
+    }
+
+
+    public static Retrofit getClientLogin() {
+
+        OkHttpClient myClient = new OkHttpClient.Builder().addInterceptor(chain -> {
+            Request.Builder ongoing;
+            ongoing = chain.request().newBuilder().addHeader("Content-Type", "application/x-www-form-urlencoded");
+            ongoing.addHeader("User-Agent", "com.spg.sgpco");
             return chain.proceed(ongoing.build());
         }).connectTimeout(60, TimeUnit.SECONDS).readTimeout(60, TimeUnit.SECONDS).build();
         return new Builder().baseUrl(Constants.URL_API).addConverterFactory(GsonConverterFactory.create()).client(myClient).build();
