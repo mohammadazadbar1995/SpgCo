@@ -15,7 +15,7 @@
             android:icon="@drawable/ic_info_gray"
             android:title="درباره گیتی پسند" />
         <item
-            android:id="@+id/nav_second_fragment"
+            android:id="@+id/nav_exit"
             android:icon="@drawable/ic_exit_to_app_gray"
             android:title="خروج" />
 

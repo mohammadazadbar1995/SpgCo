@@ -7,16 +7,16 @@ public class PreferencesData {
 
 
     public static String getToken(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getString("token","");
+        return PreferenceManager.getDefaultSharedPreferences(context).getString("token", "");
     }
 
 
     public static void saveToken(Context context, String value) {
-        PreferenceManager.getDefaultSharedPreferences(context).edit().putString("token", value).apply();
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString("token", "Bearer " + value).apply();
     }
 
 
-    public static void saveString(Context context,String key, String value) {
+    public static void saveString(Context context, String key, String value) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(key, value).apply();
     }
 

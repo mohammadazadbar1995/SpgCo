@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by a.Raghibdoust on 10/7/2017.
+ * Created by m.azadbar on 10/7/2017.
  */
 
 public class CustomDialog extends Dialog {
@@ -75,7 +75,6 @@ public class CustomDialog extends Dialog {
             btnOk.setVisibility(View.GONE);
         }
         tvTitle.setText(title);
-        tvTitle.setTextColor(color);
         tvDescriptioError.setText(description);
 
         if (image > 0) {
@@ -112,9 +111,6 @@ public class CustomDialog extends Dialog {
         this.title = title;
     }
 
-    public void setColorTitle(int color) {
-        this.color = color;
-    }
 
     public void setDescription(String description) {
         this.description = description;

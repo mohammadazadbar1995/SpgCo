@@ -13,18 +13,24 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.about.AboutSgpFragment;
+import com.spg.sgpco.baseView.BaseActivity;
 import com.spg.sgpco.baseView.BaseImageView;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.baseView.BaseToolbar;
+import com.spg.sgpco.customView.RoundedLoadingView;
+import com.spg.sgpco.dialog.CustomDialog;
+import com.spg.sgpco.login.LoginActivity;
+import com.spg.sgpco.service.Request.LogoutService;
+import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.ResponseModel.Login;
 import com.spg.sgpco.utils.PreferencesData;
 
@@ -34,7 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.imgMenu)
     BaseImageView imgMenu;
@@ -52,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.flContent)
     FrameLayout flContent;
     boolean doubleBackToExitPressedOnce = false;
+    @BindView(R.id.roundedLoadingView)
+    RoundedLoadingView roundedLoadingView;
     private Login loginRes;
     private BaseTextView tvUserName, tvMobile;
 
@@ -71,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         tvUserName.setText(PreferencesData.getString(this, "name"));
         tvMobile.setText(PreferencesData.getString(this, "mobile"));
 
+
         setupDrawer();
         setupDrawerContent(nvDrawer);
     }
@@ -87,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         /*کلیه مواردی که در منو برای آنها آیکون تعریف کرده ایم در این قسمت باید فرگمنت های مربوط به خود را بگیرند.*/
         this.listFragments.add(new HomeFragmentFragment());//home
         this.listFragments.add(new AboutSgpFragment()); // About
-        this.listFragments.add(new AboutSgpFragment()); // exit
+//        this.listFragments.add(new AboutSgpFragment()); // exit
         /*اولین آیکون از لیست فرگمنت ها جایگزین mainContent شده است.*/
         getSupportFragmentManager().beginTransaction().replace(R.id.flContent, (Fragment) this.listFragments.get(0)).commit();
 
@@ -128,8 +137,8 @@ public class MainActivity extends AppCompatActivity {
                 ft.replace(R.id.flContent, this.listFragments.get(1)).commit();
                 break;
 
-            case R.id.nav_second_fragment:
-                ft.replace(R.id.flContent, this.listFragments.get(2)).commit();
+            case R.id.nav_exit:
+                logoutDialog();
                 break;
 
         }
@@ -137,6 +146,40 @@ public class MainActivity extends AppCompatActivity {
         menuItem.setChecked(true);
         mDrawer.closeDrawers();
 
+    }
+
+    private void logoutDialog() {
+        CustomDialog customDialog = new CustomDialog(this);
+        customDialog.setOkListener(getString(R.string.dialog_yes), view -> {
+            customDialog.dismiss();
+            logoutRequest();
+        });
+        customDialog.setCancelListener(getString(R.string.dialog_no), view -> customDialog.dismiss());
+        customDialog.setIcon(R.drawable.ic_error);
+
+        customDialog.setDialogTitle(getString(R.string.sureـyouـwantـtoـleave));
+        customDialog.show();
+    }
+
+    private void logoutRequest() {
+
+        roundedLoadingView.setVisibility(View.VISIBLE);
+        LogoutService.getInstance().logout(getResources(), new ResponseListener<LogoutService>() {
+            @Override
+            public void onGetErrore(String error) {
+                roundedLoadingView.setVisibility(View.GONE);
+                Toast.makeText(MainActivity.this, error, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(LogoutService response) {
+                roundedLoadingView.setVisibility(View.GONE);
+                PreferencesData.isLogin(MainActivity.this, false);
+                Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(login);
+                finish();
+            }
+        });
     }
 
 

@@ -1,8 +1,8 @@
 package com.spg.sgpco.service;
 
+import com.google.gson.JsonObject;
 import com.spg.sgpco.service.RequestModel.ForgetPassReq;
 import com.spg.sgpco.service.RequestModel.LoginReq;
-import com.google.gson.JsonObject;
 import com.spg.sgpco.service.RequestModel.LoginWithCodeForgetPassReq;
 import com.spg.sgpco.service.RequestModel.RegisterReq;
 import com.spg.sgpco.service.RequestModel.VerifyReq;
@@ -26,6 +26,9 @@ public interface ReqInterface {
 
     @POST("user/login/phone/verify")
     Call<JsonObject> loginWithCode(@Body LoginWithCodeForgetPassReq req);
+
+    @POST("user/logout")
+    Call<JsonObject> logout();
 
 //    @POST("v2/home/GetNewVersion")
 //    Call<JsonObject> VersionControl(@Body ForceUpdateReq req);

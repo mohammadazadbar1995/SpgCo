@@ -43,4 +43,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.thefinestartist:finestwebview:1.2.7'
     implementation 'com.balysv:material-ripple:1.0.2'
+    implementation('com.github.ihsanbal:LoggingInterceptor:2.0.6') {
+        exclude group: 'org.json', module: 'json'
+    }
 }
