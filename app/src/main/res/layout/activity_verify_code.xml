@@ -3,8 +3,8 @@
 <com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/root"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".register.RegisterActivity">
 
@@ -17,57 +17,81 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:fillViewport="true">
 
-        <com.spg.sgpco.baseView.BaseLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical"
-            tools:context=".register.RegisterActivity">
+            android:layout_height="@dimen/dialog_height_transparent"
+            android:layout_marginStart="@dimen/margin_4"
+            android:layout_marginEnd="@dimen/margin_4"
+            app:cardBackgroundColor="@color/transparentwhite"
+            app:cardCornerRadius="@dimen/all_raduis_app"
 
-            <com.spg.sgpco.baseView.BaseTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_2"
-                android:text="@string/inter_code"/>
+            app:cardElevation="@dimen/st_evaluation_cardView">
 
-            <com.spg.sgpco.customView.CustomEditText
-                android:id="@+id/edtCodeVerify"
+            <com.spg.sgpco.baseView.BaseRelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_edit_text_view"
-                android:layout_marginStart="@dimen/margin_4"
-                android:layout_marginTop="@dimen/margin_2"
-                android:layout_marginEnd="@dimen/margin_4"
-
-                android:focusableInTouchMode="false"
-                app:edtIcon="@drawable/ic_person_gray"
-                app:hint="@string/code_verify"
-                app:inputType="CODEVERIFY"
-                app:isRequired="true"
-                app:tvTitle="@string/code_verify" />
-
-            <com.spg.sgpco.baseView.BaseTextView
-                android:id="@+id/btnVerify"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/button_height"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/margin_4"
-                android:layout_marginTop="@dimen/margin_4"
-                android:layout_marginEnd="@dimen/margin_4"
-                android:background="@drawable/rippleblue"
+                android:layout_height="@dimen/dialog_height_transparent"
                 android:gravity="center"
-                android:text="@string/send"
+                android:orientation="vertical">
 
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_1"
-                app:fontType="Medium" />
-        </com.spg.sgpco.baseView.BaseLinearLayout>
+                <com.spg.sgpco.baseView.BaseImageView
+                    android:id="@+id/logo"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_centerHorizontal="true"
+                    app:srcCompat="@drawable/logo" />
+
+                <com.spg.sgpco.baseView.BaseTextView
+                    android:id="@+id/txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/logo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/margin_4"
+                    android:text="@string/inter_code"
+                    android:textColor="@color/redColor"
+                    android:textSize="@dimen/text_size_2" />
+
+                <com.spg.sgpco.customView.CustomEditText
+                    android:id="@+id/edtCodeVerify"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_edit_text_view"
+                    android:layout_below="@+id/txt"
+                    android:layout_marginStart="@dimen/margin_4"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:layout_marginEnd="@dimen/margin_4"
+
+                    android:focusableInTouchMode="false"
+                    app:edtIcon="@drawable/ic_person_gray"
+                    app:hint="@string/code_verify"
+                    app:inputType="CODEVERIFY"
+                    app:isRequired="true"
+                    app:tvTitle="@string/code_verify" />
+
+                <com.spg.sgpco.baseView.BaseTextView
+                    android:id="@+id/btnVerify"
+                    android:layout_width="@dimen/half_btn_width"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_below="@id/edtCodeVerify"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin_4"
+                    android:layout_marginTop="@dimen/margin_4"
+                    android:layout_marginEnd="@dimen/margin_4"
+                    android:background="@drawable/ripplered"
+                    android:gravity="center"
+                    android:text="@string/send"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_1"
+                    app:fontType="Medium" />
+
+
+            </com.spg.sgpco.baseView.BaseRelativeLayout>
+
+        </android.support.v7.widget.CardView>
 
     </ScrollView>
 

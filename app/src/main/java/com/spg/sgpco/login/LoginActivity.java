@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.spg.sgpco.R;
-import com.spg.sgpco.activity.MainActivity;
+import com.spg.sgpco.activity.MainActivitySecond;
 import com.spg.sgpco.baseView.BaseActivity;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
@@ -55,7 +55,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        Glide.with(this).load(R.drawable.background_login).into(image);
+        Glide.with(this).load(R.drawable.background).into(image);
     }
 
     @OnClick({R.id.btnLogin, R.id.btnRegister, R.id.tvForgetPassword})
@@ -102,7 +102,7 @@ public class LoginActivity extends BaseActivity {
                     PreferencesData.saveString(LoginActivity.this, "name", response.getResult().getUser_display_name());
                     PreferencesData.saveString(LoginActivity.this, "mobile", response.getResult().getUser_nicename());
                     PreferencesData.isLogin(LoginActivity.this, true);
-                    Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent loginIntent = new Intent(LoginActivity.this, MainActivitySecond.class);
                     loginIntent.putExtra("login", response.getResult());
                     startActivity(loginIntent);
                     finish();

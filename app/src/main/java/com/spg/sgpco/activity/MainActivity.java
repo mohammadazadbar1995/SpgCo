@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -23,27 +22,26 @@ import android.widget.Toast;
 import com.spg.sgpco.R;
 import com.spg.sgpco.about.AboutSgpFragment;
 import com.spg.sgpco.baseView.BaseActivity;
-import com.spg.sgpco.baseView.BaseImageView;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.baseView.BaseToolbar;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
 import com.spg.sgpco.login.LoginActivity;
+import com.spg.sgpco.service.Request.GetAllSettingService;
 import com.spg.sgpco.service.Request.LogoutService;
 import com.spg.sgpco.service.Request.ResponseListener;
-import com.spg.sgpco.service.ResponseModel.Login;
+import com.spg.sgpco.service.ResponseModel.SettingAllResponse;
 import com.spg.sgpco.utils.PreferencesData;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
 
-    @BindView(R.id.imgMenu)
-    BaseImageView imgMenu;
+    //    @BindView(R.id.imgMenu)
+//    BaseImageView imgMenu;
     @BindView(R.id.tvCenterTitle)
     BaseTextView tvCenterTitle;
     @BindView(R.id.toolbar)
@@ -60,8 +58,7 @@ public class MainActivity extends BaseActivity {
     boolean doubleBackToExitPressedOnce = false;
     @BindView(R.id.roundedLoadingView)
     RoundedLoadingView roundedLoadingView;
-    private Login loginRes;
-    private BaseTextView tvUserName, tvMobile;
+    private SettingAllResponse response;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,19 +66,35 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         ButterKnife.bind(this);
-        Intent intent = getIntent();
-        loginRes = intent.getParcelableExtra("login");
+
         mDrawer.findViewById(R.id.tvUserName);
         View headerLayout = nvDrawer.getHeaderView(0);
-        tvUserName = headerLayout.findViewById(R.id.tvUserName);
-        tvMobile = headerLayout.findViewById(R.id.tvMobile);
+        BaseTextView tvUserName = headerLayout.findViewById(R.id.tvUserName);
+        BaseTextView tvMobile = headerLayout.findViewById(R.id.tvMobile);
 
         tvUserName.setText(PreferencesData.getString(this, "name"));
         tvMobile.setText(PreferencesData.getString(this, "mobile"));
 
+        requestGetAllSetting();
 
-        setupDrawer();
-        setupDrawerContent(nvDrawer);
+
+    }
+
+    private void requestGetAllSetting() {
+
+        GetAllSettingService.getInstance().getAllSetting(getResources(), new ResponseListener<SettingAllResponse>() {
+            @Override
+            public void onGetErrore(String error) {
+
+            }
+
+            @Override
+            public void onSuccess(SettingAllResponse response) {
+                MainActivity.this.response = response;
+                setupDrawer();
+                setupDrawerContent(nvDrawer);
+            }
+        });
     }
 
     private void setupDrawer() {
@@ -94,11 +107,15 @@ public class MainActivity extends BaseActivity {
         this.mDrawer.addDrawerListener(this.drawerToggle);
 
         /*کلیه مواردی که در منو برای آنها آیکون تعریف کرده ایم در این قسمت باید فرگمنت های مربوط به خود را بگیرند.*/
-        this.listFragments.add(new HomeFragmentFragment());//home
+        HomeFragment homeFragment = new HomeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("allSetting", response);
+        homeFragment.setArguments(bundle);
+        this.listFragments.add(homeFragment);//home
         this.listFragments.add(new AboutSgpFragment()); // About
 //        this.listFragments.add(new AboutSgpFragment()); // exit
         /*اولین آیکون از لیست فرگمنت ها جایگزین mainContent شده است.*/
-        getSupportFragmentManager().beginTransaction().replace(R.id.flContent, (Fragment) this.listFragments.get(0)).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.flContent, this.listFragments.get(0)).commit();
 
     }
 
@@ -183,18 +200,12 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    @OnClick(R.id.imgMenu)
-    public void onViewClicked() {
-        mDrawer.openDrawer(GravityCompat.START);
-    }
-
-
     public void onBackPressed() {
-        if (this.mDrawer.isDrawerOpen((int) Gravity.START)) {
-            this.mDrawer.closeDrawer((int) Gravity.START);
+        if (this.mDrawer.isDrawerOpen(Gravity.START)) {
+            this.mDrawer.closeDrawer(Gravity.START);
         } else if (!this.nvDrawer.getMenu().findItem(R.id.nav_main_page).isChecked()) {
-            this.mDrawer.closeDrawer((int) Gravity.START);
-            getSupportFragmentManager().beginTransaction().replace(R.id.flContent, (Fragment) this.listFragments.get(0)).commit();
+            this.mDrawer.closeDrawer(Gravity.START);
+            getSupportFragmentManager().beginTransaction().replace(R.id.flContent, this.listFragments.get(0)).commit();
             this.nvDrawer.getMenu().findItem(R.id.nav_main_page).setChecked(true);
             //  this.title_tv.setText(this.navDrawer.getMenu().findItem(R.id.btnHome).getTitle());
         } else if (this.doubleBackToExitPressedOnce) {
@@ -209,11 +220,7 @@ public class MainActivity extends BaseActivity {
             snackbar.show();
             // اگر کاربر یه بار کلیک کرد روی بک توی صفحه ی اصلی ، بهش پیام می دیم که بار دوم هم کلیک کنه . اگه بار دوم زد خارج  می شه . ضمنا اگه تو صفحه اصلی نبود بک زدن باعث می شه که برگردیم تو صفحه خانه
             this.doubleBackToExitPressedOnce = true;
-            new Handler().postDelayed(new Runnable() {
-                public void run() {
-                    MainActivity.this.doubleBackToExitPressedOnce = false;
-                }
-            }, 2000);
+            new Handler().postDelayed(() -> MainActivity.this.doubleBackToExitPressedOnce = false, 2000);
         }
     }
 }

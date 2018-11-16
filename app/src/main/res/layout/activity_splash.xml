@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -22,9 +21,10 @@
 
 
         <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/logo"
             android:layout_width="@dimen/image_size_on_splash"
             android:layout_height="@dimen/image_size_on_splash"
-            app:srcCompat="@drawable/sample" />
+             />
 
 
         <com.spg.sgpco.baseView.BaseTextView

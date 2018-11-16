@@ -20,6 +20,27 @@
 
     </declare-styleable>
 
+    <declare-styleable name="CustomMultiLineEditText">
+        <attr name="tvTitleMulti" format="string" />
+        <attr name="edtBodyMulti" format="string" />
+        <attr name="hintMulti" format="string" />
+        <attr name="textColorHintMulti" format="string" />
+        <attr name="isRequiredMulti" format="boolean" />
+        <attr name="inputTypeMulti" format="enum">
+            <enum name="DESCRIPTION" value="0" />
+            <enum name="NAME" value="1" />
+            <enum name="MOBILE" value="2" />
+            <enum name="PHONE" value="3" />
+            <enum name="PASSWORD" value="4" />
+            <enum name="CODEVERIFY" value="5" />
+        </attr>
+
+    </declare-styleable>
+
+    <declare-styleable name="CustomInsertDataView">
+        <attr name="icon" format="reference" />
+
+    </declare-styleable>
 
 
     <declare-styleable name="BaseTextView">
@@ -44,9 +65,9 @@
     <declare-styleable name="NiceSpinner">
         <attr name="arrowTint" format="color" />
         <attr name="hideArrow" format="boolean" />
-        <attr name="arrowDrawable" format="reference|color"/>
-        <attr name="dropDownListPaddingBottom" format="dimension"/>
-        <attr name="backgroundSelector" format="integer"/>
-        <attr name="textTint" format="color"/>
+        <attr name="arrowDrawable" format="reference|color" />
+        <attr name="dropDownListPaddingBottom" format="dimension" />
+        <attr name="backgroundSelector" format="integer" />
+        <attr name="textTint" format="color" />
     </declare-styleable>
 </resources>

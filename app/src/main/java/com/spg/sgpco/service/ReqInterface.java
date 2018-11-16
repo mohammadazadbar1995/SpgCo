@@ -9,6 +9,7 @@ import com.spg.sgpco.service.RequestModel.VerifyReq;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ReqInterface {
@@ -29,6 +30,9 @@ public interface ReqInterface {
 
     @POST("user/logout")
     Call<JsonObject> logout();
+
+    @GET("settings/all")
+    Call<JsonObject> getAllSetting();
 
 //    @POST("v2/home/GetNewVersion")
 //    Call<JsonObject> VersionControl(@Body ForceUpdateReq req);

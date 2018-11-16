@@ -17,15 +17,6 @@
         android:layout_marginStart="-10dp">
 
 
-        <com.spg.sgpco.baseView.BaseImageView
-            android:id="@+id/imgMenu"
-            android:layout_width="@dimen/icon_32"
-            android:layout_height="@dimen/icon_32"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/margin_1"
-            app:srcCompat="@drawable/ic_menu_white" />
-
-
         <com.spg.sgpco.baseView.BaseTextView
             android:id="@+id/tvCenterTitle"
             android:layout_width="wrap_content"

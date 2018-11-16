@@ -4,9 +4,11 @@
     <color name="colorPrimaryDark">#ff3632</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="toolbarBack">#efffc004</color>
+    <color name="toolbarBack">@color/toolbar</color>
     <color name="toolbarFore">#ffffff</color>
     <color name="bluePrimaryColor">#2042a6</color>
+    <color name="redColor">#E93A36</color>
+    <color name="toolbar">#EF4646</color>
 
     <color name="historypinklight">#701179</color>
 
@@ -15,10 +17,11 @@
     <color name="transparentDialog">#77777777</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="Dialog">#77ffffff</color>
-    <color name="redColor">#D90000</color>
+
     <color name="errorColor">#D90000</color>
     <color name="greenColor">#008078</color>
     <color name="white">#ffffff</color>
+    <color name="transparentwhite">#efffffff</color>
     <color name="black">#000000</color>
     <color name="statusBarChange">#aa000000</color>
 
@@ -32,7 +35,9 @@
     <color name="backColor">#ECEDF0</color>
     <color name="navigationBar">@color/colorPrimary</color>
     <color name="statusBar">@color/colorPrimaryDark</color>
-
+    <color name="backgroundBottomBar">#fefefe</color>
+    <color name="unSelectedBottomBar">#a1a1a1</color>
+    <color name="selectedBottomBar">#E30425</color>
 
     <color name="mdtp_white">#ffffff</color>
     <color name="mdtp_background_color">@color/mdtp_white</color>

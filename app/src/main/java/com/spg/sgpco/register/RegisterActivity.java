@@ -50,7 +50,7 @@ public class RegisterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
-        Glide.with(this).load(R.drawable.background_login).into(image);
+        Glide.with(this).load(R.drawable.background).into(image);
     }
 
     @OnClick(R.id.btnRegister)

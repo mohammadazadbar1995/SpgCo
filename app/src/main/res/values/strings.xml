@@ -55,5 +55,24 @@
     <string name="group_spg">گروه صنایع گیتی پسند</string>
     <string name="group_spg_en">www.spgco.com</string>
     <string name="sureـyouـwantـtoـleave">آیا برای خروج مطمئن هستید؟</string>
+    <string name="slogan">برآورد اجناس سیستم گرمایش از کف</string>
+    <string name="code_verify_enter">کد مورد نظر را وارد کنید</string>
+    <string name="text_retry">در صورت عدم کد فعال سازی پس از یک قیقه مجددا از طریق دکمه ارسال مجدد تلاش کنید.</string>
+    <string name="home">خانه</string>
+    <string name="tab_register_home_txt">ساختن پروژه</string>
+    <string name="add_customer">مشتری جدید</string>
+    <string name="exit">خروج</string>
+    <string name="create_project">ساختن پروژه</string>
+    <string name="enter_your_project_name">نام پروژه خود را وارد کنید</string>
+    <string name="description_text">توضیحات</string>
+    <string name="register_project">ثبت</string>
+    <string name="select_type_name_project">نوع پروژه را انتخاب نمایید</string>
+    <string name="select_province">انتخاب استان</string>
+    <string name="select_customer">مشتری خود را انتخاب کنید</string>
+    <string name="heat_source">منبع حرارتی</string>
+    <string name="system_control_type">نوع کنترل سیستم</string>
+    <string name="enter_name_family">نام و نام خانوادگی را وارد کنید</string>
+    <string name="create">ایجاد</string>
+    <string name="please_enter_name">لطفا نام را وارد کنید</string>
 
 </resources>

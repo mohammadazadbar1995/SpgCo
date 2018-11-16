@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tab_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/tab_create_project"
+        android:icon="@drawable/ic_add_circle_black"
+        android:title="@string/tab_register_home_txt" />
+
+    <item
+        android:id="@+id/tab_add_customer"
+        android:icon="@drawable/ic_add_circle_outline_black"
+        android:title="@string/add_customer" />
+
+    <item
+        android:id="@+id/tab_exit"
+        android:icon="@drawable/ic_exit_to_app_gray"
+        android:title="@string/exit" />
+
+</menu>

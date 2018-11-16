@@ -45,7 +45,7 @@ public class ForgetPasswordActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
         ButterKnife.bind(this);
-        Glide.with(this).load(R.drawable.background_login).into(image);
+        Glide.with(this).load(R.drawable.background).into(image);
     }
 
 

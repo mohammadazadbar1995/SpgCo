@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true">
+
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <com.spg.sgpco.customView.CustomNoReduisEditText
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_item_create"
+                app:edtIcon="@drawable/ic_person_gray"
+                app:hint="@string/enter_your_project_name"
+                app:inputType="NAME"
+                app:isRequired="true"
+                app:tvTitle="@string/name_text" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_width"
+                android:background="@color/divider" />
+
+            <com.spg.sgpco.customView.CustomInsertDataView
+                android:id="@+id/type_project_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_item_create"
+                android:background="@drawable/ripplewhite_no_radius" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_width"
+                android:background="@color/divider" />
+
+            <com.spg.sgpco.customView.CustomInsertDataView
+                android:id="@+id/province_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_item_create"
+                android:background="@drawable/ripplewhite_no_radius" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_width"
+                android:background="@color/divider" />
+
+            <com.spg.sgpco.customView.CustomInsertDataView
+                android:id="@+id/city_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_item_create"
+                android:background="@drawable/ripplewhite_no_radius" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_width"
+                android:background="@color/divider" />
+
+            <com.spg.sgpco.customView.CustomInsertDataView
+                android:id="@+id/add_customer_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_item_create"
+                android:background="@drawable/ripplewhite_no_radius" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_width"
+                android:background="@color/divider" />
+
+            <com.spg.sgpco.customView.CustomInsertDataView
+                android:id="@+id/heatـsource_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_item_create"
+                android:background="@drawable/ripplewhite_no_radius" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_width"
+                android:background="@color/divider" />
+
+            <com.spg.sgpco.customView.CustomInsertDataView
+                android:id="@+id/system_control_type_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_item_create"
+                android:background="@drawable/ripplewhite_no_radius" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_multitext_edit_text_view"
+                android:layout_marginStart="@dimen/margin_3"
+                android:layout_marginTop="@dimen/margin_2"
+                android:layout_marginEnd="@dimen/margin_3"
+                android:layout_marginBottom="@dimen/margin_1"
+                android:background="@color/divider">
+
+                <com.spg.sgpco.customView.CustomMultiLineEditText
+                    android:id="@+id/edtBugReport"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/size_width"
+                    android:layout_marginTop="@dimen/size_width"
+                    android:layout_marginEnd="@dimen/size_width"
+                    android:layout_marginBottom="@dimen/size_width"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="@dimen/text_size_1"
+                    app:inputTypeMulti="DESCRIPTION"
+                    app:isRequiredMulti="true"
+                    app:tvTitleMulti="@string/description_text" />
+            </LinearLayout>
+
+            <com.spg.sgpco.baseView.BaseTextView
+                android:id="@+id/btnCreate"
+                android:layout_width="@dimen/half_btn_width"
+                android:layout_height="@dimen/button_height"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin_4"
+                android:layout_marginTop="@dimen/margin_3"
+                android:layout_marginEnd="@dimen/margin_4"
+                android:background="@drawable/ripplered"
+                android:gravity="center"
+                android:text="@string/register_project"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_1"
+                app:fontType="Medium" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</com.spg.sgpco.baseView.BaseRelativeLayout>
+

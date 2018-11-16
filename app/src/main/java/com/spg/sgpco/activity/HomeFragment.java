@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.dialog.TypeNameDialog;
+import com.spg.sgpco.service.ResponseModel.SettingAllResponse;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,16 +24,13 @@ import butterknife.Unbinder;
  * Created by m.azadbar on 5/28/2018.
  */
 
-public class HomeFragmentFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
 
-    @BindView(R.id.list)
-    RecyclerView list;
-    @BindView(R.id.fabfilter)
-    FloatingActionButton fabfilter;
     Unbinder unbinder;
 
-    public HomeFragmentFragment() {
+
+    public HomeFragment() {
     }
 
     @Nullable
@@ -40,8 +38,9 @@ public class HomeFragmentFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
         unbinder = ButterKnife.bind(this, view);
+
+
         return view;
 
     }
@@ -53,13 +52,5 @@ public class HomeFragmentFragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick(R.id.fabfilter)
-    public void onViewClicked() {
 
-        if (getActivity() != null) {
-            TypeNameDialog typeNameDialog = new TypeNameDialog(getActivity());
-            typeNameDialog.show();
-        }
-
-    }
 }

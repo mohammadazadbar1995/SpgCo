@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge>
+
+    <com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/custom_param_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_location_view"
+        android:background="@drawable/ripplewhite_no_radius">
+
+
+        <com.spg.sgpco.baseView.BaseImageView
+            android:id="@+id/imgInfo"
+            android:layout_width="@dimen/icon_24"
+            android:layout_height="@dimen/icon_24"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/margin_2"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:visibility="visible" />
+
+
+        <com.spg.sgpco.baseView.BaseTextView
+            android:id="@+id/tvValue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/margin_3"
+            android:layout_toStartOf="@+id/icon"
+            android:layout_toEndOf="@+id/imgInfo"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:lineSpacingMultiplier="1.2"
+            android:maxLines="2"
+            android:textColor="@color/secondryTextColor"
+            android:textSize="@dimen/text_size_2"
+            app:fontType="Regular" />
+
+
+        <com.spg.sgpco.baseView.BaseImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/icon_18"
+            android:layout_height="@dimen/icon_18"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/margin_2"
+            android:layout_marginEnd="@dimen/margin_3" />
+
+
+    </com.spg.sgpco.baseView.BaseRelativeLayout>
+</merge>

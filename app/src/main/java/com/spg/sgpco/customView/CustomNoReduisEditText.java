@@ -18,7 +18,7 @@ import com.spg.sgpco.listener.OnEditTextChangeListener;
 import com.spg.sgpco.utils.Constants;
 
 
-public class CustomEditText extends LinearLayout implements OnEditTextChangeListener {
+public class CustomNoReduisEditText extends LinearLayout implements OnEditTextChangeListener {
     BaseTextView tvTitle;
     BaseEditText edtBody;
     BaseImageView image, edtIcon;
@@ -27,22 +27,22 @@ public class CustomEditText extends LinearLayout implements OnEditTextChangeList
     private InputTypeEnum inputTypeEnum;
 
 
-    public CustomEditText(Context context) {
+    public CustomNoReduisEditText(Context context) {
         this(context, null);
     }
 
-    public CustomEditText(Context context, @Nullable AttributeSet attrs) {
+    public CustomNoReduisEditText(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
 
     }
 
-    public CustomEditText(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public CustomNoReduisEditText(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context, attrs, defStyleAttr);
     }
 
     private void initView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        LayoutInflater.from(context).inflate(R.layout.custom_edit_text, this, true);
+        LayoutInflater.from(context).inflate(R.layout.custom_no_reduis_edit_text, this, true);
         tvTitle = findViewById(R.id.tvTitle);
         edtBody = findViewById(R.id.edtBody);
         image = findViewById(R.id.image);
@@ -128,9 +128,6 @@ public class CustomEditText extends LinearLayout implements OnEditTextChangeList
     }
 
 
-    public void setClearBody(String body) {
-        edtBody.setText(body);
-    }
 //    public void setTextValue(String value) {
 //        edtBody.setText(value);
 //    }
@@ -175,5 +172,4 @@ public class CustomEditText extends LinearLayout implements OnEditTextChangeList
     public long getValueLong() {
         return edtBody.getValueLong();
     }
-
 }

@@ -39,6 +39,7 @@
     <dimen name="card_default_radius">4dp</dimen>
 
     <dimen name="icon_32">36dp</dimen>
+    <dimen name="icon_30">30dp</dimen>
     <dimen name="icon_24">24dp</dimen>
     <dimen name="icon_18">18dp</dimen>
     <dimen name="icon_back">26dp</dimen>
@@ -119,4 +120,8 @@
     <dimen name="three_grid_unit">24dp</dimen>
 
     <dimen name="dialog_corner_radius">10dp</dimen>
+    <dimen name="dialog_height_transparent">370dp</dimen>
+
+    <dimen name="half_btn_width">200dp</dimen>
+    <dimen name="size_item_create">44dp</dimen>
 </resources>

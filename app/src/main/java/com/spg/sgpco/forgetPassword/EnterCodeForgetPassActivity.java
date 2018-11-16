@@ -52,7 +52,7 @@ public class EnterCodeForgetPassActivity extends BaseActivity {
 
         Intent intent = getIntent();
         forgetPassReq = intent.getParcelableExtra("phoneNumber");
-        Glide.with(this).load(R.drawable.background_login).into(image);
+        Glide.with(this).load(R.drawable.background).into(image);
     }
 
 
