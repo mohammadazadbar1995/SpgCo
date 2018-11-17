@@ -14,6 +14,7 @@ import com.spg.sgpco.baseView.BaseImageView;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.database.Customer;
+import com.spg.sgpco.service.ResponseModel.CustomerItem;
 
 import java.util.List;
 
@@ -29,11 +30,11 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
 
     private final OnItemClickListener listener;
-    private final List<Customer> list;
+    private final List<CustomerItem> list;
 
     private Context context;
 
-    CustomerAdapter(Context context, List<Customer> list, OnItemClickListener listener) {
+    CustomerAdapter(Context context, List<CustomerItem> list, OnItemClickListener listener) {
         this.list = list;
         this.listener = listener;
         this.context = context;
@@ -53,7 +54,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         Resources res = holder.itemView.getContext().getResources();
-        Customer object = list.get(position);
+        CustomerItem object = list.get(position);
         holder.tvTitle.setText(object.getName());
         holder.bind(position, object, listener);
     }
@@ -78,7 +79,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             ButterKnife.bind(this, view);
         }
 
-        public void bind(int position, Customer customer, final OnItemClickListener listener) {
+        public void bind(int position, CustomerItem customer, final OnItemClickListener listener) {
             itemView.setOnClickListener(v -> listener.onItemClick(position, customer));
             imgDelete.setOnClickListener(v -> listener.onDeleteItem(position, customer));
         }
@@ -93,8 +94,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position, Customer customer);
+        void onItemClick(int position, CustomerItem customer);
 
-        void onDeleteItem(int position, Customer customer);
+        void onDeleteItem(int position, CustomerItem customer);
     }
 }

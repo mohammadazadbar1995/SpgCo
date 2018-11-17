@@ -74,5 +74,6 @@
     <string name="enter_name_family">نام و نام خانوادگی را وارد کنید</string>
     <string name="create">ایجاد</string>
     <string name="please_enter_name">لطفا نام را وارد کنید</string>
+    <string name="update_customer">ویرایش</string>
 
 </resources>

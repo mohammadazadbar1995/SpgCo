@@ -18,7 +18,7 @@ public class ServerTransaction {
         call.enqueue(new Callback<JsonObject>() {
             public void onResponse(@NonNull Call<JsonObject> call, @NonNull Response<JsonObject> response) {
                 try {
-                    if (response.code() == 200) {
+                    if (response.code() >= 200 && response.code() <=300) {
                         JsonObject data = response.body();
                         if (data != null) {
                             serverListener.onSuccess(data);

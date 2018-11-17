@@ -36,4 +36,10 @@
         app:itemTextColor="@drawable/bottom_nav_icon_color_selector"
         app:menu="@menu/navigation" />
 
+    <com.spg.sgpco.customView.RoundedLoadingView
+        android:id="@+id/roundedLoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
 </com.spg.sgpco.baseView.BaseRelativeLayout>

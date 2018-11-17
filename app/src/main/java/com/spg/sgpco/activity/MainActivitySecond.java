@@ -1,5 +1,6 @@
 package com.spg.sgpco.activity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -11,13 +12,21 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.addCustomer.AddCustomerFragment;
 import com.spg.sgpco.baseView.BaseActivity;
 import com.spg.sgpco.createProjcet.CreateProjectFragment;
+import com.spg.sgpco.customView.RoundedLoadingView;
+import com.spg.sgpco.dialog.CustomDialog;
+import com.spg.sgpco.login.LoginActivity;
+import com.spg.sgpco.service.Request.LogoutService;
+import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.utils.CustomTypefaceSpan;
+import com.spg.sgpco.utils.PreferencesData;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +38,8 @@ public class MainActivitySecond extends BaseActivity {
     FrameLayout frameLayout;
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
+    @BindView(R.id.roundedLoadingView)
+    RoundedLoadingView roundedLoadingView;
     private int tabIndex;
     private Typeface fontSelected;
     private Typeface fontNormal;
@@ -42,8 +53,7 @@ public class MainActivitySecond extends BaseActivity {
         fontSelected = Typeface.createFromAsset(getAssets(), "fonts/IRANSansMobile(FaNum)_Medium.ttf");
         fontNormal = Typeface.createFromAsset(getAssets(), "fonts/IRANSansMobile(FaNum).ttf");
         setFont();
-        loadFragment(new HomeFragment(), HomeFragment.class.getName(), true);
-
+        navigation.setSelectedItemId(R.id.tab_home);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
     }
@@ -70,13 +80,48 @@ public class MainActivitySecond extends BaseActivity {
                 break;
             case R.id.tab_exit:
                 tabIndex = 3;
-//                moreItemsClicked();
+                logoutDialog();
                 isSelected = true;
                 break;
         }
         setFont();
         return isSelected;
     };
+
+    private void logoutDialog() {
+        CustomDialog customDialog = new CustomDialog(this);
+        customDialog.setOkListener(getString(R.string.dialog_yes), view -> {
+            customDialog.dismiss();
+            logoutRequest();
+        });
+        customDialog.setCancelListener(getString(R.string.dialog_no), view -> customDialog.dismiss());
+        customDialog.setIcon(R.drawable.ic_error);
+
+        customDialog.setDialogTitle(getString(R.string.sureـyouـwantـtoـleave));
+        customDialog.show();
+    }
+
+    private void logoutRequest() {
+
+        roundedLoadingView.setVisibility(View.VISIBLE);
+        LogoutService.getInstance().logout(getResources(), new ResponseListener<LogoutService>() {
+            @Override
+            public void onGetErrore(String error) {
+                roundedLoadingView.setVisibility(View.GONE);
+                Toast.makeText(MainActivitySecond.this, error, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(LogoutService response) {
+                roundedLoadingView.setVisibility(View.GONE);
+                PreferencesData.isLogin(MainActivitySecond.this, false);
+                Intent login = new Intent(MainActivitySecond.this, LoginActivity.class);
+                startActivity(login);
+                finish();
+            }
+        });
+    }
+
 
     private void setFont() {
         Menu m = navigation.getMenu();

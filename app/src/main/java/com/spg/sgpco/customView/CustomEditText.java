@@ -128,7 +128,7 @@ public class CustomEditText extends LinearLayout implements OnEditTextChangeList
     }
 
 
-    public void setClearBody(String body) {
+    public void setBody(String body) {
         edtBody.setText(body);
     }
 //    public void setTextValue(String value) {
