@@ -17,8 +17,8 @@
         android:title="@string/add_customer" />
 
     <item
-        android:id="@+id/tab_exit"
-        android:icon="@drawable/ic_exit_to_app_gray"
+        android:id="@+id/tab_profile"
+        android:icon="@drawable/ic_settings"
         android:title="@string/exit" />
 
 </menu>

@@ -8,6 +8,7 @@ import com.spg.sgpco.service.RequestModel.LoginReq;
 import com.spg.sgpco.service.RequestModel.LoginWithCodeForgetPassReq;
 import com.spg.sgpco.service.RequestModel.RegisterReq;
 import com.spg.sgpco.service.RequestModel.UpdateCustomerReq;
+import com.spg.sgpco.service.RequestModel.UpdateProfileReq;
 import com.spg.sgpco.service.RequestModel.VerifyReq;
 
 import retrofit2.Call;
@@ -50,6 +51,12 @@ public interface ReqInterface {
 
     @PATCH("customer/update")
     Call<JsonObject> updateCustomer(@Body UpdateCustomerReq req);
+
+    @GET("user/info/get")
+    Call<JsonObject> getInfo();
+
+    @PATCH("user/info/update")
+    Call<JsonObject> updateProfile(@Body UpdateProfileReq req);
 
 //    @POST("v2/home/GetNewVersion")
 //    Call<JsonObject> VersionControl(@Body ForceUpdateReq req);

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:background="@color/backColor">
+
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:fillViewport="true">
+
+
+        <com.spg.sgpco.baseView.BaseRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_4"
+                android:src="@drawable/ic_mag_delta"
+                app:civ_border_color="@color/black"
+                app:civ_border_width="2dp" />
+
+
+            <com.spg.sgpco.baseView.BaseTextView
+                android:id="@+id/tvMobile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_image"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_3"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="@dimen/text_size_3"
+                app:fontType="Medium" />
+
+            <com.spg.sgpco.baseView.BaseTextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvMobile"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_3"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="@dimen/text_size_3"
+                app:fontType="Medium" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/tvName"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:background="@color/divider" />
+
+            <com.spg.sgpco.customView.CustomEditText
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_edit_text_view"
+                android:layout_below="@+id/view"
+                android:layout_marginStart="@dimen/margin_16"
+
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:focusableInTouchMode="false"
+                app:edtIcon="@drawable/ic_person_gray"
+                app:hint="@string/name_hint"
+                app:inputType="NAME"
+                app:isRequired="true"
+                app:tvTitle="@string/name_text" />
+
+
+            <com.spg.sgpco.customView.CustomEditText
+                android:id="@+id/edtFamily"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_edit_text_view"
+                android:layout_below="@+id/edtName"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:focusableInTouchMode="false"
+                app:edtIcon="@drawable/ic_person_gray"
+                app:hint="@string/family_hint"
+                app:inputType="NAME"
+                app:isRequired="true"
+                app:tvTitle="@string/family_text" />
+
+            <com.spg.sgpco.baseView.BaseRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/edtFamily">
+
+                <com.spg.sgpco.baseView.BaseTextView
+                    android:id="@+id/btnUpdateProfile"
+                    android:layout_width="@dimen/half_btn_width"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_below="@+id/edtMobile"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin_4"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:layout_marginEnd="@dimen/margin_4"
+                    android:layout_marginBottom="@dimen/margin_4"
+                    android:background="@drawable/ripplered"
+                    android:gravity="center"
+                    android:text="@string/register_info"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_1"
+                    app:fontType="Medium" />
+            </com.spg.sgpco.baseView.BaseRelativeLayout>
+
+
+        </com.spg.sgpco.baseView.BaseRelativeLayout>
+
+    </ScrollView>
+
+    <com.spg.sgpco.customView.RoundedLoadingView
+        android:id="@+id/roundedLoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+
+</com.spg.sgpco.baseView.BaseRelativeLayout>
+

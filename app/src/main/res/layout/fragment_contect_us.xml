@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:background="@color/backColor">
+
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:fillViewport="true">
+
+
+        <com.spg.sgpco.baseView.BaseLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10">
+
+            <com.spg.sgpco.baseView.BaseRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3.5"
+                android:background="@color/redColor">
+
+                <com.spg.sgpco.baseView.BaseLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <com.spg.sgpco.baseView.BaseImageView
+                        android:id="@+id/logo"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:tint="@color/white"
+                        android:tintMode="src_atop"
+                        app:srcCompat="@drawable/logo" />
+
+                    <com.spg.sgpco.baseView.BaseTextView
+                        android:id="@+id/tvBrand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/margin_2"
+                        android:text="@string/tvBrand"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_3"
+                        app:fontType="Bold" />
+
+                    <com.spg.sgpco.baseView.BaseTextView
+                        android:id="@+id/tvTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="@dimen/margin_2"
+                        android:layout_marginTop="@dimen/margin_1"
+                        android:layout_marginEnd="@dimen/margin_2"
+                        android:text="@string/slogan"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_2"
+                        app:fontType="Regular" />
+                </com.spg.sgpco.baseView.BaseLinearLayout>
+
+
+            </com.spg.sgpco.baseView.BaseRelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6.5"
+                android:orientation="vertical">
+
+
+                <com.spg.sgpco.baseView.BaseLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.spg.sgpco.baseView.BaseImageView
+                        android:id="@+id/email"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        app:srcCompat="@drawable/sample" />
+
+
+                    <com.spg.sgpco.baseView.BaseImageView
+                        android:id="@+id/instagram"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="@dimen/margin_3"
+                        app:srcCompat="@drawable/sample" />
+
+                    <com.spg.sgpco.baseView.BaseImageView
+                        android:id="@+id/tellphone"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="@dimen/margin_3"
+                        app:srcCompat="@drawable/sample" />
+
+                </com.spg.sgpco.baseView.BaseLinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="@dimen/margin_4"
+                    android:layout_marginEnd="@dimen/margin_4"
+                    android:background="@color/divider" />
+
+
+                <com.spg.sgpco.baseView.BaseTextView
+                    android:id="@+id/tvPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_3"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="@dimen/text_size_3"
+                    app:fontType="Regular" />
+
+                <com.spg.sgpco.baseView.BaseTextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="@dimen/text_size_3"
+                    app:fontType="Regular" />
+
+
+            </LinearLayout>
+        </com.spg.sgpco.baseView.BaseLinearLayout>
+
+
+    </ScrollView>
+
+    <com.spg.sgpco.customView.RoundedLoadingView
+        android:id="@+id/roundedLoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+
+</com.spg.sgpco.baseView.BaseRelativeLayout>
+

@@ -1,6 +1,5 @@
 package com.spg.sgpco.activity;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -14,24 +13,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.addCustomer.AddCustomerFragment;
 import com.spg.sgpco.baseView.BaseActivity;
 import com.spg.sgpco.createProjcet.CreateProjectFragment;
 import com.spg.sgpco.customView.RoundedLoadingView;
-import com.spg.sgpco.dialog.CustomDialog;
-import com.spg.sgpco.login.LoginActivity;
-import com.spg.sgpco.service.Request.LogoutService;
-import com.spg.sgpco.service.Request.ResponseListener;
+import com.spg.sgpco.profile.ProfileFragment;
 import com.spg.sgpco.utils.CustomTypefaceSpan;
-import com.spg.sgpco.utils.PreferencesData;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivitySecond extends BaseActivity {
+public class MainActivitySecond extends BaseActivity implements FragmentManager.OnBackStackChangedListener {
 
 
     @BindView(R.id.frameLayout)
@@ -43,6 +37,10 @@ public class MainActivitySecond extends BaseActivity {
     private int tabIndex;
     private Typeface fontSelected;
     private Typeface fontNormal;
+    private int HOME_FRAGMENT_SELECTED = 0;
+    private int CREATE_PROJECT_FRAGMENT_SELECTED = 1;
+    private int ADD_CUSTOMER_FRAGMENT_SELECTED = 2;
+    private int PROFILE_FRAGMENT_SELECTED = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +76,9 @@ public class MainActivitySecond extends BaseActivity {
                 addCustomer();
                 isSelected = true;
                 break;
-            case R.id.tab_exit:
+            case R.id.tab_profile:
                 tabIndex = 3;
-                logoutDialog();
+                profileFragment();
                 isSelected = true;
                 break;
         }
@@ -88,39 +86,16 @@ public class MainActivitySecond extends BaseActivity {
         return isSelected;
     };
 
-    private void logoutDialog() {
-        CustomDialog customDialog = new CustomDialog(this);
-        customDialog.setOkListener(getString(R.string.dialog_yes), view -> {
-            customDialog.dismiss();
-            logoutRequest();
-        });
-        customDialog.setCancelListener(getString(R.string.dialog_no), view -> customDialog.dismiss());
-        customDialog.setIcon(R.drawable.ic_error);
-
-        customDialog.setDialogTitle(getString(R.string.sureـyouـwantـtoـleave));
-        customDialog.show();
+    private void profileFragment() {
+        Fragment fragmentByTag = getSupportFragmentManager().findFragmentByTag(ProfileFragment.class.getName());
+        if (fragmentByTag == null) {
+            loadFragment(new ProfileFragment(), ProfileFragment.class.getName(), true);
+        } else {
+            loadFragment(fragmentByTag, ProfileFragment.class.getName(), true);
+        }
     }
 
-    private void logoutRequest() {
 
-        roundedLoadingView.setVisibility(View.VISIBLE);
-        LogoutService.getInstance().logout(getResources(), new ResponseListener<LogoutService>() {
-            @Override
-            public void onGetErrore(String error) {
-                roundedLoadingView.setVisibility(View.GONE);
-                Toast.makeText(MainActivitySecond.this, error, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onSuccess(LogoutService response) {
-                roundedLoadingView.setVisibility(View.GONE);
-                PreferencesData.isLogin(MainActivitySecond.this, false);
-                Intent login = new Intent(MainActivitySecond.this, LoginActivity.class);
-                startActivity(login);
-                finish();
-            }
-        });
-    }
 
 
     private void setFont() {
@@ -188,6 +163,98 @@ public class MainActivitySecond extends BaseActivity {
         }
     }
 
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            String fragmentTag = fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName();
+            Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if (currentFragment instanceof BackPressedFragment) {
+                ((BackPressedFragment) currentFragment).onPopBackStack();
+                return;
+            }
+        }
+        FragmentManager fragMgr = getSupportFragmentManager();
+        FragmentTransaction fragTrans = fragMgr.beginTransaction();
+
+        if (tabIndex == HOME_FRAGMENT_SELECTED) {
+            Fragment homeFragment = fragMgr.findFragmentByTag(HomeFragment.class.getName());
+            if (homeFragment != null) {
+                if (homeFragment.isHidden()) {
+                    fragTrans.show(homeFragment);
+                    hideOtherFragment(homeFragment);
+                    fragTrans.commit();
+                    navigation.setSelectedItemId(R.id.tab_home);
+                } else {
+                    finish();
+                }
+            } else {
+                finish();
+            }
+        } else if (tabIndex == CREATE_PROJECT_FRAGMENT_SELECTED) {
+            Fragment creatProject = fragMgr.findFragmentByTag(CreateProjectFragment.class.getName());
+            if (creatProject != null) {
+                if (creatProject.isHidden()) {
+                    fragTrans.show(creatProject);
+                    hideOtherFragment(creatProject);
+                    fragTrans.commit();
+                    navigation.setSelectedItemId(R.id.tab_create_project);
+                } else {
+                    finish();
+                }
+            }
+        } else if (tabIndex == ADD_CUSTOMER_FRAGMENT_SELECTED) {
+            Fragment addCustomer = fragMgr.findFragmentByTag(AddCustomerFragment.class.getName());
+            if (addCustomer != null) {
+                if (addCustomer.isHidden()) {
+                    fragTrans.show(addCustomer);
+                    hideOtherFragment(addCustomer);
+                    fragTrans.commit();
+                    navigation.setSelectedItemId(R.id.tab_add_customer);
+                } else {
+                    finish();
+                }
+            }
+        } else if (tabIndex == PROFILE_FRAGMENT_SELECTED) {
+            Fragment profileFragment = fragMgr.findFragmentByTag(ProfileFragment.class.getName());
+            if (profileFragment != null) {
+                if (profileFragment.isHidden()) {
+                    fragTrans.show(profileFragment);
+                    hideOtherFragment(profileFragment);
+                    fragTrans.commit();
+                    navigation.setSelectedItemId(R.id.tab_profile);
+                } else {
+                    finish();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onBackStackChanged() {
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            String fragmentTag = fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName();
+            Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if (currentFragment instanceof HideNavigationFragments)
+                navigation.setVisibility(View.GONE);
+            else {
+                navigation.setVisibility(View.VISIBLE);
+            }
+//            String moreItemsFragmentTag;
+//            if (currentFragment instanceof RecentVisitFragment) {
+//                moreItemsFragmentTag = RecentVisitFragment.class.getName();
+//            } else if (currentFragment instanceof LikeEstateFragment) {
+//                moreItemsFragmentTag = LikeEstateFragment.class.getName();
+//            } else if (currentFragment instanceof MoreItemsFragment) {
+//                moreItemsFragmentTag = MoreItemsFragment.class.getName();
+//            }
+        } else {
+            navigation.setVisibility(View.VISIBLE);
+        }
+
+    }
 
 //    private void requestGetAllSetting() {
 //

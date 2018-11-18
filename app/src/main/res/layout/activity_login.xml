@@ -56,7 +56,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_edit_text_view"
                     android:layout_below="@+id/txt"
-
                     android:layout_marginStart="@dimen/margin_4"
                     android:layout_marginTop="@dimen/margin_3"
                     android:layout_marginEnd="@dimen/margin_4"

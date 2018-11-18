@@ -75,5 +75,15 @@
     <string name="create">ایجاد</string>
     <string name="please_enter_name">لطفا نام را وارد کنید</string>
     <string name="update_customer">ویرایش</string>
+    <string name="setting">تنظیمات</string>
+    <string name="edit_profile">ویرایش کاربری</string>
+    <string name="content">مطالب</string>
+    <string name="gallery_photo">گالری تصاویر</string>
+    <string name="intro_friend">معرفی به دوستان</string>
+    <string name="contact_whit_us">تماس با ما</string>
+    <string name="tvBrand">SGP</string>
+    <string name="share_text">در صورت رضایت لطفا ما ره به دوستان خود معرفی کنید</string>
+    <string name="share">اشتراک گذاری</string>
+    <string name="register_info">ثبت اطلاعات</string>
 
 </resources>

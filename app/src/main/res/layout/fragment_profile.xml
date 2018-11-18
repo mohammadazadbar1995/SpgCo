@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true">
+
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:fillViewport="true">
+
+
+        <com.spg.sgpco.baseView.BaseLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10">
+
+            <com.spg.sgpco.baseView.BaseRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3.5"
+                android:background="@color/redColor">
+
+                <com.spg.sgpco.baseView.BaseLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_image"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_mag_delta"
+                        app:civ_border_color="@color/white"
+                        app:civ_border_width="2dp" />
+
+                    <com.spg.sgpco.baseView.BaseTextView
+                        android:id="@+id/tvName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/profile_image"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/margin_3"
+                        android:textColor="@color/white"
+                        app:fontType="Medium"
+                        android:textSize="@dimen/text_size_2" />
+                </com.spg.sgpco.baseView.BaseLinearLayout>
+
+
+            </com.spg.sgpco.baseView.BaseRelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6.5"
+                android:orientation="vertical">
+
+
+                <com.spg.sgpco.customView.CustomInsertDataView
+                    android:id="@+id/editProfileLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_item_create"
+                    android:background="@drawable/ripplewhite_no_radius" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_width"
+                    android:background="@color/divider" />
+
+                <com.spg.sgpco.customView.CustomInsertDataView
+                    android:id="@+id/contentLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_item_create"
+                    android:background="@drawable/ripplewhite_no_radius" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_width"
+                    android:background="@color/divider" />
+
+                <com.spg.sgpco.customView.CustomInsertDataView
+                    android:id="@+id/galleryLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_item_create"
+                    android:background="@drawable/ripplewhite_no_radius" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_width"
+                    android:background="@color/divider" />
+
+                <com.spg.sgpco.customView.CustomInsertDataView
+                    android:id="@+id/introductionLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_item_create"
+                    android:background="@drawable/ripplewhite_no_radius" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_width"
+                    android:background="@color/divider" />
+
+                <com.spg.sgpco.customView.CustomInsertDataView
+                    android:id="@+id/contactlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_item_create"
+                    android:background="@drawable/ripplewhite_no_radius" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_width"
+                    android:background="@color/divider" />
+
+                <com.spg.sgpco.customView.CustomInsertDataView
+                    android:id="@+id/exitLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_item_create"
+                    android:background="@drawable/ripplewhite_no_radius" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_width"
+                    android:background="@color/divider" />
+
+            </LinearLayout>
+        </com.spg.sgpco.baseView.BaseLinearLayout>
+
+
+    </ScrollView>
+
+    <com.spg.sgpco.customView.RoundedLoadingView
+        android:id="@+id/roundedLoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+
+</com.spg.sgpco.baseView.BaseRelativeLayout>
+
