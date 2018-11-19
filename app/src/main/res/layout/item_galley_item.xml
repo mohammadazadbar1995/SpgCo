@@ -1,0 +1,25 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/height_size_item_main"
+    android:layout_gravity="center"
+    android:background="@color/white"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/card_default_radius"
+    app:cardElevation="@dimen/st_evaluation_cardView">
+
+    <com.spg.sgpco.baseView.BaseRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.spg.sgpco.baseView.BaseImageView
+            android:id="@+id/imageItem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+
+    </com.spg.sgpco.baseView.BaseRelativeLayout>
+</android.support.v7.widget.CardView>

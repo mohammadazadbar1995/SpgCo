@@ -17,6 +17,7 @@ import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ReqInterface {
     @POST("user/login")
@@ -57,6 +58,18 @@ public interface ReqInterface {
 
     @PATCH("user/info/update")
     Call<JsonObject> updateProfile(@Body UpdateProfileReq req);
+
+    @GET("post/list")
+    Call<JsonObject> showContent();
+
+    @GET("post/{item}")
+    Call<JsonObject> getShowContentItem(@Path("item") String item);
+
+    @GET("gallery/list")
+    Call<JsonObject> galleryInfo();
+
+    @GET("gallery/{item}")
+    Call<JsonObject> getGalleryItem(@Path("item") String item);
 
 //    @POST("v2/home/GetNewVersion")
 //    Call<JsonObject> VersionControl(@Body ForceUpdateReq req);

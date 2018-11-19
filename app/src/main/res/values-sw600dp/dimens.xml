@@ -31,7 +31,7 @@
     <dimen name="width_size_item_main">180dp</dimen>
     <dimen name="height_size_item_main">240dp</dimen>
 
-    <dimen name="height_size_image_item_main">95dp</dimen>
+    <dimen name="height_size_image_item_main">170dp</dimen>
 
     <dimen name="height_bottom_bar">55dp</dimen>
 
@@ -54,8 +54,8 @@
 
     <dimen name="size_item_add_image">60dp</dimen>
 
-    <integer name="coulem_count_recycle_view">3</integer>
-    <dimen name="coulem_offset_recycle_view">6dp</dimen>
+    <integer name="coulem_count_recycle_view">2</integer>
+    <dimen name="coulem_offset_recycle_view">4dp</dimen>
 
 
     <dimen name="height_edit_text_view">56dp</dimen>

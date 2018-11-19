@@ -111,6 +111,13 @@ public class ProfileFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!TextUtils.isEmpty(PreferencesData.getString(getContext(), "name"))) {
+            tvName.setText(PreferencesData.getString(getContext(), "name"));
+        }
+    }
 
     @Override
     public void onDestroyView() {
@@ -126,8 +133,10 @@ public class ProfileFragment extends Fragment {
                 updateProfile();
                 break;
             case R.id.contentLayout:
+                contentFragment();
                 break;
             case R.id.galleryLayout:
+                galleryFragment();
                 break;
             case R.id.introductionLayout:
                 introductionFragment();
@@ -139,6 +148,24 @@ public class ProfileFragment extends Fragment {
                 logoutDialog();
                 break;
         }
+    }
+
+    private void galleryFragment() {
+        if (getActivity() == null) {
+            return;
+        }
+
+        loadFragment(new GalleryFragment(), GalleryFragment.class.getName(), false);
+
+    }
+
+    private void contentFragment() {
+        if (getActivity() == null) {
+            return;
+        }
+
+        loadFragment(new ShowContentFragment(), ShowContentFragment.class.getName(), false);
+
     }
 
     private void updateProfile() {
@@ -222,14 +249,8 @@ public class ProfileFragment extends Fragment {
         }
         FragmentManager fragMgr = getActivity().getSupportFragmentManager();
         FragmentTransaction fragTrans = fragMgr.beginTransaction();
-        Fragment fragmentByTag = fragMgr.findFragmentByTag(fragmentTag);
-        if (fragmentByTag != null) {
-            fragTrans.show(fragmentByTag);
-        } else {
-            fragTrans.add(R.id.frameLayout, fragment, fragmentTag);
-            fragTrans.addToBackStack(fragmentTag);
-        }
-
+        fragTrans.add(R.id.frameLayout, fragment, fragmentTag);
+        fragTrans.addToBackStack(fragmentTag);
         if (hideOtherFragmnet)
             hideOtherFragment(fragment);
         fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);

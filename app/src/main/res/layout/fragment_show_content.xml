@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:background="@color/backColor"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true">
+
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvShowContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar" />
+
+    <com.spg.sgpco.customView.RoundedLoadingView
+        android:id="@+id/roundedLoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+</com.spg.sgpco.baseView.BaseRelativeLayout>
+

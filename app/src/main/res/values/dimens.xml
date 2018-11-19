@@ -63,8 +63,8 @@
     <dimen name="main_activity_margin_button">4dp</dimen>
 
     <dimen name="width_size_item_main">140dp</dimen>
-    <dimen name="height_size_image_item_main">78dp</dimen>
-    <dimen name="height_size_item_main">190dp</dimen>
+    <dimen name="height_size_image_item_main">130dp</dimen>
+        <dimen name="height_size_item_main">200dp</dimen>
 
     <dimen name="width_raduis_in_item_main">50dp</dimen>
     <dimen name="haight_raduis_in_item_main">25dp</dimen>
@@ -100,7 +100,7 @@
     <dimen name="size_item_add_image">52dp</dimen>
 
     <integer name="coulem_count_recycle_view">2</integer>
-    <dimen name="coulem_offset_recycle_view">4dp</dimen>
+    <dimen name="coulem_offset_recycle_view">2dp</dimen>
 
     <integer name="coloum_count_register_estate">3</integer>
     <dimen name="coulem_offset_recycle_view_in_register_estate">4dp</dimen>

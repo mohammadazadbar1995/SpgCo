@@ -104,7 +104,7 @@ public class MaterialSpinner extends AppCompatTextView {
 
             if (bundle.getBoolean(IS_POPUP_SHOWING)) {
                 if (popupWindow != null) {
-                    // Post the show request into the looper to avoid bad token exception
+                    // GalleryItemPost the show request into the looper to avoid bad token exception
                     post(() -> showDropDown());
                 }
             }
