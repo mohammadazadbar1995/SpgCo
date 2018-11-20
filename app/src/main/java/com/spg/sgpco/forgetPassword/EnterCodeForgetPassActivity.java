@@ -8,6 +8,7 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.spg.sgpco.R;
 import com.spg.sgpco.activity.MainActivity;
+import com.spg.sgpco.activity.MainActivitySecond;
 import com.spg.sgpco.baseView.BaseActivity;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
@@ -78,7 +79,7 @@ public class EnterCodeForgetPassActivity extends BaseActivity {
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess()) {
                     PreferencesData.saveToken(EnterCodeForgetPassActivity.this, response.getResult().getToken());
-                    Intent enterCode = new Intent(EnterCodeForgetPassActivity.this, MainActivity.class);
+                    Intent enterCode = new Intent(EnterCodeForgetPassActivity.this, MainActivitySecond.class);
                     enterCode.putExtra("login", response.getResult());
                     startActivity(enterCode);
                     finish();

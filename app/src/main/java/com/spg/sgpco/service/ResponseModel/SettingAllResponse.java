@@ -7,7 +7,7 @@ public class SettingAllResponse implements Parcelable {
 
 
     private SettingAllResult result;
-    private boolean status;
+    private boolean success;
 
     public SettingAllResult getResult() {
         return result;
@@ -17,12 +17,12 @@ public class SettingAllResponse implements Parcelable {
         this.result = result;
     }
 
-    public boolean isStatus() {
-        return status;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
 
@@ -34,7 +34,7 @@ public class SettingAllResponse implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(this.result, flags);
-        dest.writeByte(this.status ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.success ? (byte) 1 : (byte) 0);
     }
 
     public SettingAllResponse() {
@@ -42,7 +42,7 @@ public class SettingAllResponse implements Parcelable {
 
     protected SettingAllResponse(Parcel in) {
         this.result = in.readParcelable(SettingAllResult.class.getClassLoader());
-        this.status = in.readByte() != 0;
+        this.success = in.readByte() != 0;
     }
 
     public static final Creator<SettingAllResponse> CREATOR = new Creator<SettingAllResponse>() {

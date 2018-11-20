@@ -1,5 +1,6 @@
 package com.spg.sgpco.addCustomer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import com.spg.sgpco.R;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.baseView.BaseToolbar;
+import com.spg.sgpco.createProjcet.StateFragment;
 import com.spg.sgpco.customView.CustomEditText;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.database.Customer;
@@ -42,6 +44,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static android.app.Activity.RESULT_OK;
+
 
 /**
  * Created by m.azadbar on 5/28/2018.
@@ -50,6 +54,7 @@ import butterknife.Unbinder;
 public class AddCustomerFragment extends Fragment implements CustomerAdapter.OnItemClickListener {
 
 
+    public boolean isCreateProjectCustomer;
     Unbinder unbinder;
     @BindView(R.id.tvCenterTitle)
     BaseTextView tvCenterTitle;
@@ -143,8 +148,20 @@ public class AddCustomerFragment extends Fragment implements CustomerAdapter.OnI
 
     @Override
     public void onItemClick(int position, CustomerItem updateCustomer) {
-        customerItem = updateCustomer;
-        updateCustomer(updateCustomer);
+        if (isCreateProjectCustomer){
+            Intent intent = new Intent(getContext(), AddCustomerFragment.class);
+            intent.putExtra("Customer", customers.get(position));
+            if (getTargetFragment() != null) {
+                getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK, intent);
+            }
+            if (getFragmentManager() != null) {
+                getFragmentManager().popBackStack();
+            }
+        }else {
+            customerItem = updateCustomer;
+            updateCustomer(updateCustomer);
+        }
+
     }
 
     private void updateCustomer(CustomerItem updateCustomer) {

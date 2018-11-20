@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.spg.sgpco.R;
 import com.spg.sgpco.activity.MainActivity;
+import com.spg.sgpco.activity.MainActivitySecond;
 import com.spg.sgpco.baseView.BaseActivity;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
@@ -84,7 +85,7 @@ public class VerifyCodeActivity extends BaseActivity {
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess()) {
                     PreferencesData.saveToken(VerifyCodeActivity.this, response.getResult().getToken());
-                    Intent loginIntent = new Intent(VerifyCodeActivity.this, MainActivity.class);
+                    Intent loginIntent = new Intent(VerifyCodeActivity.this, MainActivitySecond.class);
                     loginIntent.putExtra("login", response.getResult());
                     startActivity(loginIntent);
                     finish();

@@ -86,5 +86,6 @@
     <string name="share">اشتراک گذاری</string>
     <string name="register_info">ثبت اطلاعات</string>
     <string name="posts">نوشته ها</string>
+    <string name="select_type_name_projects">انتخاب نوع پروژه</string>
 
 </resources>

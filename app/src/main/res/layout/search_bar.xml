@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/searchBar"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@drawable/backgrand_search_bar"
+    app:cardCornerRadius="@dimen/card_default_radius"
+    card_view:cardElevation="@dimen/st_evaluation_search">
+
+    <com.spg.sgpco.baseView.BaseRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.spg.sgpco.baseView.BaseEditText
+            android:id="@+id/edtSearchBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/icon_24"
+            android:layout_marginStart="@dimen/margin_16"
+            android:background="@null"
+            android:inputType="text"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:textColor="@color/secondryTextColor"
+            android:textSize="@dimen/text_size_1" />
+
+        <com.spg.sgpco.baseView.BaseImageView
+            android:id="@+id/icSearch"
+            android:layout_width="@dimen/icon_24"
+            android:layout_height="@dimen/icon_24"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/margin_2"
+            app:srcCompat="@drawable/ic_search_gray" />
+
+    </com.spg.sgpco.baseView.BaseRelativeLayout>
+</android.support.v7.widget.CardView>

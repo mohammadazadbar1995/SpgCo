@@ -66,7 +66,7 @@ public class CustomInsertDataView extends LinearLayout {
 
     public void setValue(String value) {
         String htmlText = "<font color='#333333'>" + title + "</font>"
-                + "<font color='#757575'>\t\t" + value;
+                + "<font color='#333333'>\t\t" + value;
         htmlText += "</font>";
         createHtmlText(htmlText);
         enable();

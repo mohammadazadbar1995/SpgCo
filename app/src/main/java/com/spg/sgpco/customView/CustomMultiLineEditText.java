@@ -12,6 +12,7 @@ import com.spg.sgpco.baseView.BaseEditText;
 import com.spg.sgpco.baseView.BaseImageView;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.enums.InputTypeEnum;
+import com.spg.sgpco.enums.TypeEnum;
 import com.spg.sgpco.listener.OnEditTextChangeListener;
 import com.spg.sgpco.utils.Constants;
 
@@ -54,8 +55,8 @@ public class CustomMultiLineEditText extends LinearLayout implements OnEditTextC
             if (a.hasValue(R.styleable.CustomMultiLineEditText_inputTypeMulti)) {
                 int value = a.getInt(R.styleable.CustomMultiLineEditText_inputTypeMulti, 0);
 
-                if (value >= 0 && value < InputTypeEnum.values().length) {
-                    setInputTypeEnum(InputTypeEnum.values()[value]);
+                if (value >= 0 && value < TypeEnum.values().length) {
+                    setTypeEnum(InputTypeEnum.values()[value]);
                 }
             }
             a.recycle();
@@ -72,12 +73,12 @@ public class CustomMultiLineEditText extends LinearLayout implements OnEditTextC
         edtBody.setHint(hint);
     }
 
-    public void setInputTypeEnum(InputTypeEnum inputTypeEnum) {
+    public void setTypeEnum(InputTypeEnum inputTypeEnum) {
         this.edtBody.setInputTypeEnum(inputTypeEnum);
         this.inputTypeEnum = inputTypeEnum;
     }
 
-    public InputTypeEnum getInputTypeEnum() {
+    public InputTypeEnum getInput() {
         return inputTypeEnum;
     }
 

@@ -14,6 +14,7 @@ import com.spg.sgpco.baseView.BaseEditText;
 import com.spg.sgpco.baseView.BaseImageView;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.enums.InputTypeEnum;
+import com.spg.sgpco.enums.TypeEnum;
 import com.spg.sgpco.listener.OnEditTextChangeListener;
 import com.spg.sgpco.utils.Constants;
 
@@ -61,8 +62,8 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
             if (a.hasValue(R.styleable.CustomEditText_inputType)) {
                 int value = a.getInt(R.styleable.CustomEditText_inputType, 0);
 
-                if (value >= 0 && value < InputTypeEnum.values().length) {
-                    setInputTypeEnum(InputTypeEnum.values()[value]);
+                if (value >= 0 && value < TypeEnum.values().length) {
+                    setTypeEnum(InputTypeEnum.values()[value]);
                 }
             }
 
@@ -86,12 +87,12 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
         edtBody.setHint(hint);
     }
 
-    public void setInputTypeEnum(InputTypeEnum inputTypeEnum) {
+    public void setTypeEnum(InputTypeEnum inputTypeEnum) {
         this.inputTypeEnum = inputTypeEnum;
         this.edtBody.setInputTypeEnum(inputTypeEnum);
     }
 
-    public InputTypeEnum getInputTypeEnum() {
+    public InputTypeEnum getTypeEnum() {
         return inputTypeEnum;
     }
 

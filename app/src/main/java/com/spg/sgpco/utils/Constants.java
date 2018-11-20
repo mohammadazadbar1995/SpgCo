@@ -19,6 +19,10 @@ import java.util.Locale;
 public class Constants {
 
 
+    public static final int TYPE_PROJECT_CODE = 100;
+    public static final int STATE_CODE = 101;
+    public static final int ADD_CUSTOMER = 104;
+    public static final int HEAT_SOURCE = 105;
     public static Language language = new Language("فارسی", "fa", DirectionEnum.RTL);
 
     //
