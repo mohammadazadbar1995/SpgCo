@@ -8,7 +8,8 @@ public enum InputTypeEnum {
     MOBILE(2),
     PHONE(3),
     PASSWORD(4),
-    CODEVERIFY(5);
+    CODEVERIFY(5),
+    NUMBER(6);
 
 //    TRANSIT_WIDTH مشارکت در ساخت دیده نشده در اپ
 
@@ -32,6 +33,9 @@ public enum InputTypeEnum {
                 return 11;
             case CODEVERIFY:
                 return 6;
+            case NUMBER:
+                return 10;
+
         }
         return 11;
     }
@@ -43,12 +47,14 @@ public enum InputTypeEnum {
                 return InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE;
             case MOBILE:
             case PHONE:
+
                 return InputType.TYPE_CLASS_NUMBER;
             case PASSWORD:
                 return InputType.TYPE_CLASS_NUMBER;
             case CODEVERIFY:
                 return InputType.TYPE_CLASS_NUMBER;
-
+            case NUMBER:
+                return InputType.TYPE_CLASS_NUMBER;
         }
 
         return InputType.TYPE_CLASS_TEXT;

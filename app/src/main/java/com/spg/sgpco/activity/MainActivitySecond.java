@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.addCustomer.AddCustomerFragment;
@@ -41,6 +42,7 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
     private int CREATE_PROJECT_FRAGMENT_SELECTED = 1;
     private int ADD_CUSTOMER_FRAGMENT_SELECTED = 2;
     private int PROFILE_FRAGMENT_SELECTED = 3;
+    private boolean isForUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
         fontNormal = Typeface.createFromAsset(getAssets(), "fonts/IRANSansMobile(FaNum).ttf");
         setFont();
         navigation.setSelectedItemId(R.id.tab_home);
+        homeFegment();
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
     }
@@ -59,11 +62,16 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
+        if (isForUpdate){
+            isForUpdate=false;
+            return true;
+        }
         boolean isSelected = false;
         switch (item.getItemId()) {
             case R.id.tab_home:
                 tabIndex = 0;
                 homeFegment();
+                Toast.makeText(this, "injaii", Toast.LENGTH_SHORT).show();
                 isSelected = true;
                 break;
             case R.id.tab_create_project:
@@ -94,8 +102,6 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
             loadFragment(fragmentByTag, ProfileFragment.class.getName(), true);
         }
     }
-
-
 
 
     private void setFont() {
@@ -147,8 +153,11 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
 
     private void createProject() {
         Fragment fragmentByTag = getSupportFragmentManager().findFragmentByTag(CreateProjectFragment.class.getName());
+
         if (fragmentByTag == null) {
-            loadFragment(new CreateProjectFragment(), CreateProjectFragment.class.getName(), true);
+            CreateProjectFragment cre = new CreateProjectFragment();
+            cre.isUpdate = false;
+            loadFragment(cre, CreateProjectFragment.class.getName(), true);
         } else {
             loadFragment(fragmentByTag, CreateProjectFragment.class.getName(), true);
         }
@@ -256,7 +265,15 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
 
     }
 
-//    private void requestGetAllSetting() {
+    public BottomNavigationView getNavigation() {
+        return navigation;
+    }
+
+    public void setNavigation(BottomNavigationView navigation) {
+        this.navigation = navigation;
+    }
+
+    //    private void requestGetAllSetting() {
 //
 //        GetAllSettingService.getInstance().getAllSetting(getResources(), new ResponseListener<SettingAllResponse>() {
 //            @Override

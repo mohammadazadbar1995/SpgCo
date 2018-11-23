@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
     android:id="@+id/root"
+    android:background="@color/backColor"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true">
 
@@ -33,6 +34,7 @@
                 app:edtIcon="@drawable/ic_person_gray"
                 app:hint="@string/enter_your_project_name"
                 app:inputType="NAME"
+                android:background="@drawable/ripplewhite_no_radius"
                 app:isRequired="true"
                 app:tvTitle="@string/name_text" />
 
@@ -123,7 +125,7 @@
                     android:textColor="@color/primaryTextColor"
                     android:textSize="@dimen/text_size_1"
                     app:inputTypeMulti="DESCRIPTION"
-                    app:isRequiredMulti="true"
+                    app:isRequiredMulti="false"
                     app:tvTitleMulti="@string/description_text" />
             </LinearLayout>
 

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.spg.sgpco.R;
+import com.spg.sgpco.baseView.BaseFragment;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.baseView.BaseToolbar;
@@ -36,7 +37,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by m.azadbar on 5/28/2018.
  */
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends BaseFragment {
 
 
     Unbinder unbinder;

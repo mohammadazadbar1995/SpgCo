@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/row"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_item_create"
+    android:background="@color/divider">
+
+    <com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/rlItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/size_width"
+        android:background="@drawable/ripplewhite_no_radius">
+
+
+        <com.spg.sgpco.baseView.BaseTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/margin_3"
+            android:gravity="center"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/text_size_2"
+            app:fontType="Bold" />
+
+        <com.spg.sgpco.baseView.BaseImageView
+            android:layout_width="@dimen/icon_24"
+            android:layout_height="@dimen/icon_24"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/margin_2"
+            android:layout_alignParentEnd="true"/>
+
+    </com.spg.sgpco.baseView.BaseRelativeLayout>
+
+</com.spg.sgpco.baseView.BaseRelativeLayout>

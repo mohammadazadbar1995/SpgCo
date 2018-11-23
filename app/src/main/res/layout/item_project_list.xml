@@ -1,0 +1,91 @@
+<com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/divider"
+    android:orientation="vertical">
+
+    <com.spg.sgpco.baseView.BaseLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_width"
+        android:background="@drawable/ripplewhite_no_radius"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <com.spg.sgpco.baseView.BaseLinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/margin_1"
+            android:layout_weight="7"
+            android:orientation="vertical">
+
+            <com.spg.sgpco.baseView.BaseTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_2"
+                android:layout_marginTop="@dimen/margin_2"
+                android:maxLines="1"
+                android:singleLine="false"
+                android:text="sdasdasd"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="@dimen/text_size_2"
+                app:fontType="Medium" />
+
+            <com.spg.sgpco.baseView.BaseTextView
+                android:id="@+id/tvCustomer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_2"
+                android:maxLines="1"
+                android:singleLine="false"
+                android:text="sadad"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="@dimen/text_size_2"
+                app:fontType="Medium" />
+
+            <com.spg.sgpco.baseView.BaseTextView
+                android:id="@+id/tvSystem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_2"
+                android:maxLines="1"
+                android:singleLine="false"
+                android:text="sadad"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="@dimen/text_size_2"
+                app:fontType="Medium" />
+
+            <com.spg.sgpco.baseView.BaseTextView
+                android:id="@+id/tvDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_2"
+                android:maxLines="1"
+                android:singleLine="false"
+                android:text="sadad"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="@dimen/text_size_2"
+                app:fontType="Medium" />
+        </com.spg.sgpco.baseView.BaseLinearLayout>
+
+        <com.spg.sgpco.baseView.BaseLinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/margin_1"
+            android:layout_weight="3"
+            android:gravity="center">
+
+            <com.spg.sgpco.baseView.BaseTextView
+                android:id="@+id/tvCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="@dimen/text_size_1" />
+        </com.spg.sgpco.baseView.BaseLinearLayout>
+    </com.spg.sgpco.baseView.BaseLinearLayout>
+
+
+</com.spg.sgpco.baseView.BaseRelativeLayout>

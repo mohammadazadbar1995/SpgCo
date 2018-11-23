@@ -55,7 +55,7 @@ public class CustomMultiLineEditText extends LinearLayout implements OnEditTextC
             if (a.hasValue(R.styleable.CustomMultiLineEditText_inputTypeMulti)) {
                 int value = a.getInt(R.styleable.CustomMultiLineEditText_inputTypeMulti, 0);
 
-                if (value >= 0 && value < TypeEnum.values().length) {
+                if (value >= 0 && value < InputTypeEnum.values().length) {
                     setTypeEnum(InputTypeEnum.values()[value]);
                 }
             }

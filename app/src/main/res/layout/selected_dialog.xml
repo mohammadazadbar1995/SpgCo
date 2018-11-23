@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/outer_margin"
+    android:maxHeight="@dimen/dialog_height_max"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/dialog_corner_radius">
+
+    <com.spg.sgpco.baseView.BaseLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.spg.sgpco.baseView.BaseImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_2"
+            app:civ_border_color="@color/black"
+            android:scaleType="centerInside"
+            />
+
+        <com.spg.sgpco.baseView.BaseTextView
+            android:id="@+id/tvRealtorName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_1"
+            android:gravity="center"
+            android:text="@string/slogan"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/text_size_2"
+            app:fontType="Medium" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_width"
+            android:layout_marginTop="@dimen/margin_2"
+            android:background="@color/divider" />
+
+        <com.spg.sgpco.baseView.BaseTextView
+            android:id="@+id/btnObservation"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_detail"
+            android:gravity="center"
+            android:text="@string/observation_text"
+            android:textColor="@color/secondaryBack1"
+            android:textSize="@dimen/text_size_3"
+            app:fontType="Regular" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_width"
+            android:layout_marginTop="@dimen/margin_2"
+            android:background="@color/divider" />
+
+        <com.spg.sgpco.baseView.BaseTextView
+            android:id="@+id/btnEdit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_detail"
+            android:gravity="center"
+            android:text="@string/edit"
+            android:textColor="@color/secondaryBack1"
+            android:textSize="@dimen/text_size_3"
+            app:fontType="Regular" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_width"
+            android:layout_marginTop="@dimen/margin_2"
+            android:background="@color/divider" />
+
+        <com.spg.sgpco.baseView.BaseTextView
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_detail"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textColor="@color/redColor"
+            android:textSize="@dimen/text_size_3"
+            app:fontType="Regular" />
+    </com.spg.sgpco.baseView.BaseLinearLayout>
+</android.support.v7.widget.CardView>

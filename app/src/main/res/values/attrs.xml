@@ -15,6 +15,7 @@
             <enum name="PHONE" value="3" />
             <enum name="PASSWORD" value="4" />
             <enum name="CODEVERIFY" value="5" />
+            <enum name="NUMBER" value="6" />
 
         </attr>
 

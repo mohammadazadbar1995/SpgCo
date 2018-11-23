@@ -62,8 +62,8 @@ public class CustomEditText extends LinearLayout implements OnEditTextChangeList
             if (a.hasValue(R.styleable.CustomEditText_inputType)) {
                 int value = a.getInt(R.styleable.CustomEditText_inputType, 0);
 
-                if (value >= 0 && value < TypeEnum.values().length) {
-                    setTypeEnum(InputTypeEnum.values()[value]);
+                if (value >= 0 && value < InputTypeEnum.values().length) {
+                    setInputTypeEnum(InputTypeEnum.values()[value]);
                 }
             }
 
@@ -87,12 +87,12 @@ public class CustomEditText extends LinearLayout implements OnEditTextChangeList
         edtBody.setHint(hint);
     }
 
-    public void setTypeEnum(InputTypeEnum inputTypeEnum) {
+    public void setInputTypeEnum(InputTypeEnum inputTypeEnum) {
         this.inputTypeEnum = inputTypeEnum;
         this.edtBody.setInputTypeEnum(inputTypeEnum);
     }
 
-    public InputTypeEnum getTypeEnum() {
+    public InputTypeEnum getInputTypeEnum() {
         return inputTypeEnum;
     }
 

@@ -17,8 +17,8 @@ import com.spg.sgpco.baseView.BaseEditText;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.customView.RoundedLoadingView;
-import com.spg.sgpco.enums.TypeEnum;
-import com.spg.sgpco.service.ResponseModel.SettingResultItem;
+import com.spg.sgpco.service.ResponseModel.CitiesListItem;
+import com.spg.sgpco.service.ResponseModel.ListCitiesItem;
 
 import java.util.ArrayList;
 
@@ -33,11 +33,10 @@ import static android.app.Activity.RESULT_OK;
  * Created by m.azadbar on 5/28/2018.
  */
 
-public class TypeProjectFragment extends Fragment implements TypeProjectAdapter.OnItemClickListener {
+public class CityFragment extends Fragment implements CityAdapter.OnItemClickListener {
 
 
-    public ArrayList<SettingResultItem> listTypeProjects;
-    public TypeEnum typeEnum;
+    public ArrayList<CitiesListItem> citiesItems;
     Unbinder unbinder;
     @BindView(R.id.tvCenterTitle)
     BaseTextView tvCenterTitle;
@@ -53,7 +52,7 @@ public class TypeProjectFragment extends Fragment implements TypeProjectAdapter.
     BaseRelativeLayout root;
 
 
-    public TypeProjectFragment() {
+    public CityFragment() {
     }
 
     @Nullable
@@ -62,7 +61,7 @@ public class TypeProjectFragment extends Fragment implements TypeProjectAdapter.
 
         View view = inflater.inflate(R.layout.fragment_project_type, container, false);
         unbinder = ButterKnife.bind(this, view);
-        tvCenterTitle.setText(getResources().getString(R.string.select_type_name_projects));
+        tvCenterTitle.setText(getResources().getString(R.string.select_city));
 
         setAdapter();
         return view;
@@ -70,7 +69,7 @@ public class TypeProjectFragment extends Fragment implements TypeProjectAdapter.
     }
 
     private void setAdapter() {
-        TypeProjectAdapter adapter = new TypeProjectAdapter(getActivity(), listTypeProjects, this);
+        CityAdapter adapter = new CityAdapter(getActivity(), citiesItems, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recycle.setHasFixedSize(true);
         recycle.setLayoutManager(layoutManager);
@@ -87,18 +86,9 @@ public class TypeProjectFragment extends Fragment implements TypeProjectAdapter.
 
 
     @Override
-    public void onItemClick(int position, SettingResultItem typeProject) {
-        Intent intent = new Intent(getContext(), TypeProjectFragment.class);
-        if (typeEnum == TypeEnum.TYPE_PROJECT) {
-            intent.putExtra("TypeProject", listTypeProjects.get(position));
-        } else if (typeEnum == TypeEnum.HEAT_SOURCE) {
-            intent.putExtra("HeatSource", listTypeProjects.get(position));
-        } else if (typeEnum == TypeEnum.GENDER_FLOOR) {
-            intent.putExtra("Gender_Project", listTypeProjects.get(position));
-        } else if (typeEnum == TypeEnum.TYPE_SPACE) {
-            intent.putExtra("TYPE_SPACE", listTypeProjects.get(position));
-        }
-
+    public void onItemClick(int position, CitiesListItem city) {
+        Intent intent = new Intent(getContext(), CityFragment.class);
+        intent.putExtra("City", citiesItems.get(position));
         if (getTargetFragment() != null) {
             getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK, intent);
         }

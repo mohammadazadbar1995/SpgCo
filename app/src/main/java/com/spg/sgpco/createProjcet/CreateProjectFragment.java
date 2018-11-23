@@ -2,7 +2,6 @@ package com.spg.sgpco.createProjcet;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,9 +10,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.addCustomer.AddCustomerFragment;
+import com.spg.sgpco.baseView.BaseFragment;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.baseView.BaseToolbar;
@@ -22,6 +23,7 @@ import com.spg.sgpco.customView.CustomMultiLineEditText;
 import com.spg.sgpco.customView.CustomNoReduisEditText;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
+import com.spg.sgpco.enums.ControlSystemEnum;
 import com.spg.sgpco.enums.TypeEnum;
 import com.spg.sgpco.service.Request.GetAllSettingService;
 import com.spg.sgpco.service.Request.ResponseListener;
@@ -30,7 +32,10 @@ import com.spg.sgpco.service.ResponseModel.CustomerItem;
 import com.spg.sgpco.service.ResponseModel.ListCitiesItem;
 import com.spg.sgpco.service.ResponseModel.SettingAllResponse;
 import com.spg.sgpco.service.ResponseModel.SettingResultItem;
+import com.spg.sgpco.service.ResponseModel.SystemsItem;
 import com.spg.sgpco.utils.Constants;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,9 +49,10 @@ import static android.app.Activity.RESULT_OK;
  * Created by m.azadbar on 5/28/2018.
  */
 
-public class CreateProjectFragment extends Fragment {
+public class CreateProjectFragment extends BaseFragment {
 
 
+    public boolean isUpdate = false;
     Unbinder unbinder;
     @BindView(R.id.tvCenterTitle)
     BaseTextView tvCenterTitle;
@@ -81,6 +87,8 @@ public class CreateProjectFragment extends Fragment {
     private CitiesListItem listCities;
     private CustomerItem customerItem;
     private SettingResultItem heatSource;
+    private SystemsItem systemsItems;
+    private int controlOfSystem;
 
 
     public CreateProjectFragment() {
@@ -96,34 +104,42 @@ public class CreateProjectFragment extends Fragment {
 
         typeProjectLayout.setImgInfo(R.drawable.ic_person_gray);
         typeProjectLayout.setTxtTitle("");
-        typeProjectLayout.setValue(getString(R.string.select_type_name_project));
+        typeProjectLayout.setHint(getString(R.string.select_type_name_project));
 
         provinceLayout.setImgInfo(R.drawable.ic_person_gray);
         provinceLayout.setTxtTitle("");
-        provinceLayout.setValue(getString(R.string.select_province));
+        provinceLayout.setHint(getString(R.string.select_province));
 
 
         cityLayout.setImgInfo(R.drawable.ic_person_gray);
         cityLayout.setTxtTitle("");
-        cityLayout.setValue(getString(R.string.select_city));
+        cityLayout.setHint(getString(R.string.select_city));
 
 
         addCustomerLayout.setImgInfo(R.drawable.ic_person_gray);
         addCustomerLayout.setTxtTitle("");
-        addCustomerLayout.setValue(getString(R.string.select_customer));
+        addCustomerLayout.setHint(getString(R.string.select_customer));
 
 
         heatSourceLayout.setImgInfo(R.drawable.ic_person_gray);
         heatSourceLayout.setTxtTitle("");
-        heatSourceLayout.setValue(getString(R.string.heat_source));
+        heatSourceLayout.setHint(getString(R.string.heat_source));
 
 
         systemControlTypeLayout.setImgInfo(R.drawable.ic_person_gray);
         systemControlTypeLayout.setTxtTitle("");
-        systemControlTypeLayout.setValue(getString(R.string.system_control_type));
+        systemControlTypeLayout.setHint(getString(R.string.system_control_type));
 
+        cityLayout.setEnabled(false);
+        btnCreate.setText(getString(R.string.next_page));
+        btnCreate.setVisibility(View.GONE);
 
-        requestGetAllSetting();
+        if (isUpdate) {
+            Toast.makeText(getActivity(), "ok", Toast.LENGTH_SHORT).show();
+        } else {
+            requestGetAllSetting();
+        }
+
 
         return view;
 
@@ -176,10 +192,17 @@ public class CreateProjectFragment extends Fragment {
                     StateFragment stateFragment = new StateFragment();
                     stateFragment.setTargetFragment(this, Constants.STATE_CODE);
                     stateFragment.stateLists = response.getResult().getList_cities();
-                    loadFragment(stateFragment, TypeProjectFragment.class.getName());
+                    loadFragment(stateFragment, StateFragment.class.getName());
+                    cityLayout.setEnabled(true);
                 }
                 break;
             case R.id.city_layout:
+                if (listStates.getCities_list() != null && listStates.getCities_list().size() > 0) {
+                    CityFragment cityFragment = new CityFragment();
+                    cityFragment.setTargetFragment(this, Constants.CITY_CODE);
+                    cityFragment.citiesItems = listStates.getCities_list();
+                    loadFragment(cityFragment, CityFragment.class.getName());
+                }
                 break;
             case R.id.add_customer_layout:
                 AddCustomerFragment addCustomerFragment = new AddCustomerFragment();
@@ -197,12 +220,99 @@ public class CreateProjectFragment extends Fragment {
                 }
                 break;
             case R.id.system_control_type_layout:
+                if (response.getResult().getSystems() != null && response.getResult().getSystems().size() > 0) {
+                    TypeOfControlSystemFragment typeOfControlSystemFragment = new TypeOfControlSystemFragment();
+                    typeOfControlSystemFragment.setTargetFragment(this, Constants.TYPE_OF_CONTROL_SYSTEMS);
+                    typeOfControlSystemFragment.systemsItems = response.getResult().getSystems();
+                    loadFragment(typeOfControlSystemFragment, TypeOfControlSystemFragment.class.getName());
+                }
                 break;
             case R.id.edtBugReport:
                 break;
             case R.id.btnCreate:
+                if (isValidData()) {
+                    if (controlOfSystem == ControlSystemEnum.ORDINARY_SYSTEM.getMethodCode()) {
+                        OrdinarySystemFragment ordinarySystemFragment = new OrdinarySystemFragment();
+                        ordinarySystemFragment.floorList = response.getResult().getList_floor();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("title", edtName.getValueString());
+                        bundle.putInt("customer_id", customerItem.getId());
+                        bundle.putInt("city_id", Integer.valueOf(listCities.getId()));
+                        bundle.putInt("project_type_id", listProjectTypes.getId());
+                        bundle.putInt("systems_type_id", systemsItems.getId());
+                        bundle.putInt("heat_source_id", heatSource.getId());
+                        bundle.putString("description", edtBugReport.getValue());
+                        ordinarySystemFragment.setArguments(bundle);
+                        loadFragment(ordinarySystemFragment, OrdinarySystemFragment.class.getName());
+                    } else if (controlOfSystem == ControlSystemEnum.THERMOSTATIC_SYSTEM.getMethodCode()) {
+                        ThermostaticSystemFragment thermostaticSystemFragment = new ThermostaticSystemFragment();
+                        thermostaticSystemFragment.floorList = response.getResult().getList_floor();
+                        thermostaticSystemFragment.typeSpace = response.getResult().getType_of_space();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("title", edtName.getValueString());
+                        bundle.putInt("customer_id", customerItem.getId());
+                        bundle.putInt("city_id", Integer.valueOf(listCities.getId()));
+                        bundle.putInt("project_type_id", listProjectTypes.getId());
+                        bundle.putInt("systems_type_id", systemsItems.getId());
+                        bundle.putInt("heat_source_id", heatSource.getId());
+                        bundle.putString("description", edtBugReport.getValue());
+                        thermostaticSystemFragment.setArguments(bundle);
+                        loadFragment(thermostaticSystemFragment, ThermostaticSystemFragment.class.getName());
+                    }
+                }
+
                 break;
         }
+    }
+
+    private boolean isValidData() {
+        ArrayList<String> errorMsgList = new ArrayList<>();
+        if (edtName.getError() != null) {
+            String message = getResources().getString(R.string.enter_your_project_name);
+            errorMsgList.add(message);
+        }
+
+        if (listProjectTypes == null) {
+            String message = getResources().getString(R.string.select_type_name_project);
+            typeProjectLayout.setError(message);
+            errorMsgList.add(message);
+        }
+
+        if (listStates == null) {
+            String message = getResources().getString(R.string.select_your_state);
+            provinceLayout.setError(message);
+            errorMsgList.add(message);
+        }
+
+        if (listCities == null) {
+            String message = getResources().getString(R.string.select_your_city);
+            cityLayout.setError(message);
+            errorMsgList.add(message);
+        }
+
+        if (customerItem == null) {
+            String message = getResources().getString(R.string.select_customer);
+            addCustomerLayout.setError(message);
+            errorMsgList.add(message);
+        }
+
+        if (heatSource == null) {
+            String message = getResources().getString(R.string.selectd_heat_source);
+            heatSourceLayout.setError(message);
+            errorMsgList.add(message);
+        }
+
+        if (systemsItems == null) {
+            String message = getResources().getString(R.string.select_type_control_system);
+            systemControlTypeLayout.setError(message);
+            errorMsgList.add(message);
+        }
+
+        if (errorMsgList.size() > 0) {
+            showInfoDialog(getString(R.string.fill_following), errorMsgList);
+            return false;
+        }
+        return true;
     }
 
     public void loadFragment(Fragment fragment, String fragmentTag) {
@@ -244,10 +354,14 @@ public class CreateProjectFragment extends Fragment {
                 typeSelected(data.getParcelableExtra("TypeProject"));
             } else if (requestCode == Constants.STATE_CODE) {
                 StateSelected(data.getParcelableExtra("State"));
+            } else if (requestCode == Constants.CITY_CODE) {
+                citySelected(data.getParcelableExtra("City"));
             } else if (requestCode == Constants.ADD_CUSTOMER) {
                 customerSelected(data.getParcelableExtra("Customer"));
             } else if (requestCode == Constants.HEAT_SOURCE) {
                 heatSourceSelected(data.getParcelableExtra("HeatSource"));
+            } else if (requestCode == Constants.TYPE_OF_CONTROL_SYSTEMS) {
+                typeOfControlSystems(data.getParcelableExtra("SystemsItems"));
             }
 // else if (requestCode == Constants.REQUEST_IMAGE_CAPTURE) {
 //                getImageFromCamera();
@@ -255,6 +369,18 @@ public class CreateProjectFragment extends Fragment {
         }
         super.onActivityResult(requestCode, resultCode, data);
 
+    }
+
+    private void typeOfControlSystems(SystemsItem system) {
+        systemControlTypeLayout.setVisibility(View.VISIBLE);
+        systemsItems = system;
+        if (systemsItems != null) {
+            systemControlTypeLayout.setValue(systemsItems.getTitle());
+        } else {
+            systemControlTypeLayout.setValue("انتخاب کنید");
+        }
+        btnCreate.setVisibility(View.VISIBLE);
+        controlOfSystem = systemsItems.getId();
     }
 
     private void heatSourceSelected(SettingResultItem heatSources) {
@@ -283,7 +409,26 @@ public class CreateProjectFragment extends Fragment {
         if (listStates != null) {
             provinceLayout.setValue(listStates.getState());
         } else {
-            typeProjectLayout.setValue("انتخاب کنید");
+            typeProjectLayout.reset();
+        }
+
+        citySelected(null);
+    }
+
+    private void citySelected(CitiesListItem citiesListItem) {
+        listCities = citiesListItem;
+        if (listCities != null) {
+            cityLayout.setVisibility(View.VISIBLE);
+            cityLayout.setValue(listCities.getCity());
+        } else {
+            if (listStates != null) {
+                cityLayout.setVisibility(View.VISIBLE);
+                cityLayout.setHint(getString(R.string.select_city));
+                cityLayout.reset();
+
+            } else {
+                cityLayout.setValue(getString(R.string.select_city));
+            }
         }
     }
 

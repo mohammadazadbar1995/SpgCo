@@ -10,7 +10,10 @@ import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 
 import com.spg.sgpco.R;
+import com.spg.sgpco.dialog.InfoListDialog;
 import com.spg.sgpco.utils.Constants;
+
+import java.util.ArrayList;
 
 public class BaseFragment extends Fragment {
 
@@ -41,6 +44,17 @@ public class BaseFragment extends Fragment {
         }
 
     }
+
+
+    public void showInfoDialog(String title, ArrayList<String> errorMsgList) {
+        if (getActivity() != null) {
+            InfoListDialog infoListDialog = new InfoListDialog(getActivity());
+            infoListDialog.errorMsg = errorMsgList;
+            infoListDialog.title = title;
+            infoListDialog.show();
+        }
+    }
+
 
     public boolean onBackPressed() {
         return false;

@@ -15,6 +15,7 @@ import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.service.ResponseModel.ListCitiesItem;
 import com.spg.sgpco.service.ResponseModel.SettingResultItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,11 +30,11 @@ public class StateAdapter extends RecyclerView.Adapter<StateAdapter.ViewHolder> 
 
 
     private final OnItemClickListener listener;
-    private final List<ListCitiesItem> list;
+    private final ArrayList<ListCitiesItem> list;
 
     private Context context;
 
-    StateAdapter(Context context, List<ListCitiesItem> list, OnItemClickListener listener) {
+    StateAdapter(Context context, ArrayList<ListCitiesItem> list, OnItemClickListener listener) {
         this.list = list;
         this.listener = listener;
         this.context = context;

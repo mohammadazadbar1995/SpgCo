@@ -2,6 +2,8 @@ package com.spg.sgpco.service;
 
 import com.google.gson.JsonObject;
 import com.spg.sgpco.service.RequestModel.CreateCustomerReq;
+import com.spg.sgpco.service.RequestModel.CreateOrdinaryProjectReq;
+import com.spg.sgpco.service.RequestModel.CreateThermostaticReq;
 import com.spg.sgpco.service.RequestModel.DeleteCustomerReq;
 import com.spg.sgpco.service.RequestModel.ForgetPassReq;
 import com.spg.sgpco.service.RequestModel.LoginReq;
@@ -70,6 +72,18 @@ public interface ReqInterface {
 
     @GET("gallery/{item}")
     Call<JsonObject> getGalleryItem(@Path("item") String item);
+
+    @POST("project/create")
+    Call<JsonObject> createOrdinaryProject(@Body CreateOrdinaryProjectReq req);
+
+    @GET("project/list")
+    Call<JsonObject> getProjectList();
+
+    @GET("project/pdf/{item}")
+    Call<JsonObject> pdfItem(@Path("item") int item);
+
+    @POST("project/create")
+    Call<JsonObject> createThermostaticProject(@Body CreateThermostaticReq req);
 
 //    @POST("v2/home/GetNewVersion")
 //    Call<JsonObject> VersionControl(@Body ForceUpdateReq req);

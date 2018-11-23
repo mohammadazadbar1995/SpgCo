@@ -23,6 +23,10 @@ public class Constants {
     public static final int STATE_CODE = 101;
     public static final int ADD_CUSTOMER = 104;
     public static final int HEAT_SOURCE = 105;
+    public static final int CITY_CODE = 106;
+    public static final int TYPE_OF_CONTROL_SYSTEMS = 107;
+    public static final int GENDER_FLOOR = 108;
+    public static final int TYPE_SPACE = 109;
     public static Language language = new Language("فارسی", "fa", DirectionEnum.RTL);
 
     //

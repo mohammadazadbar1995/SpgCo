@@ -12,10 +12,9 @@ import android.view.ViewGroup;
 import com.spg.sgpco.R;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
-import com.spg.sgpco.service.ResponseModel.SettingResultItem;
+import com.spg.sgpco.service.RequestModel.ThermostaticSystemItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,24 +24,23 @@ import butterknife.ButterKnife;
  * Created by m.azadbar on 9/21/2017.
  */
 
-public class TypeProjectAdapter extends RecyclerView.Adapter<TypeProjectAdapter.ViewHolder> {
+public class TermostaticItemAdapter extends RecyclerView.Adapter<TermostaticItemAdapter.ViewHolder> {
 
 
-    private final OnItemClickListener listener;
-    private final ArrayList<SettingResultItem> list;
+    private final ArrayList<ThermostaticSystemItem> list;
+
 
     private Context context;
 
-    TypeProjectAdapter(Context context, ArrayList<SettingResultItem> list, OnItemClickListener listener) {
+    TermostaticItemAdapter(Context context, ArrayList<ThermostaticSystemItem> list) {
         this.list = list;
-        this.listener = listener;
         this.context = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_data, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_thermostatic, parent, false);
         return new ViewHolder(itemView);
 
     }
@@ -52,10 +50,11 @@ public class TypeProjectAdapter extends RecyclerView.Adapter<TypeProjectAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Resources res = holder.itemView.getContext().getResources();
-        SettingResultItem object = list.get(position);
-        holder.tvTitle.setText(object.getTitle());
-        holder.bind(position, object, listener);
+        Resources res = holder.itemView.getResources();
+        ThermostaticSystemItem object = list.get(position);
+        holder.tvTitle.setText(object.getFloor_type_title() + "_" + object.getType_of_space_title() + "_" + object.getMetr()
+                + "_" + object.getCold_area());
+
     }
 
     @Override
@@ -73,21 +72,12 @@ public class TypeProjectAdapter extends RecyclerView.Adapter<TypeProjectAdapter.
         @BindView(R.id.row)
         BaseRelativeLayout row;
 
-
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
 
-        public void bind(int position, SettingResultItem typeProject, final OnItemClickListener listener) {
-            itemView.setOnClickListener(v -> listener.onItemClick(position, typeProject));
-        }
 
     }
 
-
-    public interface OnItemClickListener {
-        void onItemClick(int position, SettingResultItem typeProject);
-
-    }
 }

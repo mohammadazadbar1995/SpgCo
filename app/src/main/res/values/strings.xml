@@ -26,7 +26,7 @@
     <string name="befor">قبلی</string>
     <string name="name_project">نام پروژه</string>
     <string name="select_city">انتخاب شهر</string>
-    <string name="cancel">لغو</string>
+    <string name="cancel">انصراف</string>
     <string name="useful_area">متراژ مساحت مفید</string>
     <string name="cool_area">متراژ مساحت سرد</string>
     <string name="calucate_text">محاسبه</string>
@@ -87,5 +87,23 @@
     <string name="register_info">ثبت اطلاعات</string>
     <string name="posts">نوشته ها</string>
     <string name="select_type_name_projects">انتخاب نوع پروژه</string>
+    <string name="select_your_state">استان خود را انتخاب نمایید</string>
+    <string name="select_your_city">شهر خود را انتخاب کنید</string>
+    <string name="selectd_heat_source">منبع حرارتی را انتخاب کنید</string>
+    <string name="select_type_control_system">نوع کنترل سیستم را انتخاب کنید</string>
+    <string name="enter_metr">متراژ مفید خود را وارد کنید</string>
+    <string name="enter_cold_area">متراژ سرد را وارد کنید</string>
+    <string name="ordinary_system">سیستم معمولی</string>
+    <string name="thermostatic_system">سیستم ترموستاتیک</string>
+    <string name="gendar_of_floor">جنس کف را انتخاب کنید</string>
+    <string name="next_page">مرحله بعد</string>
+    <string name="dashbpard">داشبورد</string>
+    <string name="customer">مشتری</string>
+    <string name="systems">سیستم</string>
+    <string name="city">شهر</string>
+    <string name="observation_text">مشاهده</string>
+    <string name="edit">ویرایش</string>
+    <string name="type_of_space">نوع فضا را انتخاب کنید</string>
+    <string name="select_type_space">نوع فضا را انتخاب کنید</string>
 
 </resources>

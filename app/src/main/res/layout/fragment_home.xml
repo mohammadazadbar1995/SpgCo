@@ -5,17 +5,26 @@
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
     android:layout_centerHorizontal="true"
-    android:layout_centerVertical="true">
+    android:id="@+id/root"
+    android:layout_centerVertical="true"
+    android:background="@color/backColor">
 
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <com.spg.sgpco.baseView.BaseTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="homeFrgment" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvProject"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar" />
+
+    <com.spg.sgpco.customView.RoundedLoadingView
+        android:id="@+id/roundedLoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
 </com.spg.sgpco.baseView.BaseRelativeLayout>
 

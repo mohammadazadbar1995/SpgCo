@@ -2,7 +2,6 @@ package com.spg.sgpco.createProjcet;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +11,8 @@ import android.view.ViewGroup;
 import com.spg.sgpco.R;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
-import com.spg.sgpco.service.ResponseModel.SettingResultItem;
+import com.spg.sgpco.service.ResponseModel.CitiesListItem;
+import com.spg.sgpco.service.ResponseModel.ListCitiesItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,15 +25,15 @@ import butterknife.ButterKnife;
  * Created by m.azadbar on 9/21/2017.
  */
 
-public class TypeProjectAdapter extends RecyclerView.Adapter<TypeProjectAdapter.ViewHolder> {
+public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
 
     private final OnItemClickListener listener;
-    private final ArrayList<SettingResultItem> list;
+    private final ArrayList<CitiesListItem> list;
 
     private Context context;
 
-    TypeProjectAdapter(Context context, ArrayList<SettingResultItem> list, OnItemClickListener listener) {
+    CityAdapter(Context context, ArrayList<CitiesListItem> list, OnItemClickListener listener) {
         this.list = list;
         this.listener = listener;
         this.context = context;
@@ -52,9 +52,8 @@ public class TypeProjectAdapter extends RecyclerView.Adapter<TypeProjectAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Resources res = holder.itemView.getContext().getResources();
-        SettingResultItem object = list.get(position);
-        holder.tvTitle.setText(object.getTitle());
+        CitiesListItem object = list.get(position);
+        holder.tvTitle.setText(object.getCity());
         holder.bind(position, object, listener);
     }
 
@@ -79,15 +78,15 @@ public class TypeProjectAdapter extends RecyclerView.Adapter<TypeProjectAdapter.
             ButterKnife.bind(this, view);
         }
 
-        public void bind(int position, SettingResultItem typeProject, final OnItemClickListener listener) {
-            itemView.setOnClickListener(v -> listener.onItemClick(position, typeProject));
+        public void bind(int position, CitiesListItem city, final OnItemClickListener listener) {
+            itemView.setOnClickListener(v -> listener.onItemClick(position, city));
         }
 
     }
 
 
     public interface OnItemClickListener {
-        void onItemClick(int position, SettingResultItem typeProject);
+        void onItemClick(int position, CitiesListItem city);
 
     }
 }

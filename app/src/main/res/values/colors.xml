@@ -61,4 +61,6 @@
     <color name="alghaPrimeryColor">#CC2042a6</color>
     <color name="alghaWhite">#eeffffff</color>
     <color name="transparentLoding">#30000000</color>
+    <color name="secondaryBack1">#46B6CD</color>
+
 </resources>

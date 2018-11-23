@@ -44,6 +44,7 @@ public class CustomInsertDataView extends LinearLayout {
 
         tvValue.setTextColor(getResources().getColor(R.color.secondryTextColor));
         tvValue.setText(title);
+
         this.setLayoutDirection(Constants.language.getLayoutDirection());
 
     }
@@ -57,7 +58,7 @@ public class CustomInsertDataView extends LinearLayout {
     }
 
     public void reset() {
-        String htmlrerst = " <font color='#333333'>" + title + "</font> \t\t " +
+        String htmlrerst = " <font color='#111111'>" + title + "</font> \t\t " +
                 "<font color='#757575'>" + hint + "</font>";
         createHtmlText(htmlrerst);
         enable();
@@ -66,8 +67,8 @@ public class CustomInsertDataView extends LinearLayout {
 
     public void setValue(String value) {
         String htmlText = "<font color='#333333'>" + title + "</font>"
-                + "<font color='#333333'>\t\t" + value;
-        htmlText += "</font>";
+                + "<font color='#111111' > <b>\t" + value;
+        htmlText += "</b></font>";
         createHtmlText(htmlText);
         enable();
         setError(null);
@@ -75,6 +76,9 @@ public class CustomInsertDataView extends LinearLayout {
 
     public void setHint(String hint) {
         this.hint = hint;
+        tvValue.setHint(hint);
+        enable();
+        setError(null);
     }
 
 

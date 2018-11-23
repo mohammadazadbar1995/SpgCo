@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:background="@color/backColor"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true">
+
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:fillViewport="true">
+
+        <com.spg.sgpco.baseView.BaseRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <com.spg.sgpco.customView.CustomInsertDataView
+                android:id="@+id/gender_of_floor_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_item_create"
+                android:background="@drawable/ripplewhite_no_radius" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_width"
+                android:background="@color/divider" />
+
+
+            <com.spg.sgpco.customView.CustomNoReduisEditText
+                android:id="@+id/edtMetr"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_item_create"
+                android:layout_below="@+id/gender_of_floor_layout"
+                android:layout_alignParentBottom="false"
+                app:edtIcon="@drawable/ic_person_gray"
+                app:hint="@string/enter_metr"
+                android:background="@drawable/ripplewhite_no_radius"
+                app:isRequired="true"
+                app:inputType="CODEVERIFY"
+                app:tvTitle="متراژ مفید" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_width"
+                android:background="@color/divider" />
+
+
+            <com.spg.sgpco.customView.CustomNoReduisEditText
+                android:id="@+id/edtColdArea"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/edtMetr"
+                android:layout_height="@dimen/size_item_create"
+                android:layout_alignParentBottom="false"
+                android:background="@drawable/ripplewhite_no_radius"
+                app:edtIcon="@drawable/ic_person_gray"
+                app:hint="@string/enter_cold_area"
+                app:inputType="CODEVERIFY"
+                app:isRequired="true"
+                app:tvTitle="متراژ سرد" />
+
+            <com.spg.sgpco.baseView.BaseTextView
+                android:id="@+id/btnCreate"
+                android:layout_width="@dimen/half_btn_width"
+                android:layout_height="@dimen/button_height"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/margin_4"
+                android:background="@drawable/ripplered"
+                android:gravity="center"
+                android:text="@string/register_project"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_1"
+                app:fontType="Medium" />
+
+
+        </com.spg.sgpco.baseView.BaseRelativeLayout>
+
+
+    </ScrollView>
+
+    <com.spg.sgpco.customView.RoundedLoadingView
+        android:id="@+id/roundedLoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</com.spg.sgpco.baseView.BaseRelativeLayout>
+

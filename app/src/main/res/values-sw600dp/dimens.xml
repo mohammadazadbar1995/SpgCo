@@ -68,4 +68,5 @@
 
     <dimen name="dialog_height_transparent">470dp</dimen>
     <dimen name="size_item_create">52dp</dimen>
+    <dimen name="button_height_detail">44dp</dimen>
 </resources>
