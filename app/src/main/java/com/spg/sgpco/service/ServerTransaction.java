@@ -4,13 +4,9 @@ import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.spg.sgpco.BuildConfig;
 import com.spg.sgpco.R;
-import com.spg.sgpco.service.ResponseModel.ErrorResponse;
 
 import org.json.JSONObject;
 
@@ -48,11 +44,8 @@ public class ServerTransaction {
                         }
                     }
                 } catch (Exception e) {
-                    if (BuildConfig.DEBUG) {
-                        serverListener.onFailure(" setCall Exception: " + e.getMessage());
-                    } else {
-                        serverListener.onFailure(res.getString(R.string.jsonError));
-                    }
+                    serverListener.onFailure(res.getString(R.string.communicationError));
+
                 }
             }
 

@@ -1,14 +1,19 @@
 package com.spg.sgpco.register;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.AppCompatImageView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.spg.sgpco.R;
-import com.spg.sgpco.activity.MainActivity;
 import com.spg.sgpco.activity.MainActivitySecond;
 import com.spg.sgpco.baseView.BaseActivity;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
@@ -16,14 +21,12 @@ import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.customView.CustomEditText;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
-import com.spg.sgpco.login.LoginActivity;
 import com.spg.sgpco.service.Request.RegisterService;
 import com.spg.sgpco.service.Request.ResponseListener;
-import com.spg.sgpco.service.Request.VerifyCodeService;
 import com.spg.sgpco.service.RequestModel.RegisterReq;
 import com.spg.sgpco.service.ResponseModel.LoginResponse;
-import com.spg.sgpco.service.ResponseModel.VerifyResponse;
 import com.spg.sgpco.utils.PreferencesData;
+import com.spg.sgpco.utils.ResendActiveCodeService;
 
 import java.util.ArrayList;
 
@@ -44,6 +47,8 @@ public class VerifyCodeActivity extends BaseActivity {
     BaseRelativeLayout root;
     @BindView(R.id.roundedLoadingView)
     RoundedLoadingView roundedLoadingView;
+    @BindView(R.id.tvCounter)
+    BaseTextView tvCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,46 @@ public class VerifyCodeActivity extends BaseActivity {
         setContentView(R.layout.activity_verify_code);
         ButterKnife.bind(this);
         Glide.with(this).load(R.drawable.background).into(image);
+
+        countDownService();
+    }
+
+    private BroadcastReceiver br = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateGUI(intent); // or whatever method used to update your GUI fields
+
+        }
+    };
+
+    private void updateGUI(Intent intent) {
+        if (intent.getExtras() != null) {
+            long millisUntilFinished = intent.getLongExtra("countdown", 0);
+            Log.i("", "Countdown seconds remaining in GUI: " + millisUntilFinished / 1000);
+            tvCounter.setText(millisUntilFinished / 1000 + "");
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (tvCounter.getText().toString().equals("1")) {
+                        tvCounter.setText("0");
+                        btnVerify.setEnabled(true);
+                        tvCounter.setTextColor(Color.parseColor("#009688"));
+                        Toast.makeText(VerifyCodeActivity.this, "omad inja", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }, 1000);
+
+        }
+    }
+
+    private void countDownService() {
+        this.startService(new Intent(this, ResendActiveCodeService.class));
+        Log.i("", "Started service");
+        this.registerReceiver(br, new IntentFilter(ResendActiveCodeService.COUNTDOWN_BR));
+
+        tvCounter.setTextColor(Color.parseColor("#b7afaf"));
+        btnVerify.setEnabled(false);
     }
 
     @OnClick(R.id.btnVerify)

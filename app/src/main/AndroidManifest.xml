@@ -60,6 +60,9 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
+
+        <service android:name=".utils.ResendActiveCodeService" />
+
     </application>
 
 </manifest>

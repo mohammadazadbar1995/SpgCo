@@ -2,6 +2,7 @@ package com.spg.sgpco.createProjcet;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.spg.sgpco.R;
+import com.spg.sgpco.activity.MainActivitySecond;
 import com.spg.sgpco.addCustomer.AddCustomerFragment;
 import com.spg.sgpco.baseView.BaseFragment;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
@@ -30,6 +32,7 @@ import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.ResponseModel.CitiesListItem;
 import com.spg.sgpco.service.ResponseModel.CustomerItem;
 import com.spg.sgpco.service.ResponseModel.ListCitiesItem;
+import com.spg.sgpco.service.ResponseModel.ProjectListResultItem;
 import com.spg.sgpco.service.ResponseModel.SettingAllResponse;
 import com.spg.sgpco.service.ResponseModel.SettingResultItem;
 import com.spg.sgpco.service.ResponseModel.SystemsItem;
@@ -80,7 +83,7 @@ public class CreateProjectFragment extends BaseFragment {
     RoundedLoadingView roundedLoadingView;
     @BindView(R.id.root)
     BaseRelativeLayout root;
-    private SettingAllResponse response;
+    public SettingAllResponse response;
 
     private SettingResultItem listProjectTypes;
     private ListCitiesItem listStates;
@@ -89,6 +92,8 @@ public class CreateProjectFragment extends BaseFragment {
     private SettingResultItem heatSource;
     private SystemsItem systemsItems;
     private int controlOfSystem;
+    private int itemId;
+    private String name;
 
 
     public CreateProjectFragment() {
@@ -134,10 +139,17 @@ public class CreateProjectFragment extends BaseFragment {
         btnCreate.setText(getString(R.string.next_page));
         btnCreate.setVisibility(View.GONE);
 
+        if (getActivity() != null){
+            response = ( (MainActivitySecond)getActivity()).getResponseAll();
+        }
         if (isUpdate) {
-            Toast.makeText(getActivity(), "ok", Toast.LENGTH_SHORT).show();
+           Bundle b = getArguments();
+            if (b != null) {
+                itemId = b.getInt("itemId");
+                getProjectData();
+            }
         } else {
-            requestGetAllSetting();
+
         }
 
 
@@ -145,28 +157,13 @@ public class CreateProjectFragment extends BaseFragment {
 
     }
 
-
-    private void requestGetAllSetting() {
-
+    private void getProjectData() {
         roundedLoadingView.setVisibility(View.VISIBLE);
         enableDisableViewGroup(root, false);
 
-        GetAllSettingService.getInstance().getAllSetting(getResources(), new ResponseListener<SettingAllResponse>() {
-            @Override
-            public void onGetErrore(String error) {
-                roundedLoadingView.setVisibility(View.GONE);
-                enableDisableViewGroup(root, true);
-                showErrorDialog(error);
-            }
 
-            @Override
-            public void onSuccess(SettingAllResponse response) {
-                roundedLoadingView.setVisibility(View.GONE);
-                enableDisableViewGroup(root, true);
-                CreateProjectFragment.this.response = response;
-            }
-        });
     }
+
 
     @Override
     public void onDestroyView() {
@@ -327,24 +324,7 @@ public class CreateProjectFragment extends BaseFragment {
     }
 
 
-    public void showErrorDialog(String description) {
-        if (getContext() != null) {
-            CustomDialog customDialog = new CustomDialog(getContext());
-            customDialog.setOkListener(getString(R.string.retry_text), view -> {
-                customDialog.dismiss();
-                roundedLoadingView.setVisibility(View.VISIBLE);
-                requestGetAllSetting();
-            });
-            customDialog.setCancelListener(getString(R.string.cancel), view -> customDialog.dismiss());
-            customDialog.setIcon(R.drawable.ic_error);
-            if (description != null) {
-                customDialog.setDescription(description);
-            }
 
-            customDialog.setDialogTitle(getString(R.string.communicationError));
-            customDialog.show();
-        }
-    }
 
 
     @Override

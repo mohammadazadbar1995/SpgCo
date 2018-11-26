@@ -18,9 +18,14 @@ import android.widget.Toast;
 import com.spg.sgpco.R;
 import com.spg.sgpco.addCustomer.AddCustomerFragment;
 import com.spg.sgpco.baseView.BaseActivity;
+import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.createProjcet.CreateProjectFragment;
 import com.spg.sgpco.customView.RoundedLoadingView;
+import com.spg.sgpco.dialog.CustomDialog;
 import com.spg.sgpco.profile.ProfileFragment;
+import com.spg.sgpco.service.Request.GetAllSettingService;
+import com.spg.sgpco.service.Request.ResponseListener;
+import com.spg.sgpco.service.ResponseModel.SettingAllResponse;
 import com.spg.sgpco.utils.CustomTypefaceSpan;
 
 import butterknife.BindView;
@@ -35,6 +40,8 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
     BottomNavigationView navigation;
     @BindView(R.id.roundedLoadingView)
     RoundedLoadingView roundedLoadingView;
+    @BindView(R.id.root)
+    BaseRelativeLayout root;
     private int tabIndex;
     private Typeface fontSelected;
     private Typeface fontNormal;
@@ -43,6 +50,7 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
     private int ADD_CUSTOMER_FRAGMENT_SELECTED = 2;
     private int PROFILE_FRAGMENT_SELECTED = 3;
     private boolean isForUpdate;
+    private SettingAllResponse responseAllProject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,16 +62,57 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
         fontNormal = Typeface.createFromAsset(getAssets(), "fonts/IRANSansMobile(FaNum).ttf");
         setFont();
         navigation.setSelectedItemId(R.id.tab_home);
+        requestGetAllSetting();
         homeFegment();
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
     }
 
+    private void requestGetAllSetting() {
+
+        roundedLoadingView.setVisibility(View.VISIBLE);
+        enableDisableViewGroup(root, false);
+
+        GetAllSettingService.getInstance().getAllSetting(getResources(), new ResponseListener<SettingAllResponse>() {
+            @Override
+            public void onGetErrore(String error) {
+                roundedLoadingView.setVisibility(View.GONE);
+                enableDisableViewGroup(root, true);
+                showErrorDialog(error);
+            }
+
+            @Override
+            public void onSuccess(SettingAllResponse response) {
+                roundedLoadingView.setVisibility(View.GONE);
+                enableDisableViewGroup(root, true);
+                MainActivitySecond.this.responseAllProject = response;
+            }
+        });
+    }
+
+    public void showErrorDialog(String description) {
+
+        CustomDialog customDialog = new CustomDialog(this);
+        customDialog.setOkListener(getString(R.string.retry_text), view -> {
+            customDialog.dismiss();
+            roundedLoadingView.setVisibility(View.VISIBLE);
+            requestGetAllSetting();
+        });
+        customDialog.setCancelListener(getString(R.string.cancel), view -> customDialog.dismiss());
+        customDialog.setIcon(R.drawable.ic_error);
+        if (description != null) {
+            customDialog.setDescription(description);
+        }
+
+        customDialog.setDialogTitle(getString(R.string.communicationError));
+        customDialog.show();
+    }
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
-        if (isForUpdate){
-            isForUpdate=false;
+        if (isForUpdate) {
+            isForUpdate = false;
             return true;
         }
         boolean isSelected = false;
@@ -156,7 +205,7 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
 
         if (fragmentByTag == null) {
             CreateProjectFragment cre = new CreateProjectFragment();
-            cre.isUpdate = false;
+            cre.response = responseAllProject;
             loadFragment(cre, CreateProjectFragment.class.getName(), true);
         } else {
             loadFragment(fragmentByTag, CreateProjectFragment.class.getName(), true);
@@ -271,6 +320,10 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
 
     public void setNavigation(BottomNavigationView navigation) {
         this.navigation = navigation;
+    }
+
+    public SettingAllResponse getResponseAll() {
+        return responseAllProject;
     }
 
     //    private void requestGetAllSetting() {

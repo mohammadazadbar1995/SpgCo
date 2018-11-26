@@ -34,8 +34,7 @@
             <com.spg.sgpco.baseView.BaseRelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_height_transparent"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:gravity="center">
 
                 <com.spg.sgpco.baseView.BaseImageView
                     android:id="@+id/logo"
@@ -88,6 +87,37 @@
                     android:textSize="@dimen/text_size_1"
                     app:fontType="Medium" />
 
+                <com.spg.sgpco.baseView.BaseRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btnVerify"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/margin_32"
+                    android:gravity="center">
+
+                    <com.spg.sgpco.baseView.BaseTextView
+                        android:id="@+id/txtRemainingTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/remainingـtime"
+                        android:textColor="@color/redColor" />
+
+                    <com.spg.sgpco.baseView.BaseTextView
+                        android:id="@+id/tvCounter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_1"
+                        android:layout_toEndOf="@+id/txtRemainingTime"
+                        android:textColor="@color/redColor" />
+
+                    <com.spg.sgpco.baseView.BaseTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/tvCounter"
+                        android:text="@string/second"
+                        android:textColor="@color/redColor" />
+
+                </com.spg.sgpco.baseView.BaseRelativeLayout>
 
             </com.spg.sgpco.baseView.BaseRelativeLayout>
 

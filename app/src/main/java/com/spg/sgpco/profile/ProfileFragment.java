@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,6 +109,7 @@ public class ProfileFragment extends BaseFragment {
         exitLayout.setTxtTitle("");
         exitLayout.setValue(getString(R.string.exit));
 
+        Log.e("onCreate", "are");
         return view;
 
     }
@@ -118,6 +120,7 @@ public class ProfileFragment extends BaseFragment {
         if (!TextUtils.isEmpty(PreferencesData.getString(getContext(), "name"))) {
             tvName.setText(PreferencesData.getString(getContext(), "name"));
         }
+        Log.e("omadi", "are");
     }
 
     @Override

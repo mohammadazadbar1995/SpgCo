@@ -67,21 +67,21 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
     }
 
     private void getProjectListRequest() {
-        roundedLoadingView.setVisibility(View.VISIBLE);
-        enableDisableViewGroup(root, false);
+//        roundedLoadingView.setVisibility(View.VISIBLE);
+//        enableDisableViewGroup(root, false);
 
         GetProjectListService.getInstance().getProjectList(getResources(), new ResponseListener<GetProjectListResponse>() {
             @Override
             public void onGetErrore(String error) {
-                roundedLoadingView.setVisibility(View.GONE);
-                enableDisableViewGroup(root, true);
+//                roundedLoadingView.setVisibility(View.GONE);
+//                enableDisableViewGroup(root, true);
                 showErrorDialog(error);
             }
 
             @Override
             public void onSuccess(GetProjectListResponse response) {
-                roundedLoadingView.setVisibility(View.GONE);
-                enableDisableViewGroup(root, true);
+//                roundedLoadingView.setVisibility(View.GONE);
+//                enableDisableViewGroup(root, true);
                 if (response.isSuccess() && response.getResult().size() > 0) {
                     setAdapter(response);
                 }
@@ -162,7 +162,7 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
             FragmentManager fragMgr = getActivity().getSupportFragmentManager();
             FragmentTransaction fragTrans = fragMgr.beginTransaction();
             Bundle bundle = new Bundle();
-            bundle.putParcelable("ProjectListResultItem", list);
+            bundle.putInt("itemId", list.getId());
             createProjectFragment1.isUpdate = true;
             fragTrans.add(R.id.frameLayout, createProjectFragment1, CreateProjectFragment.class.getName());
             fragTrans.addToBackStack(CreateProjectFragment.class.getName());

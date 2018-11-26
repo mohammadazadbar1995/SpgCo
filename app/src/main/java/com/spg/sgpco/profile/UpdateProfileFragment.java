@@ -153,6 +153,7 @@ public class UpdateProfileFragment extends Fragment implements BackPressedFragme
     public void onPopBackStack() {
         if (getActivity() != null) {
             getActivity().getSupportFragmentManager().popBackStack();
+
         }
     }
 

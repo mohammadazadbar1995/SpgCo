@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.spg.sgpco.R;
+import com.spg.sgpco.baseView.BaseFragment;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.baseView.BaseToolbar;
@@ -51,7 +52,7 @@ import static android.app.Activity.RESULT_OK;
  * Created by m.azadbar on 5/28/2018.
  */
 
-public class AddCustomerFragment extends Fragment implements CustomerAdapter.OnItemClickListener {
+public class AddCustomerFragment extends BaseFragment implements CustomerAdapter.OnItemClickListener {
 
 
     public boolean isCreateProjectCustomer;

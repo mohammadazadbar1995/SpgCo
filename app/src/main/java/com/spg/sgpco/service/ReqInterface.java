@@ -85,6 +85,9 @@ public interface ReqInterface {
     @POST("project/create")
     Call<JsonObject> createThermostaticProject(@Body CreateThermostaticReq req);
 
+    @GET("project/{item}")
+    Call<JsonObject> getProjectUpdate(@Path("item") int item);
+
 //    @POST("v2/home/GetNewVersion")
 //    Call<JsonObject> VersionControl(@Body ForceUpdateReq req);
 
