@@ -11,6 +11,7 @@ import com.spg.sgpco.R;
 import com.spg.sgpco.service.ApiClient;
 import com.spg.sgpco.service.ReqInterface;
 import com.spg.sgpco.service.ResponseModel.GalleryItemResponse;
+import com.spg.sgpco.service.ResponseModel.UpdateProjectResponse;
 import com.spg.sgpco.service.ServerListener;
 import com.spg.sgpco.service.ServerTransaction;
 
@@ -19,21 +20,21 @@ import org.json.JSONException;
 import java.io.UnsupportedEncodingException;
 
 
-public class PdfItemService {
+public class GetProjectDataItemService {
 
 
-    private static PdfItemService pdfItemService;
+    private static GetProjectDataItemService getProjectDataItemService;
 
-    public static PdfItemService getInstance() {
-        if (pdfItemService == null) {
-            pdfItemService = new PdfItemService();
+    public static GetProjectDataItemService getInstance() {
+        if (getProjectDataItemService == null) {
+            getProjectDataItemService = new GetProjectDataItemService();
         }
-        return pdfItemService;
+        return getProjectDataItemService;
     }
 
 
-    public void pdfItem(final Resources res, int item, final ResponseListener<GalleryItemResponse> responseListener) {
-        new ServerTransaction().setCall(res, ApiClient.getClient().create(ReqInterface.class).pdfItem(item), new ServerListener() {
+    public void getProjectDataItem(final Resources res, int item, final ResponseListener<UpdateProjectResponse> responseListener) {
+        new ServerTransaction().setCall(res, ApiClient.getClient().create(ReqInterface.class).getProjectDataItem(item), new ServerListener() {
             @Override
             public void onFailure(String str) {
                 responseListener.onGetErrore(str);
@@ -46,7 +47,7 @@ public class PdfItemService {
                     String mJsonString = jsonObject.toString();
                     JsonParser parser = new JsonParser();
                     JsonElement mJson = parser.parse(mJsonString);
-                    GalleryItemResponse response = gson.fromJson(mJson, GalleryItemResponse.class);
+                    UpdateProjectResponse response = gson.fromJson(mJson, UpdateProjectResponse.class);
                     responseListener.onSuccess(response);
                 } catch (JsonSyntaxException ex) {
                     responseListener.onGetErrore(res.getString(R.string.jsonError));

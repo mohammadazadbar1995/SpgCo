@@ -7,6 +7,15 @@ public class CitiesListItem implements Parcelable {
 
 	private String city;
 	private String id;
+	private String type;
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public String getCity() {
 		return city;
@@ -34,6 +43,7 @@ public class CitiesListItem implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeString(this.city);
 		dest.writeString(this.id);
+		dest.writeString(this.type);
 	}
 
 	public CitiesListItem() {
@@ -42,9 +52,10 @@ public class CitiesListItem implements Parcelable {
 	protected CitiesListItem(Parcel in) {
 		this.city = in.readString();
 		this.id = in.readString();
+		this.type = in.readString();
 	}
 
-	public static final Parcelable.Creator<CitiesListItem> CREATOR = new Parcelable.Creator<CitiesListItem>() {
+	public static final Creator<CitiesListItem> CREATOR = new Creator<CitiesListItem>() {
 		@Override
 		public CitiesListItem createFromParcel(Parcel source) {
 			return new CitiesListItem(source);

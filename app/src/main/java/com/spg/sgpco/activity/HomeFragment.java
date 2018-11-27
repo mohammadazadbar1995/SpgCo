@@ -163,6 +163,7 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
             FragmentTransaction fragTrans = fragMgr.beginTransaction();
             Bundle bundle = new Bundle();
             bundle.putInt("itemId", list.getId());
+            createProjectFragment1.setArguments(bundle);
             createProjectFragment1.isUpdate = true;
             fragTrans.add(R.id.frameLayout, createProjectFragment1, CreateProjectFragment.class.getName());
             fragTrans.addToBackStack(CreateProjectFragment.class.getName());

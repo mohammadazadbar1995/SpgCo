@@ -2,10 +2,12 @@ package com.spg.sgpco.activity;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -16,15 +18,14 @@ import com.bumptech.glide.Glide;
 import com.spg.sgpco.R;
 import com.spg.sgpco.baseView.BaseImageView;
 import com.spg.sgpco.baseView.BaseTextView;
-import com.spg.sgpco.service.Request.PdfItemService;
-import com.spg.sgpco.service.Request.ResponseListener;
-import com.spg.sgpco.service.ResponseModel.GalleryItemResponse;
 import com.spg.sgpco.service.ResponseModel.ProjectListResultItem;
 import com.spg.sgpco.utils.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.thefinestartist.utils.content.ContextUtil.startActivity;
 
 /**
  * Created by m.Azadbar on 10/7/2017.
@@ -114,17 +115,9 @@ public class SelectedDialog extends Dialog {
 
 
     private void getPdfItemRequest() {
-        PdfItemService.getInstance().pdfItem(getContext().getResources(), item.getId(), new ResponseListener<GalleryItemResponse>() {
-            @Override
-            public void onGetErrore(String error) {
-
-            }
-
-            @Override
-            public void onSuccess(GalleryItemResponse response) {
-
-            }
-        });
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://sgpmojri.ir/a/api/project/pdf/?project=" + item.getLink()));
+        startActivity(browserIntent);
     }
 
 

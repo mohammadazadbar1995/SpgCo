@@ -72,6 +72,10 @@ public class CustomMultiLineEditText extends LinearLayout implements OnEditTextC
     public void setTextHint(String hint) {
         edtBody.setHint(hint);
     }
+    public void setBody(String body) {
+        edtBody.setHint(body);
+    }
+
 
     public void setTypeEnum(InputTypeEnum inputTypeEnum) {
         this.edtBody.setInputTypeEnum(inputTypeEnum);

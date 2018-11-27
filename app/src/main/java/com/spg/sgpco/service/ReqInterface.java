@@ -10,6 +10,7 @@ import com.spg.sgpco.service.RequestModel.LoginReq;
 import com.spg.sgpco.service.RequestModel.LoginWithCodeForgetPassReq;
 import com.spg.sgpco.service.RequestModel.RegisterReq;
 import com.spg.sgpco.service.RequestModel.UpdateCustomerReq;
+import com.spg.sgpco.service.RequestModel.UpdateOrdinaryProjectReq;
 import com.spg.sgpco.service.RequestModel.UpdateProfileReq;
 import com.spg.sgpco.service.RequestModel.VerifyReq;
 
@@ -86,7 +87,10 @@ public interface ReqInterface {
     Call<JsonObject> createThermostaticProject(@Body CreateThermostaticReq req);
 
     @GET("project/{item}")
-    Call<JsonObject> getProjectUpdate(@Path("item") int item);
+    Call<JsonObject> getProjectDataItem(@Path("item") int item);
+
+    @PATCH("project/update")
+    Call<JsonObject> updateOrdinaryProject(@Body UpdateOrdinaryProjectReq req);
 
 //    @POST("v2/home/GetNewVersion")
 //    Call<JsonObject> VersionControl(@Body ForceUpdateReq req);

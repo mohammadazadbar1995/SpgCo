@@ -87,6 +87,10 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
         edtBody.setHint(hint);
     }
 
+    public void setBody(String body) {
+        edtBody.setText(body);
+    }
+
     public void setTypeEnum(InputTypeEnum inputTypeEnum) {
         this.inputTypeEnum = inputTypeEnum;
         this.edtBody.setInputTypeEnum(inputTypeEnum);

@@ -2,7 +2,6 @@ package com.spg.sgpco.createProjcet;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,7 +10,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.activity.MainActivitySecond;
@@ -27,15 +25,15 @@ import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
 import com.spg.sgpco.enums.ControlSystemEnum;
 import com.spg.sgpco.enums.TypeEnum;
-import com.spg.sgpco.service.Request.GetAllSettingService;
+import com.spg.sgpco.service.Request.GetProjectDataItemService;
 import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.ResponseModel.CitiesListItem;
 import com.spg.sgpco.service.ResponseModel.CustomerItem;
 import com.spg.sgpco.service.ResponseModel.ListCitiesItem;
-import com.spg.sgpco.service.ResponseModel.ProjectListResultItem;
 import com.spg.sgpco.service.ResponseModel.SettingAllResponse;
 import com.spg.sgpco.service.ResponseModel.SettingResultItem;
 import com.spg.sgpco.service.ResponseModel.SystemsItem;
+import com.spg.sgpco.service.ResponseModel.UpdateProjectResponse;
 import com.spg.sgpco.utils.Constants;
 
 import java.util.ArrayList;
@@ -94,6 +92,7 @@ public class CreateProjectFragment extends BaseFragment {
     private int controlOfSystem;
     private int itemId;
     private String name;
+    private UpdateProjectResponse updateResponse;
 
 
     public CreateProjectFragment() {
@@ -139,14 +138,14 @@ public class CreateProjectFragment extends BaseFragment {
         btnCreate.setText(getString(R.string.next_page));
         btnCreate.setVisibility(View.GONE);
 
-        if (getActivity() != null){
-            response = ( (MainActivitySecond)getActivity()).getResponseAll();
+        if (getActivity() != null) {
+            response = ((MainActivitySecond) getActivity()).getResponseAll();
         }
         if (isUpdate) {
-           Bundle b = getArguments();
+            Bundle b = getArguments();
             if (b != null) {
                 itemId = b.getInt("itemId");
-                getProjectData();
+                getProjectDataReqeust();
             }
         } else {
 
@@ -157,11 +156,47 @@ public class CreateProjectFragment extends BaseFragment {
 
     }
 
-    private void getProjectData() {
+    private void getProjectDataReqeust() {
         roundedLoadingView.setVisibility(View.VISIBLE);
         enableDisableViewGroup(root, false);
 
+        GetProjectDataItemService.getInstance().getProjectDataItem(getResources(), itemId, new ResponseListener<UpdateProjectResponse>() {
+            @Override
+            public void onGetErrore(String error) {
+                roundedLoadingView.setVisibility(View.GONE);
+                enableDisableViewGroup(root, true);
+                showErrorDialog(error);
+            }
 
+            @Override
+            public void onSuccess(UpdateProjectResponse response) {
+                roundedLoadingView.setVisibility(View.GONE);
+                enableDisableViewGroup(root, true);
+
+                if (response.isSuccess() && response.getResult() != null) {
+                    CreateProjectFragment.this.updateResponse = response;
+                    setDataInView(response);
+                }
+            }
+        });
+    }
+
+    private void setDataInView(UpdateProjectResponse response) {
+        listProjectTypes = response.getResult().getProject_type();
+        listCities = response.getResult().getCity();
+        customerItem = response.getResult().getCustomer();
+        heatSource = response.getResult().getHeat_source();
+        systemsItems = response.getResult().getSystems_type();
+
+        btnCreate.setVisibility(View.VISIBLE);
+        edtName.setBody(response.getResult().getTitle());
+        typeProjectLayout.setValue(response.getResult().getProject_type().getTitle());
+        cityLayout.setValue(response.getResult().getCity().getCity());
+        addCustomerLayout.setValue(response.getResult().getCustomer().getName());
+        heatSourceLayout.setValue(response.getResult().getHeat_source().getTitle());
+        controlOfSystem = response.getResult().getHeat_source().getId();
+        systemControlTypeLayout.setValue(response.getResult().getSystems_type().getTitle());
+        edtBugReport.setBody(response.getResult().getDescription());
     }
 
 
@@ -231,6 +266,7 @@ public class CreateProjectFragment extends BaseFragment {
                     if (controlOfSystem == ControlSystemEnum.ORDINARY_SYSTEM.getMethodCode()) {
                         OrdinarySystemFragment ordinarySystemFragment = new OrdinarySystemFragment();
                         ordinarySystemFragment.floorList = response.getResult().getList_floor();
+                        ordinarySystemFragment.isUpdate = isUpdate;
                         Bundle bundle = new Bundle();
                         bundle.putString("title", edtName.getValueString());
                         bundle.putInt("customer_id", customerItem.getId());
@@ -239,6 +275,7 @@ public class CreateProjectFragment extends BaseFragment {
                         bundle.putInt("systems_type_id", systemsItems.getId());
                         bundle.putInt("heat_source_id", heatSource.getId());
                         bundle.putString("description", edtBugReport.getValue());
+                        bundle.putParcelable("updateSystemsOrdinary", updateResponse.getResult());
                         ordinarySystemFragment.setArguments(bundle);
                         loadFragment(ordinarySystemFragment, OrdinarySystemFragment.class.getName());
                     } else if (controlOfSystem == ControlSystemEnum.THERMOSTATIC_SYSTEM.getMethodCode()) {
@@ -269,7 +306,7 @@ public class CreateProjectFragment extends BaseFragment {
             errorMsgList.add(message);
         }
 
-        if (listProjectTypes == null) {
+        if (listProjectTypes == null ) {
             String message = getResources().getString(R.string.select_type_name_project);
             typeProjectLayout.setError(message);
             errorMsgList.add(message);
@@ -322,9 +359,6 @@ public class CreateProjectFragment extends BaseFragment {
             fragTrans.commit();
         }
     }
-
-
-
 
 
     @Override
@@ -432,6 +466,28 @@ public class CreateProjectFragment extends BaseFragment {
                 enableDisableViewGroup((ViewGroup) view, enabled);
             }
         }
+    }
+
+    public void showErrorDialog(String description) {
+
+        if (getActivity() != null) {
+            CustomDialog customDialog = new CustomDialog(getActivity());
+            customDialog.setOkListener(getString(R.string.retry_text), view -> {
+                customDialog.dismiss();
+                roundedLoadingView.setVisibility(View.VISIBLE);
+                getProjectDataReqeust();
+            });
+            customDialog.setCancelListener(getString(R.string.cancel), view -> customDialog.dismiss());
+            customDialog.setIcon(R.drawable.ic_error);
+            if (description != null) {
+                customDialog.setDescription(description);
+            }
+
+            customDialog.setDialogTitle(getString(R.string.communicationError));
+            customDialog.show();
+        }
+
+
     }
 
 }

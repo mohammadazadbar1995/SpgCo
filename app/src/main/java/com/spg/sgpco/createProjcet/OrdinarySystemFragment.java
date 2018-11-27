@@ -26,10 +26,14 @@ import com.spg.sgpco.dialog.CustomDialog;
 import com.spg.sgpco.enums.TypeEnum;
 import com.spg.sgpco.service.Request.OrdinaryProjectService;
 import com.spg.sgpco.service.Request.ResponseListener;
+import com.spg.sgpco.service.Request.UpdateOrdinaryProjectService;
 import com.spg.sgpco.service.RequestModel.CreateOrdinaryProjectReq;
 import com.spg.sgpco.service.RequestModel.OrdinarySystem;
+import com.spg.sgpco.service.RequestModel.UpdateOrdinaryProjectReq;
 import com.spg.sgpco.service.ResponseModel.CreateOrdinaryProjectResponse;
 import com.spg.sgpco.service.ResponseModel.SettingResultItem;
+import com.spg.sgpco.service.ResponseModel.SucessUpdateResponse;
+import com.spg.sgpco.service.ResponseModel.UpdateProjectResult;
 import com.spg.sgpco.utils.Constants;
 
 import java.util.ArrayList;
@@ -50,6 +54,7 @@ public class OrdinarySystemFragment extends BaseFragment {
 
 
     public ArrayList<SettingResultItem> floorList;
+    public boolean isUpdate;
     Unbinder unbinder;
     @BindView(R.id.tvCenterTitle)
     BaseTextView tvCenterTitle;
@@ -76,6 +81,7 @@ public class OrdinarySystemFragment extends BaseFragment {
     private int systemsTypeId;
     private int heatSourceId;
     private String descreption;
+    private UpdateProjectResult updateSystemsOrdinary;
 
     public OrdinarySystemFragment() {
     }
@@ -101,11 +107,22 @@ public class OrdinarySystemFragment extends BaseFragment {
             systemsTypeId = b.getInt("systems_type_id");
             heatSourceId = b.getInt("heat_source_id");
             descreption = b.getString("description");
+            updateSystemsOrdinary = b.getParcelable("updateSystemsOrdinary");
         }
 
+        if (isUpdate) {
+            setDataInView();
+        }
 
         return view;
 
+    }
+
+    private void setDataInView() {
+        genderFloor = updateSystemsOrdinary.getOrdinary_system().getFloor_type();
+        genderOfFloorLayout.setValue(genderFloor.getTitle());
+        edtMetr.setBody(updateSystemsOrdinary.getOrdinary_system().getMetr());
+        edtColdArea.setBody(updateSystemsOrdinary.getOrdinary_system().getCold_area());
     }
 
 
@@ -128,11 +145,56 @@ public class OrdinarySystemFragment extends BaseFragment {
                 break;
             case R.id.btnCreate:
                 if (isValideData()) {
-                    createOrdinaryProjectRequest();
+                    if (isUpdate) {
+                        updateSystemRequest();
+                    } else {
+                        createOrdinaryProjectRequest();
+                    }
+
                 }
                 break;
         }
 
+    }
+
+    private void updateSystemRequest() {
+        roundedLoadingView.setVisibility(View.VISIBLE);
+        enableDisableViewGroup(root, false);
+
+        UpdateOrdinaryProjectReq req = new UpdateOrdinaryProjectReq();
+        req.setProject_id(updateSystemsOrdinary.getId());
+        req.setTitle(title);
+        req.setCustomer_id(customerId);
+        req.setCity_id(cityId);
+        req.setProject_type_id(projectTypeId);
+        UpdateOrdinaryProjectService.getInstance().updateOrdinaryProject(getResources(), req, new ResponseListener<SucessUpdateResponse>() {
+            @Override
+            public void onGetErrore(String error) {
+                roundedLoadingView.setVisibility(View.GONE);
+                enableDisableViewGroup(root, true);
+                showErrorDialog(error);
+            }
+
+            @Override
+            public void onSuccess(SucessUpdateResponse response) {
+                roundedLoadingView.setVisibility(View.VISIBLE);
+                enableDisableViewGroup(root, true);
+                if (response.isSuccess()) {
+                    if (getActivity() != null) {
+                        HomeFragment homeFragment = new HomeFragment();
+                        FragmentManager fragMgr = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragTrans = fragMgr.beginTransaction();
+                        fragTrans.add(R.id.frameLayout, homeFragment, HomeFragment.class.getName());
+                        fragTrans.addToBackStack(HomeFragment.class.getName());
+                        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                        fragTrans.commit();
+                        Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                        if (getActivity() instanceof MainActivitySecond)
+                            ((MainActivitySecond) getActivity()).getNavigation().setSelectedItemId(R.id.tab_home);
+                    }
+                }
+            }
+        });
     }
 
     private void createOrdinaryProjectRequest() {

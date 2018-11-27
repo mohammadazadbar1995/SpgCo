@@ -11,7 +11,15 @@ public class ProjectListResultItem implements Parcelable {
 	private String description;
 	private int id;
 	private String customer;
+	private String link;
 
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
 
 	public String getDate() {
 		return date;

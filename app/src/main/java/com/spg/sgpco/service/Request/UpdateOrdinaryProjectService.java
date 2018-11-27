@@ -10,7 +10,10 @@ import com.google.gson.JsonSyntaxException;
 import com.spg.sgpco.R;
 import com.spg.sgpco.service.ApiClient;
 import com.spg.sgpco.service.ReqInterface;
-import com.spg.sgpco.service.ResponseModel.GalleryItemResponse;
+import com.spg.sgpco.service.RequestModel.CreateOrdinaryProjectReq;
+import com.spg.sgpco.service.RequestModel.UpdateOrdinaryProjectReq;
+import com.spg.sgpco.service.ResponseModel.CreateOrdinaryProjectResponse;
+import com.spg.sgpco.service.ResponseModel.SucessUpdateResponse;
 import com.spg.sgpco.service.ServerListener;
 import com.spg.sgpco.service.ServerTransaction;
 
@@ -19,21 +22,21 @@ import org.json.JSONException;
 import java.io.UnsupportedEncodingException;
 
 
-public class GetProjectEditItemService {
+public class UpdateOrdinaryProjectService {
 
 
-    private static GetProjectEditItemService getProjectEditItemService;
+    private static UpdateOrdinaryProjectService updateOrdinaryProjectService;
 
-    public static GetProjectEditItemService getInstance() {
-        if (getProjectEditItemService == null) {
-            getProjectEditItemService = new GetProjectEditItemService();
+    public static UpdateOrdinaryProjectService getInstance() {
+        if (updateOrdinaryProjectService == null) {
+            updateOrdinaryProjectService = new UpdateOrdinaryProjectService();
         }
-        return getProjectEditItemService;
+        return updateOrdinaryProjectService;
     }
 
 
-    public void getProjectItemUpdate(final Resources res, int item, final ResponseListener<GalleryItemResponse> responseListener) {
-        new ServerTransaction().setCall(res, ApiClient.getClient().create(ReqInterface.class).getProjectUpdate(item), new ServerListener() {
+    public void updateOrdinaryProject(final Resources res, UpdateOrdinaryProjectReq req, final ResponseListener<SucessUpdateResponse> responseListener) {
+        new ServerTransaction().setCall(res, ApiClient.getClient().create(ReqInterface.class).updateOrdinaryProject(req), new ServerListener() {
             @Override
             public void onFailure(String str) {
                 responseListener.onGetErrore(str);
@@ -46,7 +49,7 @@ public class GetProjectEditItemService {
                     String mJsonString = jsonObject.toString();
                     JsonParser parser = new JsonParser();
                     JsonElement mJson = parser.parse(mJsonString);
-                    GalleryItemResponse response = gson.fromJson(mJson, GalleryItemResponse.class);
+                    SucessUpdateResponse response = gson.fromJson(mJson, SucessUpdateResponse.class);
                     responseListener.onSuccess(response);
                 } catch (JsonSyntaxException ex) {
                     responseListener.onGetErrore(res.getString(R.string.jsonError));
