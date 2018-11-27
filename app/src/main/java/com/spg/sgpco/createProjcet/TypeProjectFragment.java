@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,7 @@ public class TypeProjectFragment extends Fragment implements TypeProjectAdapter.
 
 
     public ArrayList<SettingResultItem> listTypeProjects;
+    public ArrayList<SettingResultItem> listTypeProjectsFilter = new ArrayList<>();
     public TypeEnum typeEnum;
     Unbinder unbinder;
     @BindView(R.id.tvCenterTitle)
@@ -51,6 +54,7 @@ public class TypeProjectFragment extends Fragment implements TypeProjectAdapter.
     RoundedLoadingView roundedLoadingView;
     @BindView(R.id.root)
     BaseRelativeLayout root;
+    private TypeProjectAdapter adapter;
 
 
     public TypeProjectFragment() {
@@ -63,14 +67,48 @@ public class TypeProjectFragment extends Fragment implements TypeProjectAdapter.
         View view = inflater.inflate(R.layout.fragment_project_type, container, false);
         unbinder = ButterKnife.bind(this, view);
         tvCenterTitle.setText(getResources().getString(R.string.select_type_name_projects));
-
+        edtSearchBar.setHint("تست");
         setAdapter();
+        searchInList();
         return view;
 
     }
 
+    private void searchInList() {
+        edtSearchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence == null || charSequence.toString().trim().isEmpty()) {
+                    listTypeProjectsFilter.clear();
+                    listTypeProjectsFilter.addAll(listTypeProjects);
+                } else {
+                    listTypeProjectsFilter.clear();
+                    String searchText = charSequence.toString().trim();
+                    for (SettingResultItem list :
+                            listTypeProjects) {
+                        if (list.getTitle().contains(searchText)) {
+                            listTypeProjectsFilter.add(list);
+                        }
+                    }
+                }
+                adapter.setList(listTypeProjectsFilter);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
     private void setAdapter() {
-        TypeProjectAdapter adapter = new TypeProjectAdapter(getActivity(), listTypeProjects, this);
+        adapter = new TypeProjectAdapter(getActivity(), listTypeProjects, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recycle.setHasFixedSize(true);
         recycle.setLayoutManager(layoutManager);

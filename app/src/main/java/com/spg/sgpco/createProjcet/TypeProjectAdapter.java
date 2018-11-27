@@ -29,7 +29,7 @@ public class TypeProjectAdapter extends RecyclerView.Adapter<TypeProjectAdapter.
 
 
     private final OnItemClickListener listener;
-    private final ArrayList<SettingResultItem> list;
+    private ArrayList<SettingResultItem> list;
 
     private Context context;
 
@@ -61,6 +61,11 @@ public class TypeProjectAdapter extends RecyclerView.Adapter<TypeProjectAdapter.
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void setList(ArrayList<SettingResultItem> list) {
+        this.list = list;
+        notifyDataSetChanged();
     }
 
 
