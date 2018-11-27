@@ -1,5 +1,6 @@
 package com.spg.sgpco.profile;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -112,6 +113,12 @@ public class ProfileFragment extends BaseFragment {
         Log.e("onCreate", "are");
         return view;
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.e("onAttach", "omad");
     }
 
     @Override

@@ -58,7 +58,7 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
             String bodyValue = a.getString(R.styleable.CustomEditText_edtBody);
             String hint = a.getString(R.styleable.CustomEditText_hint);
             Boolean isRequired = a.getBoolean(R.styleable.CustomEditText_isRequired, false);
-            Drawable icon = a.getDrawable(R.styleable.CustomEditText_edtIcon);
+            int icon = a.getResourceId(R.styleable.CustomEditText_edtIcon, 0);
             if (a.hasValue(R.styleable.CustomEditText_inputType)) {
                 int value = a.getInt(R.styleable.CustomEditText_inputType, 0);
 
@@ -123,10 +123,10 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
         }
     }
 
-    private void setEdtIcon(Drawable icon) {
-        if (icon != null) {
+    private void setEdtIcon(int icon) {
+        if (icon > 0) {
             edtIcon.setVisibility(VISIBLE);
-            edtIcon.setBackground(icon);
+            edtIcon.setImageResource(icon);
         } else {
             edtIcon.setVisibility(GONE);
         }
