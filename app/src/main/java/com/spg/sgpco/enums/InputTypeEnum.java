@@ -47,10 +47,9 @@ public enum InputTypeEnum {
                 return InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE;
             case MOBILE:
             case PHONE:
-
                 return InputType.TYPE_CLASS_NUMBER;
             case PASSWORD:
-                return InputType.TYPE_CLASS_NUMBER;
+                return InputType.TYPE_NUMBER_VARIATION_PASSWORD | InputType.TYPE_CLASS_NUMBER;
             case CODEVERIFY:
                 return InputType.TYPE_CLASS_NUMBER;
             case NUMBER:

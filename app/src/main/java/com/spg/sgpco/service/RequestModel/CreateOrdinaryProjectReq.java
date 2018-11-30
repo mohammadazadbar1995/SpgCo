@@ -8,10 +8,14 @@ public class CreateOrdinaryProjectReq{
 	private String name;
 	private int customer_id;
 	private int city_id;
-	private String description;
+	private String content;
 
-	public void setDescription(String description) {
-		this.description = description;
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public int getProject_type_id() {

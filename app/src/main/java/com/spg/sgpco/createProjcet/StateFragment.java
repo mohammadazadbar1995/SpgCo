@@ -4,21 +4,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.spg.sgpco.R;
+import com.spg.sgpco.activity.BackPressedFragment;
 import com.spg.sgpco.baseView.BaseEditText;
+import com.spg.sgpco.baseView.BaseFragment;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.service.ResponseModel.ListCitiesItem;
-import com.spg.sgpco.service.ResponseModel.SettingResultItem;
 
 import java.util.ArrayList;
 
@@ -33,10 +35,11 @@ import static android.app.Activity.RESULT_OK;
  * Created by m.azadbar on 5/28/2018.
  */
 
-public class StateFragment extends Fragment implements StateAdapter.OnItemClickListener {
+public class StateFragment extends BaseFragment implements StateAdapter.OnItemClickListener, BackPressedFragment {
 
 
     public ArrayList<ListCitiesItem> stateLists;
+    public ArrayList<ListCitiesItem> stateListsFilter = new ArrayList<>();
     Unbinder unbinder;
     @BindView(R.id.tvCenterTitle)
     BaseTextView tvCenterTitle;
@@ -50,6 +53,7 @@ public class StateFragment extends Fragment implements StateAdapter.OnItemClickL
     RoundedLoadingView roundedLoadingView;
     @BindView(R.id.root)
     BaseRelativeLayout root;
+    private StateAdapter adapter;
 
 
     public StateFragment() {
@@ -62,14 +66,49 @@ public class StateFragment extends Fragment implements StateAdapter.OnItemClickL
         View view = inflater.inflate(R.layout.fragment_project_type, container, false);
         unbinder = ButterKnife.bind(this, view);
         tvCenterTitle.setText(getResources().getString(R.string.select_province));
+        edtSearchBar.setHint(getString(R.string.search_province));
 
         setAdapter();
+        searchInList();
         return view;
 
     }
 
+    private void searchInList() {
+        edtSearchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence == null || charSequence.toString().trim().isEmpty()) {
+                    stateListsFilter.clear();
+                    stateListsFilter.addAll(stateLists);
+                } else {
+                    stateListsFilter.clear();
+                    String searchText = charSequence.toString().trim();
+                    for (ListCitiesItem list :
+                            stateLists) {
+                        if (list.getState().contains(searchText)) {
+                            stateListsFilter.add(list);
+                        }
+                    }
+                }
+                adapter.setList(stateListsFilter);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
     private void setAdapter() {
-        StateAdapter adapter = new StateAdapter(getActivity(), stateLists, this);
+        adapter = new StateAdapter(stateLists, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recycle.setHasFixedSize(true);
         recycle.setLayoutManager(layoutManager);
@@ -86,9 +125,16 @@ public class StateFragment extends Fragment implements StateAdapter.OnItemClickL
 
 
     @Override
+    public void onPopBackStack() {
+        if (getActivity() != null) {
+            getActivity().getSupportFragmentManager().popBackStack();
+        }
+    }
+
+    @Override
     public void onItemClick(int position, ListCitiesItem state) {
         Intent intent = new Intent(getContext(), StateFragment.class);
-        intent.putExtra("State", stateLists.get(position));
+        intent.putExtra("State", state);
         if (getTargetFragment() != null) {
             getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK, intent);
         }

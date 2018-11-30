@@ -3,6 +3,8 @@
     package="com.spg.sgpco">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 
     <application
         android:name="com.spg.sgpco.controller.AppController"
@@ -63,6 +65,8 @@
 
         <service android:name=".utils.ResendActiveCodeService" />
 
+        <activity android:name=".profile.PreviewActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

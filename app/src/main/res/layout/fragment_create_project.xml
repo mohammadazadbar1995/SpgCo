@@ -2,13 +2,14 @@
 
 <com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
-    android:id="@+id/root"
-    android:background="@color/backColor"
     android:layout_centerHorizontal="true"
-    android:layout_centerVertical="true">
+    android:layout_centerVertical="true"
+    android:background="@color/backColor"
+    android:clickable="true">
 
 
     <include
@@ -31,10 +32,10 @@
                 android:id="@+id/edtName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_item_create"
+                android:background="@drawable/ripplewhite_no_radius"
                 app:edtIcon="@drawable/ic_person_gray"
                 app:hint="@string/enter_your_project_name"
                 app:inputType="NAME"
-                android:background="@drawable/ripplewhite_no_radius"
                 app:isRequired="true"
                 app:tvTitle="@string/name_text" />
 

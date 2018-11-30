@@ -23,8 +23,11 @@ import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
 import com.spg.sgpco.service.Request.RegisterService;
 import com.spg.sgpco.service.Request.ResponseListener;
+import com.spg.sgpco.service.Request.VerifyCodeService;
 import com.spg.sgpco.service.RequestModel.RegisterReq;
+import com.spg.sgpco.service.RequestModel.VerifyReq;
 import com.spg.sgpco.service.ResponseModel.LoginResponse;
+import com.spg.sgpco.service.ResponseModel.VerifyResponse;
 import com.spg.sgpco.utils.PreferencesData;
 import com.spg.sgpco.utils.ResendActiveCodeService;
 
@@ -49,6 +52,9 @@ public class VerifyCodeActivity extends BaseActivity {
     RoundedLoadingView roundedLoadingView;
     @BindView(R.id.tvCounter)
     BaseTextView tvCounter;
+    @BindView(R.id.btnRetyCodeVerification)
+    BaseTextView btnRetyCodeVerification;
+    private boolean inCountDown = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +85,11 @@ public class VerifyCodeActivity extends BaseActivity {
                 public void run() {
                     if (tvCounter.getText().toString().equals("1")) {
                         tvCounter.setText("0");
-                        btnVerify.setEnabled(true);
-                        tvCounter.setTextColor(Color.parseColor("#009688"));
-                        Toast.makeText(VerifyCodeActivity.this, "omad inja", Toast.LENGTH_SHORT).show();
+                        tvCounter.setTextColor(Color.parseColor("#E93A36"));
+                        inCountDown = true;
+                        btnRetyCodeVerification.setEnabled(true);
+                        btnRetyCodeVerification.setClickable(true);
+
                     }
                 }
             }, 1000);
@@ -94,15 +102,55 @@ public class VerifyCodeActivity extends BaseActivity {
         Log.i("", "Started service");
         this.registerReceiver(br, new IntentFilter(ResendActiveCodeService.COUNTDOWN_BR));
 
-        tvCounter.setTextColor(Color.parseColor("#b7afaf"));
-        btnVerify.setEnabled(false);
     }
 
-    @OnClick(R.id.btnVerify)
-    public void onViewClicked() {
-        if (isValidData()) {
-            sendRegisterInfo();
+    @OnClick({R.id.btnVerify, R.id.btnRetyCodeVerification})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btnVerify:
+                if (isValidData()) {
+                    sendRegisterInfo();
+                }
+                break;
+            case R.id.btnRetyCodeVerification:
+                if (inCountDown) {
+                    countDownService();
+                    retryCodeAgain();
+                    inCountDown = false;
+                } else {
+                    Toast.makeText(this, "لطفا شکیبا باشید", Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
+
+    }
+
+    private void retryCodeAgain() {
+        roundedLoadingView.setVisibility(View.VISIBLE);
+        enableDisableViewGroup(root, false);
+        VerifyReq req = new VerifyReq();
+        req.setForename(PreferencesData.getString(this, "foreName"));
+        req.setSurename(PreferencesData.getString(this, "sureName"));
+        req.setPassword(PreferencesData.getString(this, "password"));
+        req.setPhonenumber(PreferencesData.getString(this, "mobile"));
+
+        VerifyCodeService.getInstance().verifyCode(getResources(), req, new ResponseListener<VerifyResponse>() {
+            @Override
+            public void onGetErrore(String error) {
+                roundedLoadingView.setVisibility(View.GONE);
+                enableDisableViewGroup(root, true);
+                showErrorDialog(error, 0);
+            }
+
+            @Override
+            public void onSuccess(VerifyResponse response) {
+                roundedLoadingView.setVisibility(View.GONE);
+                enableDisableViewGroup(root, true);
+                if (response.isSuccess()) {
+                    Toast.makeText(VerifyCodeActivity.this, response.getResult(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
 

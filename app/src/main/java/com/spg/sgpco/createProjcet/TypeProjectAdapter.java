@@ -31,12 +31,10 @@ public class TypeProjectAdapter extends RecyclerView.Adapter<TypeProjectAdapter.
     private final OnItemClickListener listener;
     private ArrayList<SettingResultItem> list;
 
-    private Context context;
 
-    TypeProjectAdapter(Context context, ArrayList<SettingResultItem> list, OnItemClickListener listener) {
+    TypeProjectAdapter(ArrayList<SettingResultItem> list, OnItemClickListener listener) {
         this.list = list;
         this.listener = listener;
-        this.context = context;
     }
 
     @NonNull

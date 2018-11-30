@@ -3,10 +3,15 @@ package com.spg.sgpco.service.ResponseModel;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.spg.sgpco.service.RequestModel.ThermostaticSystemItem;
+
+import java.util.ArrayList;
+
 public class UpdateProjectResult implements Parcelable {
 	private String date;
 	private SettingResultItem project_type;
 	private OrdinarySystem ordinary_system;
+	private ArrayList<ThermostaticSystemItem> thermostatic_system;
 	private SettingResultItem heat_source;
 	private CitiesListItem city;
 	private SystemsItem systems_type;
@@ -15,6 +20,14 @@ public class UpdateProjectResult implements Parcelable {
 	private String title;
 	private CustomerItem customer;
 
+
+	public ArrayList<ThermostaticSystemItem> getThermostatic_system() {
+		return thermostatic_system;
+	}
+
+	public void setThermostatic_system(ArrayList<ThermostaticSystemItem> thermostatic_system) {
+		this.thermostatic_system = thermostatic_system;
+	}
 
 	public String getDate() {
 		return date;
@@ -107,6 +120,7 @@ public class UpdateProjectResult implements Parcelable {
 		dest.writeString(this.date);
 		dest.writeParcelable(this.project_type, flags);
 		dest.writeParcelable(this.ordinary_system, flags);
+		dest.writeList(this.thermostatic_system);
 		dest.writeParcelable(this.heat_source, flags);
 		dest.writeParcelable(this.city, flags);
 		dest.writeParcelable(this.systems_type, flags);
@@ -123,6 +137,8 @@ public class UpdateProjectResult implements Parcelable {
 		this.date = in.readString();
 		this.project_type = in.readParcelable(SettingResultItem.class.getClassLoader());
 		this.ordinary_system = in.readParcelable(OrdinarySystem.class.getClassLoader());
+		this.thermostatic_system = new ArrayList<ThermostaticSystemItem>();
+		in.readList(this.thermostatic_system, ThermostaticSystemItem.class.getClassLoader());
 		this.heat_source = in.readParcelable(SettingResultItem.class.getClassLoader());
 		this.city = in.readParcelable(CitiesListItem.class.getClassLoader());
 		this.systems_type = in.readParcelable(SystemsItem.class.getClassLoader());

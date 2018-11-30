@@ -9,11 +9,13 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.AppCompatImageView;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.spg.sgpco.R;
+import com.spg.sgpco.activity.MainActivity;
 import com.spg.sgpco.activity.MainActivitySecond;
 import com.spg.sgpco.baseView.BaseActivity;
 import com.spg.sgpco.baseView.BaseRelativeLayout;

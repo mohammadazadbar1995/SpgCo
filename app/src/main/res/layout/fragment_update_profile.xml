@@ -8,6 +8,7 @@
     android:layout_centerInParent="true"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
+    android:clickable="true"
     android:background="@color/backColor">
 
 
@@ -33,7 +34,7 @@
                 android:layout_height="96dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/margin_4"
-                android:src="@drawable/ic_mag_delta"
+                android:src="@drawable/user"
                 app:civ_border_color="@color/black"
                 app:civ_border_width="2dp" />
 

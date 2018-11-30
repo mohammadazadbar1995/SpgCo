@@ -2,7 +2,6 @@ package com.spg.sgpco.createProjcet;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.spg.sgpco.R;
+import com.spg.sgpco.baseView.BaseImageView;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.service.RequestModel.ThermostaticSystemItem;
@@ -28,13 +28,18 @@ public class TermostaticItemAdapter extends RecyclerView.Adapter<TermostaticItem
 
 
     private final ArrayList<ThermostaticSystemItem> list;
+    private final boolean isUpdate;
+
+    private OnItemClickListener listener;
 
 
     private Context context;
 
-    TermostaticItemAdapter(Context context, ArrayList<ThermostaticSystemItem> list) {
+    TermostaticItemAdapter(Context context, ArrayList<ThermostaticSystemItem> list, boolean isUpdate, OnItemClickListener listener) {
         this.list = list;
         this.context = context;
+        this.isUpdate = isUpdate;
+        this.listener = listener;
     }
 
     @NonNull
@@ -50,10 +55,16 @@ public class TermostaticItemAdapter extends RecyclerView.Adapter<TermostaticItem
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Resources res = holder.itemView.getResources();
         ThermostaticSystemItem object = list.get(position);
-        holder.tvTitle.setText(object.getFloor_type_title() + "_" + object.getType_of_space_title() + "_" + object.getMetr()
-                + "_" + object.getCold_area());
+        if (isUpdate) {
+            holder.tvTitle.setText(object.getFloor_type().getTitle() + "_" + object.getType_of_space() + "_" + object.getMetr()
+                    + "_" + object.getCold_area());
+        } else {
+            holder.tvTitle.setText(object.getFloor_type_title() + "_" + object.getType_of_space_title() + "_" + object.getMetr()
+                    + "_" + object.getCold_area());
+        }
+
+        holder.bind(position, object, listener);
 
     }
 
@@ -71,13 +82,21 @@ public class TermostaticItemAdapter extends RecyclerView.Adapter<TermostaticItem
         BaseRelativeLayout rlItem;
         @BindView(R.id.row)
         BaseRelativeLayout row;
+        @BindView(R.id.imgDelete)
+        BaseImageView imgDelete;
 
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
 
+        public void bind(int position, ThermostaticSystemItem item, final OnItemClickListener listener) {
+            imgDelete.setOnClickListener(v -> listener.onItemClick(position, item));
+        }
 
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position, ThermostaticSystemItem item);
+    }
 }

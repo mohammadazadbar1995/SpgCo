@@ -120,7 +120,6 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
             case R.id.tab_home:
                 tabIndex = 0;
                 homeFegment();
-                Toast.makeText(this, "injaii", Toast.LENGTH_SHORT).show();
                 isSelected = true;
                 break;
             case R.id.tab_create_project:
@@ -144,27 +143,16 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
     };
 
     private void profileFragment() {
-        Fragment fragmentByTag = getSupportFragmentManager().findFragmentByTag(ProfileFragment.class.getName());
-        if (fragmentByTag == null) {
-            loadFragment(new ProfileFragment(), ProfileFragment.class.getName(), true);
-        } else {
-            loadFragment(fragmentByTag, ProfileFragment.class.getName(), true);
-        }
+//        Fragment fragmentByTag = getSupportFragmentManager().findFragmentByTag(ProfileFragment.class.getName());
+//        if (fragmentByTag == null) {
+//            loadFragment(new ProfileFragment(), ProfileFragment.class.getName(), true);
+//        } else {
+//            loadFragment(fragmentByTag, ProfileFragment.class.getName(), true);
+//        }
+
+        loadFragment(new ProfileFragment(), ProfileFragment.class.getName());
     }
 
-
-    private void setFont() {
-        Menu m = navigation.getMenu();
-        for (int i = 0; i < m.size(); i++) {
-            applyFontToMenuItem(m.getItem(i), (i == tabIndex) ? fontSelected : fontNormal);
-        }
-    }
-
-    private void applyFontToMenuItem(MenuItem mi, Typeface font) {
-        SpannableString mNewTitle = new SpannableString(mi.getTitle());
-        mNewTitle.setSpan(new CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        mi.setTitle(mNewTitle);
-    }
 
     private void homeFegment() {
         Fragment fragmentByTag = getSupportFragmentManager().findFragmentByTag(HomeFragment.class.getName());
@@ -174,6 +162,32 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
             loadFragment(fragmentByTag, HomeFragment.class.getName(), true);
         }
     }
+
+
+    private void createProject() {
+//        Fragment fragmentByTag = getSupportFragmentManager().findFragmentByTag(CreateProjectFragment.class.getName());
+//
+//        if (fragmentByTag == null) {
+//            CreateProjectFragment cre = new CreateProjectFragment();
+//            cre.response = responseAllProject;
+//            loadFragment(cre, CreateProjectFragment.class.getName(), true);
+//        } else {
+//            loadFragment(fragmentByTag, CreateProjectFragment.class.getName(), true);
+//        }
+        loadFragment(new CreateProjectFragment(), CreateProjectFragment.class.getName());
+    }
+
+    private void addCustomer() {
+//        Fragment fragmentByTag = getSupportFragmentManager().findFragmentByTag(AddCustomerFragment.class.getName());
+//        if (fragmentByTag == null) {
+//            loadFragment(new AddCustomerFragment(), AddCustomerFragment.class.getName(), true);
+//        } else {
+//            loadFragment(fragmentByTag, AddCustomerFragment.class.getName(), true);
+//        }
+
+        loadFragment(new AddCustomerFragment(), AddCustomerFragment.class.getName());
+    }
+
 
     private void loadFragment(Fragment fragment, String fragmentTag, boolean hideOtherFragmnet) {
         FragmentManager fragMgr = getSupportFragmentManager();
@@ -193,6 +207,16 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
 
     }
 
+    public void loadFragment(Fragment fragment, String fragmentTag) {
+        FragmentManager fragMgr = getSupportFragmentManager();
+        FragmentTransaction fragTrans = fragMgr.beginTransaction();
+        fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+        fragTrans.addToBackStack(fragmentTag);
+        fragTrans.add(R.id.frameLayout, fragment, fragmentTag);
+        fragTrans.commit();
+
+    }
+
     private void hideOtherFragment(Fragment currentFragment) {
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             if (fragment != currentFragment)
@@ -200,27 +224,19 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
         }
     }
 
-    private void createProject() {
-        Fragment fragmentByTag = getSupportFragmentManager().findFragmentByTag(CreateProjectFragment.class.getName());
 
-        if (fragmentByTag == null) {
-            CreateProjectFragment cre = new CreateProjectFragment();
-            cre.response = responseAllProject;
-            loadFragment(cre, CreateProjectFragment.class.getName(), true);
-        } else {
-            loadFragment(fragmentByTag, CreateProjectFragment.class.getName(), true);
+    private void setFont() {
+        Menu m = navigation.getMenu();
+        for (int i = 0; i < m.size(); i++) {
+            applyFontToMenuItem(m.getItem(i), (i == tabIndex) ? fontSelected : fontNormal);
         }
     }
 
-    private void addCustomer() {
-        Fragment fragmentByTag = getSupportFragmentManager().findFragmentByTag(AddCustomerFragment.class.getName());
-        if (fragmentByTag == null) {
-            loadFragment(new AddCustomerFragment(), AddCustomerFragment.class.getName(), true);
-        } else {
-            loadFragment(fragmentByTag, AddCustomerFragment.class.getName(), true);
-        }
+    private void applyFontToMenuItem(MenuItem mi, Typeface font) {
+        SpannableString mNewTitle = new SpannableString(mi.getTitle());
+        mNewTitle.setSpan(new CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        mi.setTitle(mNewTitle);
     }
-
 
     @Override
     public void onBackPressed() {

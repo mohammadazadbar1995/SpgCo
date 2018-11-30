@@ -79,6 +79,9 @@ public class ShowContentFragment extends Fragment implements BackPressedFragment
         ShowContentService.getInstance().getShowContent(getResources(), new ResponseListener<ShowContentResponse>() {
             @Override
             public void onGetErrore(String error) {
+                if (rvShowContent == null){
+                    return;
+                }
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
                 showErrorDialog(error);
@@ -87,6 +90,9 @@ public class ShowContentFragment extends Fragment implements BackPressedFragment
 
             @Override
             public void onSuccess(ShowContentResponse response) {
+                if (rvShowContent == null){
+                    return;
+                }
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess() && response.getResult().size() > 0) {

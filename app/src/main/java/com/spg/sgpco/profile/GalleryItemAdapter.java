@@ -2,7 +2,6 @@ package com.spg.sgpco.profile;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,10 +28,12 @@ public class GalleryItemAdapter extends RecyclerView.Adapter<GalleryItemAdapter.
 
     private ArrayList<GalleryItemList> list;
     private Context context;
+    private final OnItemClickListener listener;
 
-    GalleryItemAdapter(Context context, ArrayList<GalleryItemList> list) {
+    GalleryItemAdapter(Context context, ArrayList<GalleryItemList> list, OnItemClickListener listener) {
         this.list = list;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
@@ -50,6 +51,7 @@ public class GalleryItemAdapter extends RecyclerView.Adapter<GalleryItemAdapter.
 
         GalleryItemList object = list.get(position);
         Glide.with(context).load(object.getImage()).placeholder(R.drawable.placeholder).centerCrop().into(holder.imageItem);
+        holder.bind(position, object, listener);
     }
 
     @Override
@@ -74,7 +76,12 @@ public class GalleryItemAdapter extends RecyclerView.Adapter<GalleryItemAdapter.
         }
 
 
+        public void bind(int position, GalleryItemList item, final OnItemClickListener listener) {
+            itemView.setOnClickListener(v -> listener.onItemClick(position, item));
+        }
     }
 
-
+    public interface OnItemClickListener {
+        void onItemClick(int position, GalleryItemList item);
+    }
 }

@@ -79,6 +79,9 @@ public class GalleryFragment extends Fragment implements BackPressedFragment, Ga
         GalleryService.getInstance().getGalleryList(getResources(), new ResponseListener<GalleryResponse>() {
             @Override
             public void onGetErrore(String error) {
+                if (rvShowContent == null){
+                    return;
+                }
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
                 showErrorDialog(error);
@@ -87,6 +90,9 @@ public class GalleryFragment extends Fragment implements BackPressedFragment, Ga
 
             @Override
             public void onSuccess(GalleryResponse response) {
+                if (rvShowContent == null){
+                    return;
+                }
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess() && response.getResult().size() > 0) {

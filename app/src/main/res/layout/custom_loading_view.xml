@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <com.spg.sgpco.baseView.BaseTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rlImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_4"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:padding="@dimen/inner_margin_content"
+        android:textColor="@color/secondryTextColor"
+        android:textSize="@dimen/text_size_2"
+        app:fontType="Medium" />
+
+    <com.spg.sgpco.baseView.BaseTextView
+        android:id="@+id/btnOk"
+        android:layout_width="130dp"
+        android:layout_height="32dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tvTitle"
+        android:layout_marginEnd="@dimen/margin_4"
+        android:layout_marginStart="@dimen/margin_4"
+        android:layout_marginTop="@dimen/margin_2"
+        android:background="@drawable/backgrand_strok_secendery_text"
+        android:gravity="center"
+        android:text="@string/retry_text"
+        android:textColor="@color/secondryTextColor"
+        android:textSize="@dimen/text_size_2"
+        android:visibility="gone"
+        app:fontType="Regular" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="@dimen/icon_24"
+        android:layout_height="@dimen/icon_24"
+        android:layout_below="@+id/tvTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_2"
+        android:visibility="visible" />
+
+</com.spg.sgpco.baseView.BaseRelativeLayout>

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.spg.sgpco.R;
+import com.spg.sgpco.activity.BackPressedFragment;
 import com.spg.sgpco.activity.HomeFragment;
 import com.spg.sgpco.activity.MainActivitySecond;
 import com.spg.sgpco.baseView.BaseFragment;
@@ -27,15 +28,15 @@ import com.spg.sgpco.customView.CustomNoReduisEditText;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
 import com.spg.sgpco.enums.TypeEnum;
-import com.spg.sgpco.service.Request.OrdinaryProjectService;
 import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.Request.ThermostaticProjectService;
-import com.spg.sgpco.service.RequestModel.CreateOrdinaryProjectReq;
+import com.spg.sgpco.service.Request.UpdateThermostaticProjectService;
 import com.spg.sgpco.service.RequestModel.CreateThermostaticReq;
-import com.spg.sgpco.service.RequestModel.OrdinarySystem;
 import com.spg.sgpco.service.RequestModel.ThermostaticSystemItem;
 import com.spg.sgpco.service.ResponseModel.CreateOrdinaryProjectResponse;
 import com.spg.sgpco.service.ResponseModel.SettingResultItem;
+import com.spg.sgpco.service.ResponseModel.SucessUpdateResponse;
+import com.spg.sgpco.service.ResponseModel.UpdateProjectResult;
 import com.spg.sgpco.utils.Constants;
 
 import java.util.ArrayList;
@@ -52,11 +53,12 @@ import static android.app.Activity.RESULT_OK;
  * Created by m.azadbar on 5/28/2018.
  */
 
-public class ThermostaticSystemFragment extends BaseFragment {
+public class ThermostaticSystemFragment extends BaseFragment implements BackPressedFragment, TermostaticItemAdapter.OnItemClickListener {
 
 
     public ArrayList<SettingResultItem> floorList;
     public ArrayList<SettingResultItem> typeSpace;
+    public boolean isUpdate;
     Unbinder unbinder;
     @BindView(R.id.tvCenterTitle)
     BaseTextView tvCenterTitle;
@@ -92,7 +94,9 @@ public class ThermostaticSystemFragment extends BaseFragment {
     private int systemsTypeId;
     private int heatSourceId;
     private String descreption;
-    private ThermostaticSystemItem items;
+    private ThermostaticSystemItem items = new ThermostaticSystemItem();
+    private UpdateProjectResult updateSystemsThermostatic;
+    private TermostaticItemAdapter adapter;
 
     public ThermostaticSystemFragment() {
     }
@@ -123,10 +127,29 @@ public class ThermostaticSystemFragment extends BaseFragment {
             systemsTypeId = b.getInt("systems_type_id");
             heatSourceId = b.getInt("heat_source_id");
             descreption = b.getString("description");
+            updateSystemsThermostatic = b.getParcelable("updateSystemsThermostatic");
+
+        }
+
+        if (isUpdate) {
+            setDataInView();
         }
 
         return view;
 
+    }
+
+    private void setDataInView() {
+
+        for (ThermostaticSystemItem ther :
+                updateSystemsThermostatic.getThermostatic_system()) {
+            items.setFloor_type_id(ther.getFloor_type_id());
+            items.setType_of_space_id(1);//TODO
+            items.setMetr(ther.getMetr());
+            items.setCold_area(ther.getCold_area());
+            thermostaticSystemItems.add(items);
+        }
+        setAdapter(updateSystemsThermostatic.getThermostatic_system(), true);
     }
 
 
@@ -156,32 +179,93 @@ public class ThermostaticSystemFragment extends BaseFragment {
                 break;
             case R.id.btnCreate:
                 if (isValideData()) {
-                    createOrdinaryProjectRequest();
+                    if (isUpdate) {
+                        updateSystemRequest();
+                    } else {
+                        createOrdinaryProjectRequest();
+                    }
                 }
                 break;
             case R.id.addThermostatic:
 
                 createThermostaticList();
+
                 break;
         }
 
     }
 
+    private void updateSystemRequest() {
+        roundedLoadingView.setVisibility(View.VISIBLE);
+        enableDisableViewGroup(root, false);
+
+        CreateThermostaticReq req = new CreateThermostaticReq();
+        req.setProject_id(updateSystemsThermostatic.getId());
+        req.setTitle(title);
+        req.setCustomer_id(customerId);
+        req.setCity_id(cityId);
+        req.setProject_type_id(projectTypeId);
+        req.setSystems_type_id(systemsTypeId);
+        req.setHeat_source_id(heatSourceId);
+        req.setContent(descreption);
+        req.setThermostatic_system(thermostaticSystemItems);
+
+        UpdateThermostaticProjectService.getInstance().updateThermostaticProject(getResources(), req, new ResponseListener<SucessUpdateResponse>() {
+            @Override
+            public void onGetErrore(String error) {
+                roundedLoadingView.setVisibility(View.GONE);
+                enableDisableViewGroup(root, true);
+                showErrorDialog(error, 0);
+            }
+
+            @Override
+            public void onSuccess(SucessUpdateResponse response) {
+                roundedLoadingView.setVisibility(View.GONE);
+                enableDisableViewGroup(root, true);
+                if (response.isSuccess()) {
+                    if (getActivity() != null) {
+                        HomeFragment homeFragment = new HomeFragment();
+                        FragmentManager fragMgr = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragTrans = fragMgr.beginTransaction();
+                        fragTrans.add(R.id.frameLayout, homeFragment, HomeFragment.class.getName());
+                        fragTrans.addToBackStack(HomeFragment.class.getName());
+                        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                        fragTrans.commit();
+                        Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                        if (getActivity() instanceof MainActivitySecond)
+                            ((MainActivitySecond) getActivity()).getNavigation().setSelectedItemId(R.id.tab_home);
+                    }
+                }
+            }
+        });
+
+    }
+
     private void createThermostaticList() {
-        items = new ThermostaticSystemItem();
-        items.setCold_area(edtColdArea.getValueInt());
-        items.setMetr(edtMetr.getValueInt());
-        items.setFloor_type_id(genderFloor.getId());
-        items.setType_of_space_id(typeSpaceItem.getId());
-        items.setFloor_type_title(genderFloor.getTitle());
-        items.setType_of_space_title(typeSpaceItem.getTitle());
-        thermostaticSystemItems.add(items);
-        setAdapter();
+        if (isValideData()) {
+            items = new ThermostaticSystemItem();
+            items.setCold_area(edtColdArea.getValueInt());
+            items.setMetr(edtMetr.getValueInt());
+            items.setFloor_type_id(genderFloor.getId());
+            items.setType_of_space_id(typeSpaceItem.getId());
+            items.setFloor_type_title(genderFloor.getTitle());
+            items.setType_of_space_title(typeSpaceItem.getTitle());
+            thermostaticSystemItems.add(items);
+            setAdapter(thermostaticSystemItems, false);
+            genderOfFloorLayout.reset();
+            genderOfFloorLayout.setHint(getString(R.string.gendar_of_floor));
+            typeOfSpaceLayout.reset();
+            typeOfSpaceLayout.setHint(getString(R.string.type_of_space));
+            edtMetr.setBody("");
+            edtColdArea.setBody("");
+        }
+
     }
 
 
-    private void setAdapter() {
-        TermostaticItemAdapter adapter = new TermostaticItemAdapter(getContext(), thermostaticSystemItems);
+    private void setAdapter(ArrayList<ThermostaticSystemItem> list, boolean isUpdate) {
+
+        adapter = new TermostaticItemAdapter(getContext(), list, isUpdate, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rvThermostatic.setHasFixedSize(true);
         rvThermostatic.setLayoutManager(layoutManager);
@@ -200,7 +284,7 @@ public class ThermostaticSystemFragment extends BaseFragment {
         req.setProject_type_id(projectTypeId);
         req.setSystems_type_id(systemsTypeId);
         req.setHeat_source_id(heatSourceId);
-        req.setDescription(descreption);
+        req.setContent(descreption);
         req.setThermostatic_system(thermostaticSystemItems);
 
         ThermostaticProjectService.getInstance().createThemostaticProject(getResources(), req, new ResponseListener<CreateOrdinaryProjectResponse>() {
@@ -208,7 +292,7 @@ public class ThermostaticSystemFragment extends BaseFragment {
             public void onGetErrore(String error) {
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
-                showErrorDialog(error);
+                showErrorDialog(error, 1);
             }
 
             @Override
@@ -311,13 +395,17 @@ public class ThermostaticSystemFragment extends BaseFragment {
         }
     }
 
-    public void showErrorDialog(String description) {
+    public void showErrorDialog(String description, int type) {
         if (getContext() != null) {
             CustomDialog customDialog = new CustomDialog(getContext());
             customDialog.setOkListener(getString(R.string.retry_text), view -> {
                 customDialog.dismiss();
                 roundedLoadingView.setVisibility(View.VISIBLE);
-                createOrdinaryProjectRequest();
+                if (type == 0) {
+                    updateSystemRequest();
+                } else if (type == 1) {
+                    createOrdinaryProjectRequest();
+                }
             });
             customDialog.setCancelListener(getString(R.string.cancel), view -> customDialog.dismiss());
             customDialog.setIcon(R.drawable.ic_error);
@@ -342,4 +430,17 @@ public class ThermostaticSystemFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onPopBackStack() {
+        if (getActivity() != null) {
+            getActivity().getSupportFragmentManager().popBackStack();
+        }
+    }
+
+    @Override
+    public void onItemClick(int position, ThermostaticSystemItem item) {
+        thermostaticSystemItems.remove(thermostaticSystemItems.get(position));
+        adapter.notifyDataSetChanged();
+
+    }
 }

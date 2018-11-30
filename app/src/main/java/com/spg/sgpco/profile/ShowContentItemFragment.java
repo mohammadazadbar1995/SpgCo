@@ -71,6 +71,9 @@ public class ShowContentItemFragment extends Fragment implements BackPressedFrag
         GetShowContentItemService.getInstance().getShowItemContent(getResources(), String.valueOf(showContentItem.getID()), new ResponseListener<GetShowItemResponse>() {
             @Override
             public void onGetErrore(String error) {
+                if (tvPost == null){
+                    return;
+                }
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
                 showErrorDialog(error);
@@ -78,6 +81,9 @@ public class ShowContentItemFragment extends Fragment implements BackPressedFrag
 
             @Override
             public void onSuccess(GetShowItemResponse response) {
+                if (tvPost == null){
+                    return;
+                }
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess() && response.getResult() != null) {

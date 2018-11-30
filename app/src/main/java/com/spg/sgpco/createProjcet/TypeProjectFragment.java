@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.spg.sgpco.R;
+import com.spg.sgpco.activity.BackPressedFragment;
 import com.spg.sgpco.baseView.BaseEditText;
+import com.spg.sgpco.baseView.BaseFragment;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.customView.RoundedLoadingView;
@@ -35,7 +36,7 @@ import static android.app.Activity.RESULT_OK;
  * Created by m.azadbar on 5/28/2018.
  */
 
-public class TypeProjectFragment extends Fragment implements TypeProjectAdapter.OnItemClickListener {
+public class TypeProjectFragment extends BaseFragment implements TypeProjectAdapter.OnItemClickListener, BackPressedFragment {
 
 
     public ArrayList<SettingResultItem> listTypeProjects;
@@ -67,7 +68,16 @@ public class TypeProjectFragment extends Fragment implements TypeProjectAdapter.
         View view = inflater.inflate(R.layout.fragment_project_type, container, false);
         unbinder = ButterKnife.bind(this, view);
         tvCenterTitle.setText(getResources().getString(R.string.select_type_name_projects));
-        edtSearchBar.setHint("تست");
+        if (typeEnum == TypeEnum.TYPE_PROJECT){
+            edtSearchBar.setHint(getString(R.string.search_type_project));
+        }else if (typeEnum == TypeEnum.HEAT_SOURCE){
+            edtSearchBar.setHint(getString(R.string.search_heat_source));
+        }else if (typeEnum == TypeEnum.GENDER_FLOOR){
+            edtSearchBar.setHint(getString(R.string.search_gender_floor));
+        }else if (typeEnum == TypeEnum.TYPE_SPACE){
+            edtSearchBar.setHint(getString(R.string.search_type_space));
+        }
+
         setAdapter();
         searchInList();
         return view;
@@ -108,7 +118,7 @@ public class TypeProjectFragment extends Fragment implements TypeProjectAdapter.
     }
 
     private void setAdapter() {
-        adapter = new TypeProjectAdapter(getActivity(), listTypeProjects, this);
+        adapter = new TypeProjectAdapter(listTypeProjects, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recycle.setHasFixedSize(true);
         recycle.setLayoutManager(layoutManager);
@@ -128,13 +138,13 @@ public class TypeProjectFragment extends Fragment implements TypeProjectAdapter.
     public void onItemClick(int position, SettingResultItem typeProject) {
         Intent intent = new Intent(getContext(), TypeProjectFragment.class);
         if (typeEnum == TypeEnum.TYPE_PROJECT) {
-            intent.putExtra("TypeProject", listTypeProjects.get(position));
+            intent.putExtra("TypeProject", typeProject);
         } else if (typeEnum == TypeEnum.HEAT_SOURCE) {
-            intent.putExtra("HeatSource", listTypeProjects.get(position));
+            intent.putExtra("HeatSource", typeProject);
         } else if (typeEnum == TypeEnum.GENDER_FLOOR) {
-            intent.putExtra("Gender_Project", listTypeProjects.get(position));
+            intent.putExtra("Gender_Project", typeProject);
         } else if (typeEnum == TypeEnum.TYPE_SPACE) {
-            intent.putExtra("TYPE_SPACE", listTypeProjects.get(position));
+            intent.putExtra("TYPE_SPACE", typeProject);
         }
 
         if (getTargetFragment() != null) {
@@ -142,6 +152,13 @@ public class TypeProjectFragment extends Fragment implements TypeProjectAdapter.
         }
         if (getFragmentManager() != null) {
             getFragmentManager().popBackStack();
+        }
+    }
+
+    @Override
+    public void onPopBackStack() {
+        if (getActivity() != null) {
+            getActivity().getSupportFragmentManager().popBackStack();
         }
     }
 }

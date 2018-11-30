@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.spg.sgpco.R;
+import com.spg.sgpco.activity.BackPressedFragment;
 import com.spg.sgpco.activity.HomeFragment;
 import com.spg.sgpco.activity.MainActivitySecond;
 import com.spg.sgpco.baseView.BaseFragment;
@@ -50,7 +51,7 @@ import static android.app.Activity.RESULT_OK;
  * Created by m.azadbar on 5/28/2018.
  */
 
-public class OrdinarySystemFragment extends BaseFragment {
+public class OrdinarySystemFragment extends BaseFragment implements BackPressedFragment {
 
 
     public ArrayList<SettingResultItem> floorList;
@@ -157,6 +158,7 @@ public class OrdinarySystemFragment extends BaseFragment {
 
     }
 
+
     private void updateSystemRequest() {
         roundedLoadingView.setVisibility(View.VISIBLE);
         enableDisableViewGroup(root, false);
@@ -167,6 +169,14 @@ public class OrdinarySystemFragment extends BaseFragment {
         req.setCustomer_id(customerId);
         req.setCity_id(cityId);
         req.setProject_type_id(projectTypeId);
+        req.setSystems_type_id(systemsTypeId);
+        req.setHeat_source_id(heatSourceId);
+        req.setContent(descreption);
+        OrdinarySystem ordinarySystem = new OrdinarySystem();
+        ordinarySystem.setMetr(edtMetr.getValueInt());
+        ordinarySystem.setCold_area(edtColdArea.getValueInt());
+        ordinarySystem.setFloor_type_id(genderFloor.getId());
+        req.setOrdinary_system(ordinarySystem);
         UpdateOrdinaryProjectService.getInstance().updateOrdinaryProject(getResources(), req, new ResponseListener<SucessUpdateResponse>() {
             @Override
             public void onGetErrore(String error) {
@@ -208,7 +218,7 @@ public class OrdinarySystemFragment extends BaseFragment {
         req.setProject_type_id(projectTypeId);
         req.setSystems_type_id(systemsTypeId);
         req.setHeat_source_id(heatSourceId);
-        req.setDescription(descreption);
+        req.setContent(descreption);
         OrdinarySystem ordinarySystem = new OrdinarySystem();
         ordinarySystem.setMetr(edtMetr.getValueInt());
         ordinarySystem.setCold_area(edtColdArea.getValueInt());
@@ -332,6 +342,13 @@ public class OrdinarySystemFragment extends BaseFragment {
             if (view instanceof ViewGroup) {
                 enableDisableViewGroup((ViewGroup) view, enabled);
             }
+        }
+    }
+
+    @Override
+    public void onPopBackStack() {
+        if (getActivity() != null) {
+            getActivity().getSupportFragmentManager().popBackStack();
         }
     }
 }

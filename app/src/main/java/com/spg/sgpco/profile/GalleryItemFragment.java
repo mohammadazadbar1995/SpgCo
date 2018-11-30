@@ -1,5 +1,6 @@
 package com.spg.sgpco.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,7 +36,7 @@ import butterknife.Unbinder;
  * Created by m.azadbar on 5/28/2018.
  */
 
-public class GalleryItemFragment extends Fragment implements BackPressedFragment {
+public class GalleryItemFragment extends Fragment implements BackPressedFragment, GalleryItemAdapter.OnItemClickListener {
 
 
     Unbinder unbinder;
@@ -88,6 +89,9 @@ public class GalleryItemFragment extends Fragment implements BackPressedFragment
         GalleryItemService.getInstance().getGalleryItem(getResources(), String.valueOf(galleryItem.getId()), new ResponseListener<GalleryItemResponse>() {
             @Override
             public void onGetErrore(String error) {
+                if (rvShowContent == null) {
+                    return;
+                }
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
                 showErrorDialog(error);
@@ -95,6 +99,9 @@ public class GalleryItemFragment extends Fragment implements BackPressedFragment
 
             @Override
             public void onSuccess(GalleryItemResponse response) {
+                if (rvShowContent == null) {
+                    return;
+                }
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess() && response.getResult() != null) {
@@ -107,7 +114,7 @@ public class GalleryItemFragment extends Fragment implements BackPressedFragment
 
     private void setAdapter(ArrayList<GalleryItemList> gallery) {
         if (adapter == null) {
-            adapter = new GalleryItemAdapter(getActivity(), gallery);
+            adapter = new GalleryItemAdapter(getActivity(), gallery, this);
             rvShowContent.setAdapter(adapter);
         } else {
             adapter.notifyDataSetChanged();
@@ -163,4 +170,10 @@ public class GalleryItemFragment extends Fragment implements BackPressedFragment
         }
     }
 
+    @Override
+    public void onItemClick(int position, GalleryItemList item) {
+        Intent intent = new Intent(getActivity(), PreviewActivity.class);
+        intent.putExtra("image", item.getImage());
+        startActivity(intent);
+    }
 }

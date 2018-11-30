@@ -49,7 +49,7 @@
                 app:hint="@string/enter_metr"
                 android:background="@drawable/ripplewhite_no_radius"
                 app:isRequired="true"
-                app:inputType="CODEVERIFY"
+                app:inputType="PHONE"
                 app:tvTitle="متراژ مفید" />
 
             <View
@@ -67,7 +67,7 @@
                 android:background="@drawable/ripplewhite_no_radius"
                 app:edtIcon="@drawable/ic_person_gray"
                 app:hint="@string/enter_cold_area"
-                app:inputType="CODEVERIFY"
+                app:inputType="PHONE"
                 app:isRequired="true"
                 app:tvTitle="متراژ سرد" />
 

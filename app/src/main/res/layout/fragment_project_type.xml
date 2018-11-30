@@ -7,6 +7,7 @@
     android:layout_centerInParent="true"
     android:background="@color/backColor"
     android:layout_centerHorizontal="true"
+    android:clickable="true"
     android:layout_centerVertical="true">
 
 

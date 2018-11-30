@@ -1,13 +1,19 @@
 package com.spg.sgpco.forgetPassword;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.AppCompatImageView;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.spg.sgpco.R;
-import com.spg.sgpco.activity.MainActivity;
 import com.spg.sgpco.activity.MainActivitySecond;
 import com.spg.sgpco.baseView.BaseActivity;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
@@ -15,13 +21,15 @@ import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.customView.CustomEditText;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
-import com.spg.sgpco.login.LoginActivity;
 import com.spg.sgpco.service.Request.EnterCodePasswordService;
+import com.spg.sgpco.service.Request.ForgetPasswordService;
 import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.RequestModel.ForgetPassReq;
 import com.spg.sgpco.service.RequestModel.LoginWithCodeForgetPassReq;
 import com.spg.sgpco.service.ResponseModel.LoginResponse;
+import com.spg.sgpco.service.ResponseModel.VerifyResponse;
 import com.spg.sgpco.utils.PreferencesData;
+import com.spg.sgpco.utils.ResendActiveCodeService;
 
 import java.util.ArrayList;
 
@@ -42,8 +50,13 @@ public class EnterCodeForgetPassActivity extends BaseActivity {
     RoundedLoadingView roundedLoadingView;
     @BindView(R.id.root)
     BaseRelativeLayout root;
+    @BindView(R.id.btnRetyCodeVerification)
+    BaseTextView btnRetyCodeVerification;
+    @BindView(R.id.tvCounter)
+    BaseTextView tvCounter;
     private LoginWithCodeForgetPassReq req;
     private ForgetPassReq forgetPassReq;
+    private boolean inCountDown = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +67,47 @@ public class EnterCodeForgetPassActivity extends BaseActivity {
         Intent intent = getIntent();
         forgetPassReq = intent.getParcelableExtra("phoneNumber");
         Glide.with(this).load(R.drawable.background).into(image);
+        countDownService();
     }
 
+
+    private BroadcastReceiver br = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateGUI(intent); // or whatever method used to update your GUI fields
+
+        }
+    };
+
+    private void updateGUI(Intent intent) {
+        if (intent.getExtras() != null) {
+            long millisUntilFinished = intent.getLongExtra("countdown", 0);
+            Log.i("", "Countdown seconds remaining in GUI: " + millisUntilFinished / 1000);
+            tvCounter.setText(millisUntilFinished / 1000 + "");
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (tvCounter.getText().toString().equals("1")) {
+                        tvCounter.setText("0");
+                        tvCounter.setTextColor(Color.parseColor("#E93A36"));
+                        inCountDown = true;
+                        btnRetyCodeVerification.setEnabled(true);
+                        btnRetyCodeVerification.setClickable(true);
+
+                    }
+                }
+            }, 1000);
+
+        }
+    }
+
+    private void countDownService() {
+        this.startService(new Intent(this, ResendActiveCodeService.class));
+        Log.i("", "Started service");
+        this.registerReceiver(br, new IntentFilter(ResendActiveCodeService.COUNTDOWN_BR));
+
+    }
 
     private void enterCodePasss() {
         roundedLoadingView.setVisibility(View.VISIBLE);
@@ -83,19 +135,61 @@ public class EnterCodeForgetPassActivity extends BaseActivity {
                     enterCode.putExtra("login", response.getResult());
                     startActivity(enterCode);
                     finish();
+                }
+            }
+        });
+    }
+
+    @OnClick({R.id.btnLogin, R.id.btnRetyCodeVerification})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btnLogin:
+                if (isValidData()) {
+                    enterCodePasss();
+                }
+                break;
+            case R.id.btnRetyCodeVerification:
+                if (inCountDown) {
+                    countDownService();
+                    retryCodeAgain();
+                    inCountDown = false;
+                } else {
+                    Toast.makeText(this, "لطفا شکیبا باشید", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+
+
+    }
+
+    private void retryCodeAgain() {
+        roundedLoadingView.setVisibility(View.VISIBLE);
+        enableDisableViewGroup(root, false);
+
+        ForgetPassReq req = new ForgetPassReq();
+        req.setPhonenumber(forgetPassReq.getPhonenumber());
+        ForgetPasswordService.getInstance().forgetPassword(getResources(), req, new ResponseListener<VerifyResponse>() {
+            @Override
+            public void onGetErrore(String error) {
+                roundedLoadingView.setVisibility(View.GONE);
+                enableDisableViewGroup(root, true);
+                showErrorDialog(error, 0);
+            }
+
+            @Override
+            public void onSuccess(VerifyResponse response) {
+
+                roundedLoadingView.setVisibility(View.GONE);
+                enableDisableViewGroup(root, true);
+                if (response.isSuccess()) {
+                    Toast.makeText(EnterCodeForgetPassActivity.this, response.getResult(), Toast.LENGTH_LONG).show();
+
 
                 }
             }
         });
     }
 
-    @OnClick(R.id.btnLogin)
-    public void onViewClicked() {
-        if (isValidData()) {
-            enterCodePasss();
-        }
-
-    }
     private boolean isValidData() {
 
         ArrayList<String> errorMsgList = new ArrayList<>();
@@ -130,7 +224,6 @@ public class EnterCodeForgetPassActivity extends BaseActivity {
         customDialog.show();
 
     }
-
 
 
 }

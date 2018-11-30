@@ -1,7 +1,6 @@
 package com.spg.sgpco.createProjcet;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,11 +10,9 @@ import android.view.ViewGroup;
 import com.spg.sgpco.R;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
-import com.spg.sgpco.service.ResponseModel.CitiesListItem;
 import com.spg.sgpco.service.ResponseModel.SystemsItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,15 +25,13 @@ import butterknife.ButterKnife;
 public class TypeOfCotrolSystemsAdapter extends RecyclerView.Adapter<TypeOfCotrolSystemsAdapter.ViewHolder> {
 
 
-    private final OnItemClickListener listener;
-    private final ArrayList<SystemsItem> list;
+    private OnItemClickListener listener;
+    private ArrayList<SystemsItem> list;
 
-    private Context context;
 
-    TypeOfCotrolSystemsAdapter(Context context, ArrayList<SystemsItem> list, OnItemClickListener listener) {
+    TypeOfCotrolSystemsAdapter(ArrayList<SystemsItem> list, OnItemClickListener listener) {
         this.list = list;
         this.listener = listener;
-        this.context = context;
     }
 
     @NonNull
@@ -60,6 +55,11 @@ public class TypeOfCotrolSystemsAdapter extends RecyclerView.Adapter<TypeOfCotro
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void setList(ArrayList<SystemsItem> list) {
+        this.list = list;
+        notifyDataSetChanged();
     }
 
 

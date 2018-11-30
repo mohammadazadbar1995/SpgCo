@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
     android:id="@+id/root"
+    android:clickable="true"
     android:background="@color/backColor"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true">

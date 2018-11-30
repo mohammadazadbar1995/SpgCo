@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,6 @@ public class GetListProjectAdapter extends RecyclerView.Adapter<GetListProjectAd
     private final ArrayList<ProjectListResultItem> list;
 
 
-
     private Context context;
 
     GetListProjectAdapter(Context context, ArrayList<ProjectListResultItem> list, OnItemClickListener listener) {
@@ -55,11 +55,35 @@ public class GetListProjectAdapter extends RecyclerView.Adapter<GetListProjectAd
 
         Resources res = holder.itemView.getResources();
         ProjectListResultItem object = list.get(position);
-        holder.tvTitle.setText(object.getId() + " " + object.getName());
-        holder.tvCustomer.setText(res.getString(R.string.customer) + ": " + object.getCustomer());
-        holder.tvSystem.setText(res.getString(R.string.systems) + ": " + object.getSystems_type());
-        holder.tvCity.setText(res.getString(R.string.city) + ": " + object.getCity());
-        holder.tvDescription.setText(res.getString(R.string.description_text) + ": " + object.getDescription());
+        if (!TextUtils.isEmpty(object.getName())) {
+            holder.tvTitle.setText(object.getId() + " " + object.getName());
+        } else {
+            holder.tvTitle.setText(object.getId() + " ");
+
+        }
+        if (!TextUtils.isEmpty(object.getCustomer())) {
+            holder.tvCustomer.setText(res.getString(R.string.customer) + ": " + object.getCustomer());
+        } else {
+            holder.tvCustomer.setText(res.getString(R.string.customer) + ": " + res.getString(R.string.unknown));
+        }
+        if (!TextUtils.isEmpty(object.getSystems_type())) {
+            holder.tvSystem.setText(res.getString(R.string.systems) + ": " + object.getSystems_type());
+        } else {
+            holder.tvSystem.setText(res.getString(R.string.systems) + ": " + res.getString(R.string.unknown));
+        }
+        if (!TextUtils.isEmpty(object.getCity())) {
+            holder.tvCity.setText(res.getString(R.string.city) + ": " + object.getCity());
+        } else {
+            holder.tvCity.setText(res.getString(R.string.city) + ": " + res.getString(R.string.unknown));
+        }
+
+        if (!TextUtils.isEmpty(object.getDescription())) {
+            holder.tvDescription.setVisibility(View.VISIBLE);
+            holder.tvDescription.setText(res.getString(R.string.description_text) + ": " + object.getDescription());
+        } else {
+            holder.tvDescription.setVisibility(View.GONE);
+        }
+
         holder.bind(position, object, listener);
     }
 

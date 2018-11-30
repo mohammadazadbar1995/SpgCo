@@ -1,6 +1,9 @@
 package com.spg.sgpco.profile;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.activity.BackPressedFragment;
@@ -93,7 +97,7 @@ public class ContactUsFragment extends Fragment implements BackPressedFragment {
         }
     }
 
-    @OnClick({R.id.email, R.id.instagram, R.id.tellphone})
+    @OnClick({R.id.email, R.id.instagram, R.id.tellphone, R.id.tvEmail})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.email:
@@ -102,8 +106,24 @@ public class ContactUsFragment extends Fragment implements BackPressedFragment {
                 break;
             case R.id.tellphone:
                 break;
+            case R.id.tvEmail:
+                sendEmail();
+                break;
         }
     }
+
+    private void sendEmail() {
+        try {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.support_email_delta)});
+            intent.putExtra(Intent.EXTRA_SUBJECT, "App feedback");
+            startActivity(intent);
+        } catch (ActivityNotFoundException ex) {
+            Toast.makeText(getActivity(), "There are no email client installed on your device.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     @Override
     public void onPopBackStack() {

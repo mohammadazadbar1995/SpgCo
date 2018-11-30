@@ -28,15 +28,13 @@ import butterknife.ButterKnife;
 public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
 
-    private final OnItemClickListener listener;
-    private final ArrayList<CitiesListItem> list;
+    private  OnItemClickListener listener;
+    private  ArrayList<CitiesListItem> list;
 
-    private Context context;
 
-    CityAdapter(Context context, ArrayList<CitiesListItem> list, OnItemClickListener listener) {
+    CityAdapter( ArrayList<CitiesListItem> list, OnItemClickListener listener) {
         this.list = list;
         this.listener = listener;
-        this.context = context;
     }
 
     @NonNull
@@ -60,6 +58,11 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void setList(ArrayList<CitiesListItem> list) {
+        this.list = list;
+        notifyDataSetChanged();
     }
 
 

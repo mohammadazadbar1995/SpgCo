@@ -107,5 +107,20 @@
     <string name="select_type_space">نوع فضا را انتخاب کنید</string>
     <string name="remainingـtime">زمان باقی مانده: </string>
     <string name="second">ثانیه</string>
+    <string name="retry_code_verify">برای ارسال مجدد کد کلیک نمایید</string>
+    <string name="email">ایمیل : info@sgpmojiri.ir</string>
+    <string name="phoneNumber">شماره تماس</string>
+    <string name="support_email_delta">info@sgpmojiri.ir</string>
+    <string name="search_type_project">نوع پروژه را جستجو کنید</string>
+    <string name="search_heat_source">منبع حرارتی را جستجو کنید</string>
+    <string name="search_province">استان خود را جستجو کنید</string>
+    <string name="search_control_system">نوع کنترل سیستم را جستجو کنید</string>
+    <string name="search_city">شهر خود را جستجو کنید</string>
+    <string name="search_gender_floor">جنس کف خود را جستجو کنید</string>
+    <string name="search_type_space">نوع فضا خود را جستجو کنید</string>
+    <string name="unknown">نامشخص</string>
+    <string name="receiving_information">در حال دریافت اطلاعات</string>
+    <string name="connection_network">دستگاه خود را به اینترنت متصل کنید</string>
+    <string name="first_select_state">ابتدا استان خود را انتخاب کنید</string>
 
 </resources>

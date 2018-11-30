@@ -50,11 +50,11 @@ public class ServerTransaction {
             }
 
             public void onFailure(@NonNull Call<JsonObject> call, Throwable t) {
-                if (BuildConfig.DEBUG && !TextUtils.isEmpty(t.getMessage())) {
-                    serverListener.onFailure(t.getMessage());
-                } else {
-                    serverListener.onFailure(res.getString(R.string.communicationError));
-                }
+//                if (BuildConfig.DEBUG && !TextUtils.isEmpty(t.getMessage())) {
+//                    serverListener.onFailure(t.getMessage());
+//                } else {
+                    serverListener.onFailure(res.getString(R.string.connection_network));
+//                }
             }
         });
     }

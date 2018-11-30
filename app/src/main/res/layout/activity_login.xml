@@ -77,6 +77,8 @@
                     android:focusableInTouchMode="false"
                     app:edtIcon="@drawable/ic_lock_gray"
                     app:hint="@string/password_hint"
+                    android:gravity="right"
+
                     app:inputType="PASSWORD"
                     app:isRequired="true"
                     app:tvTitle="@string/password_text" />

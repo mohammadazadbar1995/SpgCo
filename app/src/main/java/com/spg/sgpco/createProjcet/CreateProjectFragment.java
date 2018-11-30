@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.activity.MainActivitySecond;
@@ -134,7 +135,6 @@ public class CreateProjectFragment extends BaseFragment {
         systemControlTypeLayout.setTxtTitle("");
         systemControlTypeLayout.setHint(getString(R.string.system_control_type));
 
-        cityLayout.setEnabled(false);
         btnCreate.setText(getString(R.string.next_page));
         btnCreate.setVisibility(View.GONE);
 
@@ -150,7 +150,6 @@ public class CreateProjectFragment extends BaseFragment {
         } else {
 
         }
-
 
         return view;
 
@@ -189,12 +188,14 @@ public class CreateProjectFragment extends BaseFragment {
         systemsItems = response.getResult().getSystems_type();
 
         btnCreate.setVisibility(View.VISIBLE);
+        systemControlTypeLayout.setEnabled(false);
+        systemControlTypeLayout.setClickable(false);
         edtName.setBody(response.getResult().getTitle());
         typeProjectLayout.setValue(response.getResult().getProject_type().getTitle());
         cityLayout.setValue(response.getResult().getCity().getCity());
         addCustomerLayout.setValue(response.getResult().getCustomer().getName());
         heatSourceLayout.setValue(response.getResult().getHeat_source().getTitle());
-        controlOfSystem = response.getResult().getHeat_source().getId();
+        controlOfSystem = response.getResult().getSystems_type().getId();
         systemControlTypeLayout.setValue(response.getResult().getSystems_type().getTitle());
         edtBugReport.setBody(response.getResult().getDescription());
     }
@@ -225,16 +226,21 @@ public class CreateProjectFragment extends BaseFragment {
                     stateFragment.setTargetFragment(this, Constants.STATE_CODE);
                     stateFragment.stateLists = response.getResult().getList_cities();
                     loadFragment(stateFragment, StateFragment.class.getName());
-                    cityLayout.setEnabled(true);
+
                 }
                 break;
             case R.id.city_layout:
-                if (listStates.getCities_list() != null && listStates.getCities_list().size() > 0) {
-                    CityFragment cityFragment = new CityFragment();
-                    cityFragment.setTargetFragment(this, Constants.CITY_CODE);
-                    cityFragment.citiesItems = listStates.getCities_list();
-                    loadFragment(cityFragment, CityFragment.class.getName());
+                if (listStates != null){
+                    if (listStates.getCities_list() != null && listStates.getCities_list().size() > 0) {
+                        CityFragment cityFragment = new CityFragment();
+                        cityFragment.setTargetFragment(this, Constants.CITY_CODE);
+                        cityFragment.citiesItems = listStates.getCities_list();
+                        loadFragment(cityFragment, CityFragment.class.getName());
+                    }
+                }else {
+                    Toast.makeText(getActivity(), getString(R.string.first_select_state), Toast.LENGTH_SHORT).show();
                 }
+
                 break;
             case R.id.add_customer_layout:
                 AddCustomerFragment addCustomerFragment = new AddCustomerFragment();
@@ -275,13 +281,16 @@ public class CreateProjectFragment extends BaseFragment {
                         bundle.putInt("systems_type_id", systemsItems.getId());
                         bundle.putInt("heat_source_id", heatSource.getId());
                         bundle.putString("description", edtBugReport.getValue());
-                        bundle.putParcelable("updateSystemsOrdinary", updateResponse.getResult());
+                        if (isUpdate) {
+                            bundle.putParcelable("updateSystemsOrdinary", updateResponse.getResult());
+                        }
                         ordinarySystemFragment.setArguments(bundle);
                         loadFragment(ordinarySystemFragment, OrdinarySystemFragment.class.getName());
                     } else if (controlOfSystem == ControlSystemEnum.THERMOSTATIC_SYSTEM.getMethodCode()) {
                         ThermostaticSystemFragment thermostaticSystemFragment = new ThermostaticSystemFragment();
                         thermostaticSystemFragment.floorList = response.getResult().getList_floor();
                         thermostaticSystemFragment.typeSpace = response.getResult().getType_of_space();
+                        thermostaticSystemFragment.isUpdate = isUpdate;
                         Bundle bundle = new Bundle();
                         bundle.putString("title", edtName.getValueString());
                         bundle.putInt("customer_id", customerItem.getId());
@@ -290,6 +299,9 @@ public class CreateProjectFragment extends BaseFragment {
                         bundle.putInt("systems_type_id", systemsItems.getId());
                         bundle.putInt("heat_source_id", heatSource.getId());
                         bundle.putString("description", edtBugReport.getValue());
+                        if (isUpdate) {
+                            bundle.putParcelable("updateSystemsThermostatic", updateResponse.getResult());
+                        }
                         thermostaticSystemFragment.setArguments(bundle);
                         loadFragment(thermostaticSystemFragment, ThermostaticSystemFragment.class.getName());
                     }
@@ -306,17 +318,12 @@ public class CreateProjectFragment extends BaseFragment {
             errorMsgList.add(message);
         }
 
-        if (listProjectTypes == null ) {
+        if (listProjectTypes == null) {
             String message = getResources().getString(R.string.select_type_name_project);
             typeProjectLayout.setError(message);
             errorMsgList.add(message);
         }
 
-        if (listStates == null) {
-            String message = getResources().getString(R.string.select_your_state);
-            provinceLayout.setError(message);
-            errorMsgList.add(message);
-        }
 
         if (listCities == null) {
             String message = getResources().getString(R.string.select_your_city);
@@ -353,9 +360,9 @@ public class CreateProjectFragment extends BaseFragment {
         if (getActivity() != null) {
             FragmentManager fragMgr = getActivity().getSupportFragmentManager();
             FragmentTransaction fragTrans = fragMgr.beginTransaction();
+            fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
             fragTrans.addToBackStack(fragmentTag);
             fragTrans.add(R.id.frameLayout, fragment, fragmentTag);
-            fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             fragTrans.commit();
         }
     }
@@ -422,6 +429,7 @@ public class CreateProjectFragment extends BaseFragment {
         listStates = state;
         if (listStates != null) {
             provinceLayout.setValue(listStates.getState());
+            cityLayout.setEnabled(true);
         } else {
             typeProjectLayout.reset();
         }

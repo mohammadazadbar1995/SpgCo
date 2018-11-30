@@ -92,6 +92,9 @@ public interface ReqInterface {
     @PATCH("project/update")
     Call<JsonObject> updateOrdinaryProject(@Body UpdateOrdinaryProjectReq req);
 
+    @PATCH("project/update")
+    Call<JsonObject> updateThermostaticProject(@Body CreateThermostaticReq req);
+
 //    @POST("v2/home/GetNewVersion")
 //    Call<JsonObject> VersionControl(@Body ForceUpdateReq req);
 

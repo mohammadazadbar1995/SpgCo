@@ -8,6 +8,7 @@
     android:layout_centerInParent="true"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
+    android:clickable="true"
     android:background="@color/backColor">
 
 
@@ -94,7 +95,7 @@
                         android:id="@+id/email"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        app:srcCompat="@drawable/sample" />
+                        />
 
 
                     <com.spg.sgpco.baseView.BaseImageView
@@ -102,14 +103,14 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_marginStart="@dimen/margin_3"
-                        app:srcCompat="@drawable/sample" />
+                        />
 
                     <com.spg.sgpco.baseView.BaseImageView
                         android:id="@+id/tellphone"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_marginStart="@dimen/margin_3"
-                        app:srcCompat="@drawable/sample" />
+                        />
 
                 </com.spg.sgpco.baseView.BaseLinearLayout>
 
@@ -127,6 +128,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/margin_3"
+                    android:text="@string/phoneNumber"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="@dimen/text_size_3"
                     app:fontType="Regular" />
@@ -139,7 +141,8 @@
                     android:layout_marginTop="@dimen/margin_2"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="@dimen/text_size_3"
-                    app:fontType="Regular" />
+                    android:text="@string/email"
+                    app:fontType="Medium" />
 
 
             </LinearLayout>

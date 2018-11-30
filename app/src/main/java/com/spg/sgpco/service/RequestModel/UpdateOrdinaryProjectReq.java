@@ -6,6 +6,43 @@ public class UpdateOrdinaryProjectReq {
 	private int customer_id;
 	private int city_id;
 	private int project_type_id;
+	private int heat_source_id;
+	private OrdinarySystem ordinary_system;
+	private int systems_type_id;
+	private String content;
+
+
+	public int getHeat_source_id() {
+		return heat_source_id;
+	}
+
+	public void setHeat_source_id(int heat_source_id) {
+		this.heat_source_id = heat_source_id;
+	}
+
+	public OrdinarySystem getOrdinary_system() {
+		return ordinary_system;
+	}
+
+	public void setOrdinary_system(OrdinarySystem ordinary_system) {
+		this.ordinary_system = ordinary_system;
+	}
+
+	public int getSystems_type_id() {
+		return systems_type_id;
+	}
+
+	public void setSystems_type_id(int systems_type_id) {
+		this.systems_type_id = systems_type_id;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
 
 	public int getProject_id() {
 		return project_id;

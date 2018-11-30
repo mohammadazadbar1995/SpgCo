@@ -1,8 +1,6 @@
 package com.spg.sgpco.createProjcet;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,10 +11,8 @@ import com.spg.sgpco.R;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.service.ResponseModel.ListCitiesItem;
-import com.spg.sgpco.service.ResponseModel.SettingResultItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,14 +26,12 @@ public class StateAdapter extends RecyclerView.Adapter<StateAdapter.ViewHolder> 
 
 
     private final OnItemClickListener listener;
-    private final ArrayList<ListCitiesItem> list;
+    private ArrayList<ListCitiesItem> list;
 
-    private Context context;
 
-    StateAdapter(Context context, ArrayList<ListCitiesItem> list, OnItemClickListener listener) {
+    StateAdapter(ArrayList<ListCitiesItem> list, OnItemClickListener listener) {
         this.list = list;
         this.listener = listener;
-        this.context = context;
     }
 
     @NonNull
@@ -61,6 +55,11 @@ public class StateAdapter extends RecyclerView.Adapter<StateAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void setList(ArrayList<ListCitiesItem> list) {
+        this.list = list;
+        notifyDataSetChanged();
     }
 
 

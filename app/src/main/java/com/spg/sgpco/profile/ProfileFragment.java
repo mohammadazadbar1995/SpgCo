@@ -124,11 +124,15 @@ public class ProfileFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        setProfileName();
+    }
+
+    public void setProfileName() {
         if (!TextUtils.isEmpty(PreferencesData.getString(getContext(), "name"))) {
             tvName.setText(PreferencesData.getString(getContext(), "name"));
         }
-        Log.e("omadi", "are");
     }
+
 
     @Override
     public void onDestroyView() {
@@ -260,11 +264,11 @@ public class ProfileFragment extends BaseFragment {
         }
         FragmentManager fragMgr = getActivity().getSupportFragmentManager();
         FragmentTransaction fragTrans = fragMgr.beginTransaction();
+        fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
         fragTrans.add(R.id.frameLayout, fragment, fragmentTag);
         fragTrans.addToBackStack(fragmentTag);
         if (hideOtherFragmnet)
             hideOtherFragment(fragment);
-        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragTrans.commit();
 
     }

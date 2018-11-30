@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,15 +74,23 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
         GetProjectListService.getInstance().getProjectList(getResources(), new ResponseListener<GetProjectListResponse>() {
             @Override
             public void onGetErrore(String error) {
-//                roundedLoadingView.setVisibility(View.GONE);
-//                enableDisableViewGroup(root, true);
+
+                if (rvProject == null) {
+                    return;
+                }
+                roundedLoadingView.setVisibility(View.GONE);
+                enableDisableViewGroup(root, true);
                 showErrorDialog(error);
             }
 
             @Override
             public void onSuccess(GetProjectListResponse response) {
-//                roundedLoadingView.setVisibility(View.GONE);
-//                enableDisableViewGroup(root, true);
+
+                if (rvProject == null) {
+                    return;
+                }
+                roundedLoadingView.setVisibility(View.GONE);
+                enableDisableViewGroup(root, true);
                 if (response.isSuccess() && response.getResult().size() > 0) {
                     setAdapter(response);
                 }

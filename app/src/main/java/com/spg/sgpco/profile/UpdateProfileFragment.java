@@ -3,7 +3,6 @@ package com.spg.sgpco.profile;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.Toast;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.activity.BackPressedFragment;
+import com.spg.sgpco.baseView.BaseFragment;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.baseView.BaseToolbar;
@@ -25,6 +25,8 @@ import com.spg.sgpco.service.ResponseModel.GetInfoResponse;
 import com.spg.sgpco.service.ResponseModel.UpdateProfileResponse;
 import com.spg.sgpco.utils.PreferencesData;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -36,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by m.azadbar on 5/28/2018.
  */
 
-public class UpdateProfileFragment extends Fragment implements BackPressedFragment {
+public class UpdateProfileFragment extends BaseFragment implements BackPressedFragment {
 
 
     Unbinder unbinder;
@@ -87,6 +89,9 @@ public class UpdateProfileFragment extends Fragment implements BackPressedFragme
         GetInfoService.getInstance().getInfo(getResources(), new ResponseListener<GetInfoResponse>() {
             @Override
             public void onGetErrore(String error) {
+                if (tvMobile == null){
+                    return;
+                }
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
                 showErrorDialog(error);
@@ -94,6 +99,9 @@ public class UpdateProfileFragment extends Fragment implements BackPressedFragme
 
             @Override
             public void onSuccess(GetInfoResponse response) {
+                if (tvMobile == null){
+                    return;
+                }
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess() && response.getReuslt() != null) {
@@ -159,7 +167,28 @@ public class UpdateProfileFragment extends Fragment implements BackPressedFragme
 
     @OnClick(R.id.btnUpdateProfile)
     public void onViewClicked() {
-        updateProfileRequest();
+        if (isValidData())
+            updateProfileRequest();
+    }
+
+    ArrayList<String> errorMsgList = new ArrayList<>();
+
+    private boolean isValidData() {
+        ArrayList<String> errorMsgList = new ArrayList<>();
+
+        if (edtName.getError() != null) {
+            errorMsgList.add(edtName.getError());
+        }
+
+        if (edtFamily.getError() != null) {
+            errorMsgList.add(edtFamily.getError());
+        }
+
+        if (errorMsgList.size() > 0) {
+            showInfoDialog(getString(R.string.fill_following), errorMsgList);
+            return false;
+        }
+        return true;
     }
 
     private void updateProfileRequest() {
