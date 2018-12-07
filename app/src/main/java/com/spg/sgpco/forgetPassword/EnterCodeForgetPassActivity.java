@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.spg.sgpco.R;
-import com.spg.sgpco.activity.MainActivitySecond;
 import com.spg.sgpco.baseView.BaseActivity;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
@@ -26,7 +25,7 @@ import com.spg.sgpco.service.Request.ForgetPasswordService;
 import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.RequestModel.ForgetPassReq;
 import com.spg.sgpco.service.RequestModel.LoginWithCodeForgetPassReq;
-import com.spg.sgpco.service.ResponseModel.LoginResponse;
+import com.spg.sgpco.service.ResponseModel.EnterCodeResponse;
 import com.spg.sgpco.service.ResponseModel.VerifyResponse;
 import com.spg.sgpco.utils.PreferencesData;
 import com.spg.sgpco.utils.ResendActiveCodeService;
@@ -116,7 +115,7 @@ public class EnterCodeForgetPassActivity extends BaseActivity {
         req = new LoginWithCodeForgetPassReq();
         req.setPhonenumber(forgetPassReq.getPhonenumber());
         req.setCode(edtEnterCode.getValueString());
-        EnterCodePasswordService.getInstance().enterCodePassword(getResources(), req, new ResponseListener<LoginResponse>() {
+        EnterCodePasswordService.getInstance().enterCodePassword(getResources(), req, new ResponseListener<EnterCodeResponse>() {
             @Override
             public void onGetErrore(String error) {
                 roundedLoadingView.setVisibility(View.GONE);
@@ -125,14 +124,17 @@ public class EnterCodeForgetPassActivity extends BaseActivity {
             }
 
             @Override
-            public void onSuccess(LoginResponse response) {
+            public void onSuccess(EnterCodeResponse response) {
 
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess()) {
                     PreferencesData.saveToken(EnterCodeForgetPassActivity.this, response.getResult().getToken());
-                    Intent enterCode = new Intent(EnterCodeForgetPassActivity.this, MainActivitySecond.class);
-                    enterCode.putExtra("login", response.getResult());
+                    Intent enterCode = new Intent(EnterCodeForgetPassActivity.this, ResetPasswordActivity.class);
+                    Toast.makeText(EnterCodeForgetPassActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                    PreferencesData.saveToken(EnterCodeForgetPassActivity.this, response.getResult().getToken());
+                    PreferencesData.saveString(EnterCodeForgetPassActivity.this, "name", response.getResult().getUser_display_name());
+                    PreferencesData.saveString(EnterCodeForgetPassActivity.this, "mobile", response.getResult().getUser_nicename());
                     startActivity(enterCode);
                     finish();
                 }

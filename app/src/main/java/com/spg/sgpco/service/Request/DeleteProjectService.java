@@ -10,10 +10,8 @@ import com.google.gson.JsonSyntaxException;
 import com.spg.sgpco.R;
 import com.spg.sgpco.service.ApiClient;
 import com.spg.sgpco.service.ReqInterface;
-import com.spg.sgpco.service.RequestModel.LoginReq;
-import com.spg.sgpco.service.RequestModel.LoginWithCodeForgetPassReq;
-import com.spg.sgpco.service.ResponseModel.EnterCodeResponse;
-import com.spg.sgpco.service.ResponseModel.LoginResponse;
+import com.spg.sgpco.service.RequestModel.DeleteProjectReq;
+import com.spg.sgpco.service.ResponseModel.DeleteProjectResponse;
 import com.spg.sgpco.service.ServerListener;
 import com.spg.sgpco.service.ServerTransaction;
 
@@ -22,21 +20,21 @@ import org.json.JSONException;
 import java.io.UnsupportedEncodingException;
 
 
-public class EnterCodePasswordService {
+public class DeleteProjectService {
 
 
-    private static EnterCodePasswordService enterCodePasswordService;
+    private static DeleteProjectService deleteProjectService;
 
-    public static EnterCodePasswordService getInstance() {
-        if (enterCodePasswordService == null) {
-            enterCodePasswordService = new EnterCodePasswordService();
+    public static DeleteProjectService getInstance() {
+        if (deleteProjectService == null) {
+            deleteProjectService = new DeleteProjectService();
         }
-        return enterCodePasswordService;
+        return deleteProjectService;
     }
 
 
-    public void enterCodePassword(final Resources res, LoginWithCodeForgetPassReq req, final ResponseListener<EnterCodeResponse> responseListener) {
-        new ServerTransaction().setCall(res, ApiClient.getClientLogin().create(ReqInterface.class).loginWithCode(req), new ServerListener() {
+    public void deleteProject(final Resources res, DeleteProjectReq req, final ResponseListener<DeleteProjectResponse> responseListener) {
+        new ServerTransaction().setCall(res, ApiClient.getClient().create(ReqInterface.class).deleteProject(req), new ServerListener() {
             @Override
             public void onFailure(String str) {
                 responseListener.onGetErrore(str);
@@ -49,7 +47,7 @@ public class EnterCodePasswordService {
                     String mJsonString = jsonObject.toString();
                     JsonParser parser = new JsonParser();
                     JsonElement mJson = parser.parse(mJsonString);
-                    EnterCodeResponse response = gson.fromJson(mJson, EnterCodeResponse.class);
+                    DeleteProjectResponse response = gson.fromJson(mJson, DeleteProjectResponse.class);
                     responseListener.onSuccess(response);
                 } catch (JsonSyntaxException ex) {
                     responseListener.onGetErrore(res.getString(R.string.jsonError));

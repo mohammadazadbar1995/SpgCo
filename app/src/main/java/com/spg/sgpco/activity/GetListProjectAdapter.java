@@ -56,9 +56,10 @@ public class GetListProjectAdapter extends RecyclerView.Adapter<GetListProjectAd
         Resources res = holder.itemView.getResources();
         ProjectListResultItem object = list.get(position);
         if (!TextUtils.isEmpty(object.getName())) {
-            holder.tvTitle.setText(object.getId() + " " + object.getName());
+            holder.tvTitle.setVisibility(View.VISIBLE);
+            holder.tvTitle.setText(res.getString(R.string.name_project) + " " + object.getName());
         } else {
-            holder.tvTitle.setText(object.getId() + " ");
+            holder.tvTitle.setVisibility(View.GONE);
 
         }
         if (!TextUtils.isEmpty(object.getCustomer())) {

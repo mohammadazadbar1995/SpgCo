@@ -34,7 +34,6 @@ import static com.thefinestartist.utils.content.ContextUtil.startActivity;
 public class SelectedDialog extends Dialog {
 
 
-    private final Context context;
     @BindView(R.id.profile_image)
     BaseImageView profileImage;
     @BindView(R.id.tvRealtorName)
@@ -47,6 +46,8 @@ public class SelectedDialog extends Dialog {
     View view3;
     @BindView(R.id.btnCancel)
     BaseTextView btnCancel;
+    @BindView(R.id.btnDelete)
+    BaseTextView btnDelete;
     private ProjectListResultItem item;
     private OpenEditFragment listener;
 
@@ -64,7 +65,6 @@ public class SelectedDialog extends Dialog {
 
     public SelectedDialog(@NonNull Context context) {
         super(context);
-        this.context = context;
     }
 
     @Override
@@ -77,7 +77,6 @@ public class SelectedDialog extends Dialog {
         setCancelable(false);
 
         Glide.with(getContext()).load(R.drawable.logo).into(profileImage);
-        profileImage.setColorFilter(getContext().getResources().getColor(R.color.redColor), PorterDuff.Mode.SRC_ATOP);
 
         Window window = getWindow();
         if (window != null) {
@@ -97,7 +96,7 @@ public class SelectedDialog extends Dialog {
     }
 
 
-    @OnClick({R.id.btnObservation, R.id.btnEdit, R.id.btnCancel})
+    @OnClick({R.id.btnObservation, R.id.btnEdit, R.id.btnCancel,R.id.btnDelete})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnObservation:
@@ -110,13 +109,18 @@ public class SelectedDialog extends Dialog {
             case R.id.btnCancel:
                 dismiss();
                 break;
+            case R.id.btnDelete:
+                dismiss();
+                listener.onDelete();
+                break;
         }
     }
 
 
+
     private void getPdfItemRequest() {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse("http://sgpmojri.ir/a/api/project/pdf/?project=" + item.getLink()));
+                Uri.parse(Constants.OpenProjectUrl + item.getLink()));
         startActivity(browserIntent);
     }
 

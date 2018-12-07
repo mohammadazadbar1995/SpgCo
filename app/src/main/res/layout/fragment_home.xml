@@ -28,5 +28,8 @@
         android:layout_below="@id/toolbar"
         android:visibility="gone" />
 
+    <include
+        layout="@layout/empty_view"
+        android:visibility="gone" />
 </com.spg.sgpco.baseView.BaseRelativeLayout>
 

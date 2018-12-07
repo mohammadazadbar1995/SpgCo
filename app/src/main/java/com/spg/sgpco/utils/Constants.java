@@ -31,7 +31,7 @@ public class Constants {
 
     //
     public static String URL_API = "http://sgpmojri.ir/a/api/";
-
+    public static String OpenProjectUrl;
 
 
     public static Point getScreenSize(WindowManager windowManager) {

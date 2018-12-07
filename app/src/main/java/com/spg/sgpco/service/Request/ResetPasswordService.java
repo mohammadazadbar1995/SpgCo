@@ -10,10 +10,9 @@ import com.google.gson.JsonSyntaxException;
 import com.spg.sgpco.R;
 import com.spg.sgpco.service.ApiClient;
 import com.spg.sgpco.service.ReqInterface;
-import com.spg.sgpco.service.RequestModel.LoginReq;
-import com.spg.sgpco.service.RequestModel.LoginWithCodeForgetPassReq;
-import com.spg.sgpco.service.ResponseModel.EnterCodeResponse;
-import com.spg.sgpco.service.ResponseModel.LoginResponse;
+import com.spg.sgpco.service.RequestModel.ResetPasswordReq;
+import com.spg.sgpco.service.ResponseModel.ResetPasswordResponse;
+import com.spg.sgpco.service.ResponseModel.SettingAllResponse;
 import com.spg.sgpco.service.ServerListener;
 import com.spg.sgpco.service.ServerTransaction;
 
@@ -22,21 +21,21 @@ import org.json.JSONException;
 import java.io.UnsupportedEncodingException;
 
 
-public class EnterCodePasswordService {
+public class ResetPasswordService {
 
 
-    private static EnterCodePasswordService enterCodePasswordService;
+    private static ResetPasswordService resetPasswordService;
 
-    public static EnterCodePasswordService getInstance() {
-        if (enterCodePasswordService == null) {
-            enterCodePasswordService = new EnterCodePasswordService();
+    public static ResetPasswordService getInstance() {
+        if (resetPasswordService == null) {
+            resetPasswordService = new ResetPasswordService();
         }
-        return enterCodePasswordService;
+        return resetPasswordService;
     }
 
 
-    public void enterCodePassword(final Resources res, LoginWithCodeForgetPassReq req, final ResponseListener<EnterCodeResponse> responseListener) {
-        new ServerTransaction().setCall(res, ApiClient.getClientLogin().create(ReqInterface.class).loginWithCode(req), new ServerListener() {
+    public void resetPassword(final Resources res, ResetPasswordReq req, final ResponseListener<ResetPasswordResponse> responseListener) {
+        new ServerTransaction().setCall(res, ApiClient.getClient().create(ReqInterface.class).resetPassword(req), new ServerListener() {
             @Override
             public void onFailure(String str) {
                 responseListener.onGetErrore(str);
@@ -49,7 +48,7 @@ public class EnterCodePasswordService {
                     String mJsonString = jsonObject.toString();
                     JsonParser parser = new JsonParser();
                     JsonElement mJson = parser.parse(mJsonString);
-                    EnterCodeResponse response = gson.fromJson(mJson, EnterCodeResponse.class);
+                    ResetPasswordResponse response = gson.fromJson(mJson, ResetPasswordResponse.class);
                     responseListener.onSuccess(response);
                 } catch (JsonSyntaxException ex) {
                     responseListener.onGetErrore(res.getString(R.string.jsonError));

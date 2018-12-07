@@ -16,6 +16,7 @@ import com.spg.sgpco.R;
 import com.spg.sgpco.activity.BackPressedFragment;
 import com.spg.sgpco.activity.HomeFragment;
 import com.spg.sgpco.activity.MainActivitySecond;
+import com.spg.sgpco.activity.ShowProjectWebViewFragment;
 import com.spg.sgpco.baseView.BaseFragment;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
@@ -227,27 +228,38 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
         OrdinaryProjectService.getInstance().createOrdinaryProject(getResources(), req, new ResponseListener<CreateOrdinaryProjectResponse>() {
             @Override
             public void onGetErrore(String error) {
-                roundedLoadingView.setVisibility(View.VISIBLE);
+                roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
                 showErrorDialog(error);
             }
 
             @Override
             public void onSuccess(CreateOrdinaryProjectResponse response) {
-                roundedLoadingView.setVisibility(View.VISIBLE);
+                roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess()) {
                     if (getActivity() != null) {
-                        HomeFragment homeFragment = new HomeFragment();
+                        ShowProjectWebViewFragment showProjectWebViewFragment = new ShowProjectWebViewFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("link", response.getResult().getCode());
+                        showProjectWebViewFragment.setArguments(bundle);
                         FragmentManager fragMgr = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragTrans = fragMgr.beginTransaction();
-                        fragTrans.add(R.id.frameLayout, homeFragment, HomeFragment.class.getName());
-                        fragTrans.addToBackStack(HomeFragment.class.getName());
-                        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                        fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+                        fragTrans.add(R.id.frameLayout, showProjectWebViewFragment, ShowProjectWebViewFragment.class.getName());
+                        fragTrans.addToBackStack(ShowProjectWebViewFragment.class.getName());
                         fragTrans.commit();
-                        Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
-                        if (getActivity() instanceof MainActivitySecond)
-                            ((MainActivitySecond) getActivity()).getNavigation().setSelectedItemId(R.id.tab_home);
+
+//                        HomeFragment homeFragment = new HomeFragment();
+//                        FragmentManager fragMgr = getActivity().getSupportFragmentManager();
+//                        FragmentTransaction fragTrans = fragMgr.beginTransaction();
+//                        fragTrans.add(R.id.frameLayout, homeFragment, HomeFragment.class.getName());
+//                        fragTrans.addToBackStack(HomeFragment.class.getName());
+//                        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+//                        fragTrans.commit();
+//                        Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+//                        if (getActivity() instanceof MainActivitySecond)
+//                            ((MainActivitySecond) getActivity()).getNavigation().setSelectedItemId(R.id.tab_home);
                     }
                 }
             }

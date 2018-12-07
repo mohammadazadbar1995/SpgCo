@@ -18,6 +18,7 @@ import com.spg.sgpco.R;
 import com.spg.sgpco.activity.BackPressedFragment;
 import com.spg.sgpco.activity.HomeFragment;
 import com.spg.sgpco.activity.MainActivitySecond;
+import com.spg.sgpco.activity.ShowProjectWebViewFragment;
 import com.spg.sgpco.baseView.BaseFragment;
 import com.spg.sgpco.baseView.BaseImageView;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
@@ -82,6 +83,7 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
     BaseImageView addThermostatic;
     @BindView(R.id.rvThermostatic)
     RecyclerView rvThermostatic;
+    View.OnClickListener clickListener;
 
     private ArrayList<ThermostaticSystemItem> thermostaticSystemItems = new ArrayList<>();
 
@@ -141,15 +143,18 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
 
     private void setDataInView() {
 
-        for (ThermostaticSystemItem ther :
-                updateSystemsThermostatic.getThermostatic_system()) {
-            items.setFloor_type_id(ther.getFloor_type_id());
-            items.setType_of_space_id(1);//TODO
+        for (ThermostaticSystemItem ther : updateSystemsThermostatic.getThermostatic_system()) {
+            items.setFloor_type_id(ther.getFloor_type().getId());
+            items.setType_of_space_id(ther.getType_of_space().getId());//TODO
+            items.setFloor_type_title(ther.getFloor_type().getTitle());
+            items.setType_of_space_title(ther.getType_of_space().getTitle());
             items.setMetr(ther.getMetr());
             items.setCold_area(ther.getCold_area());
             thermostaticSystemItems.add(items);
+            items = new ThermostaticSystemItem();
         }
-        setAdapter(updateSystemsThermostatic.getThermostatic_system(), true);
+        setAdapter(thermostaticSystemItems, true);
+
     }
 
 
@@ -178,11 +183,15 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
                 loadFragment(typeSpace, TypeProjectFragment.class.getName());
                 break;
             case R.id.btnCreate:
-                if (isValideData()) {
+                if (isValideData(0)) {
                     if (isUpdate) {
                         updateSystemRequest();
                     } else {
-                        createOrdinaryProjectRequest();
+                        if (thermostaticSystemItems.size() == 0) {
+                            Toast.makeText(getActivity(), "لطفا یک پروژه اضافه کنید", Toast.LENGTH_SHORT).show();
+                        } else {
+                            createOrdinaryProjectRequest();
+                        }
                     }
                 }
                 break;
@@ -242,7 +251,7 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
     }
 
     private void createThermostaticList() {
-        if (isValideData()) {
+        if (isValideData(1)) {
             items = new ThermostaticSystemItem();
             items.setCold_area(edtColdArea.getValueInt());
             items.setMetr(edtMetr.getValueInt());
@@ -301,16 +310,26 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess()) {
                     if (getActivity() != null) {
-                        HomeFragment homeFragment = new HomeFragment();
+                        ShowProjectWebViewFragment showProjectWebViewFragment = new ShowProjectWebViewFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("link", response.getResult().getCode());
+                        showProjectWebViewFragment.setArguments(bundle);
                         FragmentManager fragMgr = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragTrans = fragMgr.beginTransaction();
-                        fragTrans.add(R.id.frameLayout, homeFragment, HomeFragment.class.getName());
-                        fragTrans.addToBackStack(HomeFragment.class.getName());
-                        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                        fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+                        fragTrans.add(R.id.frameLayout, showProjectWebViewFragment, ShowProjectWebViewFragment.class.getName());
+                        fragTrans.addToBackStack(ShowProjectWebViewFragment.class.getName());
                         fragTrans.commit();
-                        Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
-                        if (getActivity() instanceof MainActivitySecond)
-                            ((MainActivitySecond) getActivity()).getNavigation().setSelectedItemId(R.id.tab_home);
+//                        HomeFragment homeFragment = new HomeFragment();
+//                        FragmentManager fragMgr = getActivity().getSupportFragmentManager();
+//                        FragmentTransaction fragTrans = fragMgr.beginTransaction();
+//                        fragTrans.add(R.id.frameLayout, homeFragment, HomeFragment.class.getName());
+//                        fragTrans.addToBackStack(HomeFragment.class.getName());
+//                        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+//                        fragTrans.commit();
+//                        Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+//                        if (getActivity() instanceof MainActivitySecond)
+//                            ((MainActivitySecond) getActivity()).getNavigation().setSelectedItemId(R.id.tab_home);
                     }
                 }
             }
@@ -318,7 +337,13 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
     }
 
 
-    private boolean isValideData() {
+    private boolean isValideData(int type) {
+        if (type == 0) {
+            if (thermostaticSystemItems.size() > 0) {
+                return true;
+            }
+        }
+
         ArrayList<String> errorMsgList = new ArrayList<>();
 
         if (genderFloor == null) {
@@ -443,4 +468,6 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
         adapter.notifyDataSetChanged();
 
     }
+
+
 }

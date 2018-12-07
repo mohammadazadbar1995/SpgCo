@@ -11,7 +11,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -61,12 +61,16 @@
             android:name=".activity.MainActivitySecond"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
 
         <service android:name=".utils.ResendActiveCodeService" />
 
-        <activity android:name=".profile.PreviewActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".profile.PreviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".forgetPassword.ResetPasswordActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

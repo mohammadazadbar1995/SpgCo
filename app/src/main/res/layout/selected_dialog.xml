@@ -78,6 +78,23 @@
             android:background="@color/divider" />
 
         <com.spg.sgpco.baseView.BaseTextView
+            android:id="@+id/btnDelete"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_detail"
+            android:gravity="center"
+            android:text="@string/delete"
+            android:textColor="@color/redColor"
+            android:textSize="@dimen/text_size_3"
+            app:fontType="Regular" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_width"
+            android:layout_marginTop="@dimen/margin_2"
+            android:background="@color/divider" />
+
+        <com.spg.sgpco.baseView.BaseTextView
             android:id="@+id/btnCancel"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height_detail"

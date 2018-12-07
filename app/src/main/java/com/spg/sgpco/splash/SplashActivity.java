@@ -48,7 +48,6 @@ public class SplashActivity extends BaseActivity {
         ButterKnife.bind(this);
         Glide.with(this).load(R.drawable.background).into(image);
         Glide.with(this).load(R.drawable.logo).into(logo);
-        logo.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             Drawable drawableProgress = DrawableCompat.wrap(progress.getIndeterminateDrawable());
             DrawableCompat.setTint(drawableProgress, ContextCompat.getColor(this, R.color.white));

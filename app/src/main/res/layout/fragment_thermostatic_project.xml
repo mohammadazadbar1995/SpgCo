@@ -65,7 +65,7 @@
                 app:hint="@string/enter_metr"
                 app:inputType="PHONE"
                 app:isRequired="true"
-                app:tvTitle="متراژ مفید" />
+                app:tvTitle="متراژ" />
 
             <View
                 android:layout_width="match_parent"
@@ -83,16 +83,17 @@
                 app:edtIcon="@drawable/ic_person_gray"
                 app:hint="@string/enter_cold_area"
                 app:inputType="PHONE"
+                app:isImageInfo="true"
                 app:isRequired="true"
                 app:tvTitle="متراژ سرد" />
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvThermostatic"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/btnCreate"
                 android:layout_below="@+id/edtColdArea"
                 android:layout_marginTop="@dimen/margin_2"
-                android:id="@+id/rvThermostatic"
                 android:layout_marginBottom="@dimen/margin_1" />
 
             <com.spg.sgpco.baseView.BaseTextView

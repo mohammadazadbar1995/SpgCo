@@ -7,6 +7,7 @@
         <attr name="hint" format="string" />
         <attr name="textColorHint" format="string" />
         <attr name="isRequired" format="boolean" />
+        <attr name="isImageInfo" format="boolean" />
         <attr name="edtIcon" format="reference" />
         <attr name="inputType" format="enum">
             <enum name="DESCRIPTION" value="0" />

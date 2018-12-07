@@ -2,7 +2,6 @@ package com.spg.sgpco.customView;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -22,7 +21,7 @@ import com.spg.sgpco.utils.Constants;
 public class CustomNoReduisEditText extends LinearLayout implements OnEditTextChangeListener {
     BaseTextView tvTitle;
     BaseEditText edtBody;
-    BaseImageView image, edtIcon;
+    BaseImageView image, edtIcon, imageInfo;
 
     private String error;
     private InputTypeEnum inputTypeEnum;
@@ -48,6 +47,7 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
         edtBody = findViewById(R.id.edtBody);
         image = findViewById(R.id.image);
         edtIcon = findViewById(R.id.edtIcon);
+        imageInfo = findViewById(R.id.infoImage);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             this.setLayoutDirection(Constants.language.getLayoutDirection());
         }
@@ -58,6 +58,7 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
             String bodyValue = a.getString(R.styleable.CustomEditText_edtBody);
             String hint = a.getString(R.styleable.CustomEditText_hint);
             Boolean isRequired = a.getBoolean(R.styleable.CustomEditText_isRequired, false);
+            Boolean isImageInfo = a.getBoolean(R.styleable.CustomEditText_isImageInfo, false);
             int icon = a.getResourceId(R.styleable.CustomEditText_edtIcon, 0);
             if (a.hasValue(R.styleable.CustomEditText_inputType)) {
                 int value = a.getInt(R.styleable.CustomEditText_inputType, 0);
@@ -68,14 +69,25 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
             }
 
             a.recycle();
+
+
             setTextsTitle(titleText);
             setEdtIcon(icon);
 //            setTextValue(bodyValue);
             setTextHint(hint);
             setIsRequired(isRequired);
+            setImageInfo(isImageInfo);
         }
         edtBody.onEditTextChangeListener = this;
 
+    }
+
+    private void setImageInfo(Boolean isImageInfo) {
+        if (isImageInfo) {
+            imageInfo.setVisibility(VISIBLE);
+        } else {
+            imageInfo.setVisibility(GONE);
+        }
     }
 
 
@@ -177,4 +189,7 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
     public long getValueLong() {
         return edtBody.getValueLong();
     }
+
+
+
 }

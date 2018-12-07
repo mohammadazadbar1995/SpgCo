@@ -2,7 +2,7 @@ package com.spg.sgpco.service.ResponseModel;
 
 public class GetInfoResponse{
 	private boolean success;
-	private GetInfo reuslt;
+	private GetInfo result;
 
 	public boolean isSuccess() {
 		return success;
@@ -13,10 +13,10 @@ public class GetInfoResponse{
 	}
 
 	public GetInfo getReuslt() {
-		return reuslt;
+		return result;
 	}
 
 	public void setReuslt(GetInfo reuslt) {
-		this.reuslt = reuslt;
+		this.result = reuslt;
 	}
 }

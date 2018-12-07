@@ -5,10 +5,12 @@ import com.spg.sgpco.service.RequestModel.CreateCustomerReq;
 import com.spg.sgpco.service.RequestModel.CreateOrdinaryProjectReq;
 import com.spg.sgpco.service.RequestModel.CreateThermostaticReq;
 import com.spg.sgpco.service.RequestModel.DeleteCustomerReq;
+import com.spg.sgpco.service.RequestModel.DeleteProjectReq;
 import com.spg.sgpco.service.RequestModel.ForgetPassReq;
 import com.spg.sgpco.service.RequestModel.LoginReq;
 import com.spg.sgpco.service.RequestModel.LoginWithCodeForgetPassReq;
 import com.spg.sgpco.service.RequestModel.RegisterReq;
+import com.spg.sgpco.service.RequestModel.ResetPasswordReq;
 import com.spg.sgpco.service.RequestModel.UpdateCustomerReq;
 import com.spg.sgpco.service.RequestModel.UpdateOrdinaryProjectReq;
 import com.spg.sgpco.service.RequestModel.UpdateProfileReq;
@@ -32,10 +34,10 @@ public interface ReqInterface {
     @POST("user/create")
     Call<JsonObject> register(@Body RegisterReq req);
 
-    @POST("user/login/phone")
+    @POST("user/forget/password/phone")
     Call<JsonObject> forgetPass(@Body ForgetPassReq req);
 
-    @POST("user/login/phone/verify")
+    @POST("user/forget/password/verify")
     Call<JsonObject> loginWithCode(@Body LoginWithCodeForgetPassReq req);
 
     @POST("user/logout")
@@ -94,6 +96,12 @@ public interface ReqInterface {
 
     @PATCH("project/update")
     Call<JsonObject> updateThermostaticProject(@Body CreateThermostaticReq req);
+
+    @HTTP(method = "DELETE", path = "project/delete", hasBody = true)
+    Call<JsonObject> deleteProject(@Body DeleteProjectReq req);
+
+    @POST("user/forget/password/reset")
+    Call<JsonObject> resetPassword(@Body ResetPasswordReq req);
 
 //    @POST("v2/home/GetNewVersion")
 //    Call<JsonObject> VersionControl(@Body ForceUpdateReq req);

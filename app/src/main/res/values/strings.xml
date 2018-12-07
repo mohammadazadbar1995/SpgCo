@@ -122,5 +122,10 @@
     <string name="receiving_information">در حال دریافت اطلاعات</string>
     <string name="connection_network">دستگاه خود را به اینترنت متصل کنید</string>
     <string name="first_select_state">ابتدا استان خود را انتخاب کنید</string>
+    <string name="delete">حذف پروژه</string>
+    <string name="nothing_found">هیچ پروژه یافت نشد</string>
+    <string name="estimate">برآورد</string>
+    <string name="password_textـconfirm">تایید رمز عبور</string>
+    <string name="not_equal">رمز عبور و تایید آن یکسان نیست</string>
 
 </resources>

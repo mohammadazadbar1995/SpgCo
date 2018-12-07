@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.addCustomer.AddCustomerFragment;
@@ -26,6 +25,7 @@ import com.spg.sgpco.profile.ProfileFragment;
 import com.spg.sgpco.service.Request.GetAllSettingService;
 import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.ResponseModel.SettingAllResponse;
+import com.spg.sgpco.utils.Constants;
 import com.spg.sgpco.utils.CustomTypefaceSpan;
 
 import butterknife.BindView;
@@ -86,6 +86,7 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
                 MainActivitySecond.this.responseAllProject = response;
+                Constants.OpenProjectUrl = response.getResult().getUrl_pdf();
             }
         });
     }

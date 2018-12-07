@@ -7,10 +7,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.baseView.BaseFragment;
@@ -20,8 +20,11 @@ import com.spg.sgpco.baseView.BaseToolbar;
 import com.spg.sgpco.createProjcet.CreateProjectFragment;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
+import com.spg.sgpco.service.Request.DeleteProjectService;
 import com.spg.sgpco.service.Request.GetProjectListService;
 import com.spg.sgpco.service.Request.ResponseListener;
+import com.spg.sgpco.service.RequestModel.DeleteProjectReq;
+import com.spg.sgpco.service.ResponseModel.DeleteProjectResponse;
 import com.spg.sgpco.service.ResponseModel.GetProjectListResponse;
 import com.spg.sgpco.service.ResponseModel.ProjectListResultItem;
 
@@ -48,7 +51,12 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
     RoundedLoadingView roundedLoadingView;
     @BindView(R.id.root)
     BaseRelativeLayout root;
+    @BindView(R.id.tvEmptyView)
+    BaseTextView tvEmptyView;
+    @BindView(R.id.rootEmptyView)
+    BaseRelativeLayout rootEmptyView;
     private ProjectListResultItem list;
+    private GetListProjectAdapter adapter;
 
 
     public HomeFragment() {
@@ -68,8 +76,8 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
     }
 
     private void getProjectListRequest() {
-//        roundedLoadingView.setVisibility(View.VISIBLE);
-//        enableDisableViewGroup(root, false);
+        roundedLoadingView.setVisibility(View.VISIBLE);
+        enableDisableViewGroup(root, true);
 
         GetProjectListService.getInstance().getProjectList(getResources(), new ResponseListener<GetProjectListResponse>() {
             @Override
@@ -85,14 +93,16 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
 
             @Override
             public void onSuccess(GetProjectListResponse response) {
-
                 if (rvProject == null) {
                     return;
                 }
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess() && response.getResult().size() > 0) {
+                    rootEmptyView.setVisibility(View.GONE);
                     setAdapter(response);
+                } else {
+                    rootEmptyView.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -100,7 +110,7 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
     }
 
     private void setAdapter(GetProjectListResponse response) {
-        GetListProjectAdapter adapter = new GetListProjectAdapter(getActivity(), response.getResult(), this);
+        adapter = new GetListProjectAdapter(getActivity(), response.getResult(), this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rvProject.setHasFixedSize(true);
         rvProject.setLayoutManager(layoutManager);
@@ -181,4 +191,45 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
         }
 
     }
+
+    @Override
+    public void onDelete() {
+        deleteProjectRequest();
+    }
+
+    private void deleteProjectRequest() {
+        roundedLoadingView.setVisibility(View.VISIBLE);
+        enableDisableViewGroup(root, true);
+
+        DeleteProjectReq req = new DeleteProjectReq();
+        req.setProject_id(list.getId());
+        DeleteProjectService.getInstance().deleteProject(getResources(), req, new ResponseListener<DeleteProjectResponse>() {
+            @Override
+            public void onGetErrore(String error) {
+                if (rvProject == null) {
+                    return;
+                }
+                roundedLoadingView.setVisibility(View.GONE);
+                enableDisableViewGroup(root, false);
+                showErrorDialog(error);
+            }
+
+            @Override
+            public void onSuccess(DeleteProjectResponse response) {
+                if (rvProject == null) {
+                    return;
+                }
+                roundedLoadingView.setVisibility(View.GONE);
+                enableDisableViewGroup(root, false);
+                if (response.isSuccess()) {
+                    getProjectListRequest();
+                    Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+    }
+
+
 }

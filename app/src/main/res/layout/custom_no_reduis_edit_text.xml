@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -46,6 +47,16 @@
             android:layout_centerVertical="true"
             android:layout_margin="@dimen/inner_margin_content"
             android:visibility="visible" />
+
+        <com.spg.sgpco.baseView.BaseImageView
+            android:id="@+id/infoImage"
+            android:layout_width="@dimen/icon_18"
+            android:layout_height="@dimen/icon_18"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/margin_2"
+            android:layout_toStartOf="@+id/image"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_info" />
     </com.spg.sgpco.baseView.BaseRelativeLayout>
 
 

@@ -50,7 +50,7 @@
                 android:background="@drawable/ripplewhite_no_radius"
                 app:isRequired="true"
                 app:inputType="PHONE"
-                app:tvTitle="متراژ مفید" />
+                app:tvTitle="متراژ" />
 
             <View
                 android:layout_width="match_parent"

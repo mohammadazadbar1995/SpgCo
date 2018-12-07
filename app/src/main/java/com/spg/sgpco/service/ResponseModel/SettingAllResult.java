@@ -13,7 +13,15 @@ public class SettingAllResult implements Parcelable {
     private ArrayList<SystemsItem> systems;
     private ArrayList<SettingResultItem> heat_source;
     private ArrayList<SettingResultItem> type_of_space;
+    private String url_pdf;
 
+    public String getUrl_pdf() {
+        return url_pdf;
+    }
+
+    public void setUrl_pdf(String url_pdf) {
+        this.url_pdf = url_pdf;
+    }
 
     public ArrayList<ListCitiesItem> getList_cities() {
         return list_cities;

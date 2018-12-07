@@ -56,13 +56,9 @@ public class TermostaticItemAdapter extends RecyclerView.Adapter<TermostaticItem
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         ThermostaticSystemItem object = list.get(position);
-        if (isUpdate) {
-            holder.tvTitle.setText(object.getFloor_type().getTitle() + "_" + object.getType_of_space() + "_" + object.getMetr()
-                    + "_" + object.getCold_area());
-        } else {
-            holder.tvTitle.setText(object.getFloor_type_title() + "_" + object.getType_of_space_title() + "_" + object.getMetr()
-                    + "_" + object.getCold_area());
-        }
+
+        holder.tvTitle.setText(object.getFloor_type_title() + "_" + object.getType_of_space_title() + "_" + object.getMetr()
+                + "_" + object.getCold_area());
 
         holder.bind(position, object, listener);
 

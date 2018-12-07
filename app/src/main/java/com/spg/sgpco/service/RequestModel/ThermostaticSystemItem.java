@@ -11,7 +11,7 @@ public class ThermostaticSystemItem {
     private String type_of_space_title;
     private String floor_type_title;
 
-    private String type_of_space;
+    private SettingResultItem type_of_space;
     private SettingResultItem floor_type;
 
     public int getMetr() {
@@ -62,11 +62,11 @@ public class ThermostaticSystemItem {
         this.floor_type_title = floor_type_title;
     }
 
-    public String getType_of_space() {
+    public SettingResultItem getType_of_space() {
         return type_of_space;
     }
 
-    public void setType_of_space(String type_of_space) {
+    public void setType_of_space(SettingResultItem type_of_space) {
         this.type_of_space = type_of_space;
     }
 
