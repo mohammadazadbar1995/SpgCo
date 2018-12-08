@@ -1,11 +1,6 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
 
-    <dimen name="device_width">600dp</dimen>
-    <dimen name="device_width_1">360</dimen>
-    <dimen name="device_width_2">600</dimen>
-    <dimen name="device_width_3">720</dimen>
-
 
     <dimen name="text_size_1">11sp</dimen>
     <dimen name="text_size_2">12sp</dimen>
@@ -18,12 +13,8 @@
     <dimen name="margin_3">8dp</dimen>
     <dimen name="margin_4">10dp</dimen>
 
-    <dimen name="button_search_height">58dp</dimen>
     <dimen name="item_search_list">50dp</dimen>
     <dimen name="inner_margin_content">2dp</dimen>
-
-    <dimen name="splash_image_size_width">112dp</dimen>
-    <dimen name="splash_image_size_height">112dp</dimen>
 
 
     <dimen name="size_width">1px</dimen>
@@ -31,89 +22,45 @@
 
     <dimen name="outer_margin">8dp</dimen>
     <dimen name="margin_16">16dp</dimen>
-    <dimen name="margin_32">32dp</dimen>
 
     <dimen name="st_evaluation_cardView">2dp</dimen>
     <dimen name="st_evaluation_appbar">4dp</dimen>
     <dimen name="st_evaluation_search">4dp</dimen>
     <dimen name="card_default_radius">4dp</dimen>
 
-    <dimen name="icon_32">36dp</dimen>
     <dimen name="icon_30">30dp</dimen>
     <dimen name="icon_24">24dp</dimen>
     <dimen name="icon_18">18dp</dimen>
-    <dimen name="icon_back">26dp</dimen>
-
-    <dimen name="st_image_app">112dp</dimen>
 
     <dimen name="dialog_height_max">390dp</dimen>
     <dimen name="max_dialog_width">500dp</dimen>
-    <dimen name="max_dialog_fragment_height">700dp</dimen>
     <dimen name="max_dialog_show_info">550dp</dimen>
     <dimen name="defult_height_dilog_info">33dp</dimen>
-    <dimen name="max_dialog_fragment_bug_report_height">400dp</dimen>
     <dimen name="bottonDialog">40dp</dimen>
 
     <dimen name="margin_pic_24">24dp</dimen>
-    <dimen name="margin_width_title">8dp</dimen>
 
-    <dimen name="margin_top_main_activity">15dp</dimen>
-    <dimen name="button_main_height">43dp</dimen>
-
-    <dimen name="main_activity_margin_button">4dp</dimen>
-
-    <dimen name="width_size_item_main">140dp</dimen>
     <dimen name="height_size_image_item_main">130dp</dimen>
         <dimen name="height_size_item_main">200dp</dimen>
 
-    <dimen name="width_raduis_in_item_main">50dp</dimen>
-    <dimen name="haight_raduis_in_item_main">25dp</dimen>
-
-    <dimen name="size_height_1dp">1dp</dimen>
-
     <dimen name="height_bottom_bar">55dp</dimen>
-    <dimen name="size_button_in_more_tab_layout">50dp</dimen>
-    <dimen name="size_height_location_view">55dp</dimen>
 
-    <dimen name="margin_1dp">1dp</dimen>
-    <dimen name="margin_2dp">2dp</dimen>
-    <dimen name="margin_3dp">3dp</dimen>
     <dimen name="all_raduis_app">5dp</dimen>
-    <dimen name="radius_button_filter">25dp</dimen>
 
     <dimen name="button_location_view">44dp</dimen>
 
     <dimen name="button_height">38dp</dimen>
 
     <dimen name="width_linear">300dp</dimen>
-    <dimen name="banner_height">48dp</dimen>
-
-    <dimen name="height_custom_view_filter">50dp</dimen>
-
-    <dimen name="dialog_min_max_price">300dp</dimen>
-
-    <dimen name="margin_bottom_detail">45dp</dimen>
-    <dimen name="margin_top_toast">50dp</dimen>
-
-    <dimen name="facilities_height">35dp</dimen>
-
-    <dimen name="size_item_add_image">52dp</dimen>
 
     <integer name="coulem_count_recycle_view">2</integer>
     <dimen name="coulem_offset_recycle_view">2dp</dimen>
 
-    <integer name="coloum_count_register_estate">3</integer>
-    <dimen name="coulem_offset_recycle_view_in_register_estate">4dp</dimen>
-    <dimen name="defualt_width_image_image_recycle_view_register_estate">100dp</dimen>
-
     <dimen name="height_edit_text_view">48dp</dimen>
-    <dimen name="height_multi_line_text_view">90dp</dimen>
 
     <dimen name="height_multitext_edit_text_view">90dp</dimen>
-    <dimen name="image_resize">500dp</dimen>
 
     <dimen name="image_size_on_splash">200dp</dimen>
-    <dimen name="fab_72">72dp</dimen>
 
     <dimen name="input_field_padding">6dp</dimen>
     <dimen name="one_and_a_half_grid_unit">2dp</dimen>

@@ -14,7 +14,6 @@
     <dimen name="margin_3">10dp</dimen>
     <dimen name="margin_4">12dp</dimen>
 
-    <dimen name="button_search_height">53dp</dimen>
     <dimen name="item_search_list">55dp</dimen>
 
 
@@ -26,42 +25,22 @@
 
     <dimen name="outer_margin">12dp</dimen>
 
-    <dimen name="button_main_height">48dp</dimen>
-
-    <dimen name="margin_top_main_activity">20dp</dimen>
-
-    <dimen name="main_activity_margin_button">8dp</dimen>
-
-    <dimen name="width_size_item_main">170dp</dimen>
     <dimen name="height_size_image_item_main">160dp</dimen>
     <dimen name="height_size_item_main">210dp</dimen>
 
     <dimen name="height_bottom_bar">55dp</dimen>
     <dimen name="margin_16">24dp</dimen>
-    <dimen name="margin_32">32dp</dimen>
 
 
     <dimen name="button_height">43dp</dimen>
 
     <dimen name="button_location_view">52dp</dimen>
-    <dimen name="margin_bottom_detail">52dp</dimen>
 
     <dimen name="width_linear">350dp</dimen>
-    <dimen name="banner_height">57dp</dimen>
-
-    <dimen name="height_custom_view_filter">55dp</dimen>
-
-    <dimen name="dialog_min_max_price">350dp</dimen>
-
-    <dimen name="max_dialog_fragment_bug_report_height">430dp</dimen>
 
     <dimen name="height_edit_text_view">52dp</dimen>
-    <dimen name="height_multi_line_text_view">100dp</dimen>
 
     <dimen name="height_multitext_edit_text_view">95dp</dimen>
-
-    <integer name="coloum_count_register_estate">4</integer>
-    <dimen name="coulem_offset_recycle_view_in_register_estate">4dp</dimen>
 
     <dimen name="image_size_on_splash">250dp</dimen>
 

@@ -7,8 +7,5 @@
     <integer name="coulem_count_recycle_view">3</integer>
     <dimen name="coulem_offset_recycle_view">6dp</dimen>
 
-    <integer name="coloum_count_register_estate">6</integer>
-    <dimen name="coulem_offset_recycle_view_in_register_estate">6dp</dimen>
-
 
 </resources>
