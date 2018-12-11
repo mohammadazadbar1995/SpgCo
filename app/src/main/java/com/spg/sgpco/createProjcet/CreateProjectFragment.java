@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.spg.sgpco.R;
-import com.spg.sgpco.activity.MainActivitySecond;
 import com.spg.sgpco.addCustomer.AddCustomerFragment;
 import com.spg.sgpco.baseView.BaseFragment;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
@@ -138,13 +137,14 @@ public class CreateProjectFragment extends BaseFragment {
         btnCreate.setText(getString(R.string.next_page));
         btnCreate.setVisibility(View.GONE);
 
-        if (getActivity() != null) {
-            response = ((MainActivitySecond) getActivity()).getResponseAll();
-        }
+//        if (getActivity() != null) {
+//            response = ((MainActivitySecond) getActivity()).getResponseAll();
+//        }
         if (isUpdate) {
             Bundle b = getArguments();
             if (b != null) {
                 itemId = b.getInt("itemId");
+                response = b.getParcelable("allResponseProject");
                 getProjectDataReqeust();
             }
         } else {
@@ -191,12 +191,33 @@ public class CreateProjectFragment extends BaseFragment {
         systemControlTypeLayout.setEnabled(false);
         systemControlTypeLayout.setClickable(false);
         edtName.setBody(response.getResult().getTitle());
-        typeProjectLayout.setValue(response.getResult().getProject_type().getTitle());
+
+        if (response.getResult().getProject_type() != null) {
+            typeProjectLayout.setValue(response.getResult().getProject_type().getTitle());
+        } else {
+            typeProjectLayout.reset();
+        }
+
         cityLayout.setValue(response.getResult().getCity().getCity());
-        addCustomerLayout.setValue(response.getResult().getCustomer().getName());
-        heatSourceLayout.setValue(response.getResult().getHeat_source().getTitle());
-        controlOfSystem = response.getResult().getSystems_type().getId();
-        systemControlTypeLayout.setValue(response.getResult().getSystems_type().getTitle());
+        if (response.getResult().getCustomer() != null) {
+            addCustomerLayout.setValue(response.getResult().getCustomer().getName());
+        } else {
+            addCustomerLayout.reset();
+        }
+        if (response.getResult().getHeat_source() != null) {
+            heatSourceLayout.setValue(response.getResult().getHeat_source().getTitle());
+        } else {
+            heatSourceLayout.reset();
+        }
+        if (response.getResult().getSystems_type() != null) {
+            controlOfSystem = response.getResult().getSystems_type().getId();
+            systemControlTypeLayout.setValue(response.getResult().getSystems_type().getTitle());
+        } else {
+            controlOfSystem = 1;
+            systemControlTypeLayout.reset();
+
+        }
+
         edtBugReport.setBody(response.getResult().getDescription());
     }
 
@@ -230,14 +251,14 @@ public class CreateProjectFragment extends BaseFragment {
                 }
                 break;
             case R.id.city_layout:
-                if (listStates != null){
+                if (listStates != null) {
                     if (listStates.getCities_list() != null && listStates.getCities_list().size() > 0) {
                         CityFragment cityFragment = new CityFragment();
                         cityFragment.setTargetFragment(this, Constants.CITY_CODE);
                         cityFragment.citiesItems = listStates.getCities_list();
                         loadFragment(cityFragment, CityFragment.class.getName());
                     }
-                }else {
+                } else {
                     Toast.makeText(getActivity(), getString(R.string.first_select_state), Toast.LENGTH_SHORT).show();
                 }
 

@@ -9,14 +9,12 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.AppCompatImageView;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.spg.sgpco.R;
-import com.spg.sgpco.activity.MainActivity;
-import com.spg.sgpco.activity.MainActivitySecond;
+import com.spg.sgpco.activity.HomeActivity;
 import com.spg.sgpco.baseView.BaseActivity;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.login.LoginActivity;
@@ -47,7 +45,7 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
         Glide.with(this).load(R.drawable.background).into(image);
-        Glide.with(this).load(R.drawable.logo).into(logo);
+        logo.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             Drawable drawableProgress = DrawableCompat.wrap(progress.getIndeterminateDrawable());
             DrawableCompat.setTint(drawableProgress, ContextCompat.getColor(this, R.color.white));
@@ -58,7 +56,7 @@ public class SplashActivity extends BaseActivity {
         }
         new Handler().postDelayed(() -> {
             if (PreferencesData.getIsLogin(SplashActivity.this)) {
-                Intent mainActivity = new Intent(SplashActivity.this, MainActivitySecond.class);
+                Intent mainActivity = new Intent(SplashActivity.this, HomeActivity.class);
                 SplashActivity.this.startActivity(mainActivity);
                 SplashActivity.this.finish();
             } else {

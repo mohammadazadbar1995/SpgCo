@@ -26,7 +26,7 @@ public class ResendActiveCodeService extends Service {
         Log.i(TAG, "Starting timer...");
         mRunning = true;
         PreferencesData.saveBoolean(getApplication(),"isServiceRun" , mRunning);
-        cdt = new CountDownTimer(20000, 1000) {
+        cdt = new CountDownTimer(60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 

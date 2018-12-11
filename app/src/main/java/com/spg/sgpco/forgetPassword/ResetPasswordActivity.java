@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.spg.sgpco.R;
-import com.spg.sgpco.activity.MainActivitySecond;
+import com.spg.sgpco.activity.HomeActivity;
 import com.spg.sgpco.baseView.BaseActivity;
 import com.spg.sgpco.baseView.BaseImageView;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
@@ -77,7 +77,7 @@ public class ResetPasswordActivity extends BaseActivity {
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess()) {
                     Toast.makeText(ResetPasswordActivity.this, response.getResult(), Toast.LENGTH_LONG).show();
-                    Intent enterCode = new Intent(ResetPasswordActivity.this, MainActivitySecond.class);
+                    Intent enterCode = new Intent(ResetPasswordActivity.this, HomeActivity.class);
                     startActivity(enterCode);
                     finish();
 

@@ -3,8 +3,6 @@ package com.spg.sgpco.activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,15 +100,7 @@ public class ShowProjectWebViewFragment extends BaseFragment implements BackPres
     @Override
     public void onPopBackStack() {
         if (getActivity() != null) {
-            HomeFragment homeFragment = new HomeFragment();
-            FragmentManager fragMgr = getActivity().getSupportFragmentManager();
-            FragmentTransaction fragTrans = fragMgr.beginTransaction();
-            fragTrans.add(R.id.frameLayout, homeFragment, HomeFragment.class.getName());
-            fragTrans.addToBackStack(HomeFragment.class.getName());
-            fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            fragTrans.commit();
-            if (getActivity() instanceof MainActivitySecond)
-                ((MainActivitySecond) getActivity()).getNavigation().setSelectedItemId(R.id.tab_home);
+            getActivity().finish();
         }
     }
 }

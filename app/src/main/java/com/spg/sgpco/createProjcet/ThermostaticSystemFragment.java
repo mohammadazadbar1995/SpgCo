@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.activity.BackPressedFragment;
-import com.spg.sgpco.activity.HomeFragment;
-import com.spg.sgpco.activity.MainActivitySecond;
 import com.spg.sgpco.activity.ShowProjectWebViewFragment;
 import com.spg.sgpco.baseView.BaseFragment;
 import com.spg.sgpco.baseView.BaseImageView;
@@ -233,16 +231,9 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess()) {
                     if (getActivity() != null) {
-                        HomeFragment homeFragment = new HomeFragment();
-                        FragmentManager fragMgr = getActivity().getSupportFragmentManager();
-                        FragmentTransaction fragTrans = fragMgr.beginTransaction();
-                        fragTrans.add(R.id.frameLayout, homeFragment, HomeFragment.class.getName());
-                        fragTrans.addToBackStack(HomeFragment.class.getName());
-                        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                        fragTrans.commit();
+                        getActivity().finish();
                         Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
-                        if (getActivity() instanceof MainActivitySecond)
-                            ((MainActivitySecond) getActivity()).getNavigation().setSelectedItemId(R.id.tab_home);
+
                     }
                 }
             }

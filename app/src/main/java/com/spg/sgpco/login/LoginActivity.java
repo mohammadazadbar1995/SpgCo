@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.spg.sgpco.R;
-import com.spg.sgpco.activity.MainActivitySecond;
+import com.spg.sgpco.activity.HomeActivity;
 import com.spg.sgpco.baseView.BaseActivity;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
@@ -102,7 +102,7 @@ public class LoginActivity extends BaseActivity {
                     PreferencesData.saveString(LoginActivity.this, "name", response.getResult().getUser_display_name());
                     PreferencesData.saveString(LoginActivity.this, "mobile", response.getResult().getUser_nicename());
                     PreferencesData.isLogin(LoginActivity.this, true);
-                    Intent loginIntent = new Intent(LoginActivity.this, MainActivitySecond.class);
+                    Intent loginIntent = new Intent(LoginActivity.this, HomeActivity.class);
                     loginIntent.putExtra("login", response.getResult());
                     startActivity(loginIntent);
                     finish();

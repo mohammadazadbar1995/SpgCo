@@ -44,8 +44,8 @@
 
                     <com.spg.sgpco.baseView.BaseImageView
                         android:id="@+id/logo"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
                         android:tint="@color/white"
                         android:tintMode="src_atop"
                         app:srcCompat="@drawable/logo" />

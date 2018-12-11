@@ -215,7 +215,6 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
         fragTrans.addToBackStack(fragmentTag);
         fragTrans.add(R.id.frameLayout, fragment, fragmentTag);
         fragTrans.commit();
-
     }
 
     private void hideOtherFragment(Fragment currentFragment) {

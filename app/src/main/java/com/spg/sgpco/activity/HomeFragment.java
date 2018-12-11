@@ -1,6 +1,7 @@
 package com.spg.sgpco.activity;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -27,6 +28,7 @@ import com.spg.sgpco.service.RequestModel.DeleteProjectReq;
 import com.spg.sgpco.service.ResponseModel.DeleteProjectResponse;
 import com.spg.sgpco.service.ResponseModel.GetProjectListResponse;
 import com.spg.sgpco.service.ResponseModel.ProjectListResultItem;
+import com.spg.sgpco.service.ResponseModel.SettingAllResponse;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,6 +59,7 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
     BaseRelativeLayout rootEmptyView;
     private ProjectListResultItem list;
     private GetListProjectAdapter adapter;
+    public SettingAllResponse allResponseProject;
 
 
     public HomeFragment() {
@@ -174,14 +177,14 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
     public void onEdit() {
 
         if (getActivity() != null) {
-            if (getActivity() instanceof MainActivitySecond)
-                ((MainActivitySecond) getActivity()).getNavigation().setSelectedItemId(R.id.tab_create_project);
+
 
             CreateProjectFragment createProjectFragment1 = new CreateProjectFragment();
             FragmentManager fragMgr = getActivity().getSupportFragmentManager();
             FragmentTransaction fragTrans = fragMgr.beginTransaction();
             Bundle bundle = new Bundle();
             bundle.putInt("itemId", list.getId());
+            bundle.putParcelable("allResponseProject", allResponseProject);
             createProjectFragment1.setArguments(bundle);
             createProjectFragment1.isUpdate = true;
             fragTrans.add(R.id.frameLayout, createProjectFragment1, CreateProjectFragment.class.getName());
