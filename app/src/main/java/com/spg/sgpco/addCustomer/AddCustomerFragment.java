@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -15,10 +14,10 @@ import android.widget.Toast;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.baseView.BaseFragment;
+import com.spg.sgpco.baseView.BaseImageView;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.baseView.BaseToolbar;
-import com.spg.sgpco.createProjcet.StateFragment;
 import com.spg.sgpco.customView.CustomEditText;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.database.Customer;
@@ -37,7 +36,6 @@ import com.spg.sgpco.service.ResponseModel.DeleteCustomerResponse;
 import com.spg.sgpco.service.ResponseModel.GetListCustomerResponse;
 import com.spg.sgpco.service.ResponseModel.UpdateCustomerResponse;
 
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -74,6 +72,8 @@ public class AddCustomerFragment extends BaseFragment implements CustomerAdapter
     RoundedLoadingView roundedLoadingView;
     @BindView(R.id.root)
     BaseRelativeLayout root;
+    @BindView(R.id.addThermostatic)
+    BaseImageView addThermostatic;
     private Customer customer = new Customer();
     private CustomerAdapter adapter;
     private int DELETE_ITEM = 1;
@@ -82,6 +82,7 @@ public class AddCustomerFragment extends BaseFragment implements CustomerAdapter
     private CustomerItem customerItem;
     private boolean isUpdate = false;
     private int UPDATE_CUSTOMER = 3;
+    private boolean isVisible = false;
 
     public AddCustomerFragment() {
     }
@@ -93,8 +94,8 @@ public class AddCustomerFragment extends BaseFragment implements CustomerAdapter
         View view = inflater.inflate(R.layout.fragment_add_customer, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        tvCenterTitle.setText(getResources().getString(R.string.create_project));
-
+        tvCenterTitle.setText(getResources().getString(R.string.customers));
+        addThermostatic.setVisibility(View.VISIBLE);
 //        setAdapter();
         getCustomerList();
         btnCreate.setText(getResources().getString(R.string.create));
@@ -149,7 +150,7 @@ public class AddCustomerFragment extends BaseFragment implements CustomerAdapter
 
     @Override
     public void onItemClick(int position, CustomerItem updateCustomer) {
-        if (isCreateProjectCustomer){
+        if (isCreateProjectCustomer) {
             Intent intent = new Intent(getContext(), AddCustomerFragment.class);
             intent.putExtra("Customer", customers.get(position));
             if (getTargetFragment() != null) {
@@ -158,7 +159,7 @@ public class AddCustomerFragment extends BaseFragment implements CustomerAdapter
             if (getFragmentManager() != null) {
                 getFragmentManager().popBackStack();
             }
-        }else {
+        } else {
             customerItem = updateCustomer;
             updateCustomer(updateCustomer);
         }
@@ -166,6 +167,8 @@ public class AddCustomerFragment extends BaseFragment implements CustomerAdapter
     }
 
     private void updateCustomer(CustomerItem updateCustomer) {
+        addThermostatic.setImageResource(R.drawable.ic_remove_white);
+        rlCreate.setVisibility(View.VISIBLE);
         edtAddCustomer.setBody(updateCustomer.getName());
         btnCreate.setText(getResources().getString(R.string.update_customer));
         isUpdate = true;
@@ -174,9 +177,19 @@ public class AddCustomerFragment extends BaseFragment implements CustomerAdapter
 
     @Override
     public void onDeleteItem(int position, CustomerItem customer) {
-
         customerItem = customer;
-        deleteItemRequest(customer);
+        if (getActivity() != null) {
+            CustomDialog customDialog = new CustomDialog(getActivity());
+            customDialog.setOkListener(getString(R.string.dialog_yes), view -> {
+                customDialog.dismiss();
+                deleteItemRequest(customer);
+            });
+            customDialog.setCancelListener(getString(R.string.dialog_no), view -> customDialog.dismiss());
+            customDialog.setIcon(R.drawable.ic_error);
+
+            customDialog.setDialogTitle(getString(R.string.sure_want_to_delete_customer));
+            customDialog.show();
+        }
     }
 
     private void deleteItemRequest(CustomerItem customer) {
@@ -211,23 +224,40 @@ public class AddCustomerFragment extends BaseFragment implements CustomerAdapter
 
     }
 
-    @OnClick(R.id.btnCreate)
-    public void onViewClicked() {
+    @OnClick({R.id.btnCreate, R.id.addThermostatic})
+    public void onViewClicked(View view) {
 
-        if (isUpdate) {
-            if (edtAddCustomer.getError() != null) {
-                Toast.makeText(getActivity(), getResources().getString(R.string.please_enter_name), Toast.LENGTH_SHORT).show();
-            } else {
-                updateCustomerRequest();
-            }
-        } else {
+        switch (view.getId()) {
+            case R.id.btnCreate:
+                if (isUpdate) {
+                    if (edtAddCustomer.getError() != null) {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.please_enter_name), Toast.LENGTH_SHORT).show();
+                    } else {
+                        updateCustomerRequest();
+                    }
+                } else {
 
-            if (edtAddCustomer.getError() != null) {
-                Toast.makeText(getActivity(), getResources().getString(R.string.please_enter_name), Toast.LENGTH_SHORT).show();
-            } else {
-                createCustomerRequest();
-            }
+                    if (edtAddCustomer.getError() != null) {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.please_enter_name), Toast.LENGTH_SHORT).show();
+                    } else {
+                        createCustomerRequest();
+                    }
+                }
+
+                break;
+            case R.id.addThermostatic:
+                if (isVisible) {
+                    rlCreate.setVisibility(View.GONE);
+                    addThermostatic.setImageResource(R.drawable.ic_add_white);
+
+                } else {
+                    rlCreate.setVisibility(View.VISIBLE);
+                    addThermostatic.setImageResource(R.drawable.ic_remove_white);
+                }
+                isVisible = !isVisible;
+                break;
         }
+
 
     }
 
@@ -258,6 +288,7 @@ public class AddCustomerFragment extends BaseFragment implements CustomerAdapter
                     edtAddCustomer.setBody("");
                     btnCreate.setText(getResources().getString(R.string.create));
                     isUpdate = false;
+                    goneView();
                 }
             }
         });
@@ -287,6 +318,7 @@ public class AddCustomerFragment extends BaseFragment implements CustomerAdapter
                     adapter.notifyDataSetChanged();
                     edtAddCustomer.setBody("");
                     isUpdate = false;
+                    goneView();
                 }
             }
         });
@@ -318,7 +350,7 @@ public class AddCustomerFragment extends BaseFragment implements CustomerAdapter
                 deleteItemRequest(customerItem);
             } else if (type == CREATE_CUSTOMER) {
                 createCustomerRequest();
-            }else if (type == UPDATE_CUSTOMER){
+            } else if (type == UPDATE_CUSTOMER) {
                 updateCustomerRequest();
             }
 
@@ -334,5 +366,11 @@ public class AddCustomerFragment extends BaseFragment implements CustomerAdapter
 
     }
 
+
+    private void goneView() {
+        addThermostatic.setImageResource(R.drawable.ic_add_white);
+        rlCreate.setVisibility(View.GONE);
+        isVisible = false;
+    }
 
 }

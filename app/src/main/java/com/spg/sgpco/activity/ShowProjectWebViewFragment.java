@@ -1,5 +1,6 @@
 package com.spg.sgpco.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
@@ -17,9 +19,11 @@ import com.spg.sgpco.baseView.BaseImageView;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.baseView.BaseToolbar;
 import com.spg.sgpco.utils.Constants;
+import com.spg.sgpco.utils.PreferencesData;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static android.view.View.VISIBLE;
@@ -43,6 +47,8 @@ public class ShowProjectWebViewFragment extends BaseFragment implements BackPres
     WebView webview;
     @BindView(R.id.progreesBar)
     ProgressBar progreesBar;
+    @BindView(R.id.share)
+    BaseImageView share;
     private String link;
 
 
@@ -56,6 +62,7 @@ public class ShowProjectWebViewFragment extends BaseFragment implements BackPres
         View view = inflater.inflate(R.layout.show_project_web_view, container, false);
         unbinder = ButterKnife.bind(this, view);
         tvCenterTitle.setText(getString(R.string.estimate));
+        share.setVisibility(VISIBLE);
         Bundle b = getArguments();
         if (b != null) {
             link = b.getString("link");
@@ -72,8 +79,11 @@ public class ShowProjectWebViewFragment extends BaseFragment implements BackPres
                     waitingStop();
             }
         });
+        WebSettings webSettings = webview.getSettings();
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setSupportZoom(true);
 
-        webview.loadUrl("https://docs.google.com/viewer?url=" + Constants.OpenProjectUrl + link);
+        webview.loadUrl("http://docs.google.com/gview?embedded=true&url=" + Constants.OpenProjectUrl + link);
         return view;
 
     }
@@ -97,10 +107,33 @@ public class ShowProjectWebViewFragment extends BaseFragment implements BackPres
     }
 
 
+
+
     @Override
     public void onPopBackStack() {
         if (getActivity() != null) {
-            getActivity().finish();
+            if (PreferencesData.getIsList(getActivity())) {
+                Intent intent = new Intent(getActivity(), Activity.class);
+                intent.putExtra("one", "one");
+                startActivity(intent);
+            } else {
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+
         }
     }
+
+    @OnClick(R.id.share)
+    public void onViewClicked() {
+        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+        share.setType("text/plain");
+        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+
+        share.putExtra(Intent.EXTRA_SUBJECT, "برآورد پروژه");
+        share.putExtra(Intent.EXTRA_TEXT, Constants.OpenProjectUrl + link);
+
+        startActivity(Intent.createChooser(share, "Share link!"));
+    }
+
+
 }

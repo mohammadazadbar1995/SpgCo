@@ -5,11 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -96,11 +97,13 @@ public class SelectedDialog extends Dialog {
     }
 
 
-    @OnClick({R.id.btnObservation, R.id.btnEdit, R.id.btnCancel,R.id.btnDelete})
+    @OnClick({R.id.btnObservation, R.id.btnEdit, R.id.btnCancel, R.id.btnDelete})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnObservation:
-                getPdfItemRequest();
+                dismiss();
+                listener.onPdfItem();
+//                getPdfItemRequest();
                 break;
             case R.id.btnEdit:
                 dismiss();
@@ -117,12 +120,22 @@ public class SelectedDialog extends Dialog {
     }
 
 
-
-    private void getPdfItemRequest() {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse(Constants.OpenProjectUrl + item.getLink()));
-        startActivity(browserIntent);
-    }
+//    private void getPdfItemRequest() {
+//
+//        ShowProjectWebViewFragment showProjectWebViewFragment = new ShowProjectWebViewFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putString("link", item.getLink());
+//        showProjectWebViewFragment.setArguments(bundle);
+//        FragmentManager fragMgr = getContext().getSupportFragmentManager();
+//        FragmentTransaction fragTrans = fragMgr.beginTransaction();
+//        fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+//        fragTrans.add(R.id.frameLayout, showProjectWebViewFragment, ShowProjectWebViewFragment.class.getName());
+//        fragTrans.addToBackStack(ShowProjectWebViewFragment.class.getName());
+//        fragTrans.commit();
+//        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+//                Uri.parse(Constants.OpenProjectUrl + item.getLink()));
+//        startActivity(browserIntent);
+//    }
 
 
 }

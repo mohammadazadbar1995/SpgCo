@@ -56,9 +56,7 @@ public class BaseFragment extends Fragment {
     }
 
 
-    public boolean onBackPressed() {
-        return false;
-    }
+
 
 
     public void finishFragment(View view) {

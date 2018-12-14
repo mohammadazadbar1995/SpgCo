@@ -42,9 +42,9 @@
 
     <dimen name="height_multitext_edit_text_view">95dp</dimen>
 
-    <dimen name="image_size_on_splash">250dp</dimen>
+    <dimen name="image_size_on_splash">220dp</dimen>
 
-    <dimen name="dialog_height_transparent">440dp</dimen>
+    <dimen name="dialog_height_transparent">380dp</dimen>
     <dimen name="size_item_create">48dp</dimen>
     <dimen name="button_height_detail">40dp</dimen>
 </resources>

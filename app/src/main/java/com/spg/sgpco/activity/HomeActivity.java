@@ -101,6 +101,7 @@ public class HomeActivity extends BaseActivity implements MenuAdapter.OnItemClic
             intent = new Intent(this, Activity.class);
             intent.putExtra("two", "two");
             intent.putExtra("responseAllProject", responseAllProject);
+            PreferencesData.isList(this, false);
             startActivity(intent);
         } else if (item.getId() == 3) {
             intent = new Intent(this, Activity.class);
@@ -154,7 +155,7 @@ public class HomeActivity extends BaseActivity implements MenuAdapter.OnItemClic
             public void onGetErrore(String error) {
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
-                Toast.makeText(HomeActivity.this, error, Toast.LENGTH_SHORT).show();
+                showErrorDialog(error);
             }
 
             @Override

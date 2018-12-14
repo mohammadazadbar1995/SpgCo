@@ -33,13 +33,22 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="گیتی پسند"
+            android:text="گروه صنایع گیتی پسند"
             android:textColor="@color/toolbarFore"
             android:textSize="@dimen/text_size_4"
             android:visibility="visible"
             app:fontType="Medium" />
 
 
+        <com.spg.sgpco.baseView.BaseImageView
+            android:id="@+id/share"
+            android:layout_width="@dimen/icon_24"
+            android:layout_height="@dimen/icon_24"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/margin_2"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_share_white" />
     </com.spg.sgpco.baseView.BaseRelativeLayout>
 
 

@@ -20,6 +20,7 @@ import com.spg.sgpco.service.Request.ResetPasswordService;
 import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.RequestModel.ResetPasswordReq;
 import com.spg.sgpco.service.ResponseModel.ResetPasswordResponse;
+import com.spg.sgpco.utils.Constants;
 
 import java.util.ArrayList;
 
@@ -61,7 +62,7 @@ public class ResetPasswordActivity extends BaseActivity {
         enableDisableViewGroup(root, false);
 
         ResetPasswordReq req = new ResetPasswordReq();
-        req.setPassword(edtPassword.getValueString());
+        req.setPassword(Constants.convertToEnglishDigits(edtPassword.getValueString()));
         ResetPasswordService.getInstance().resetPassword(getResources(), req, new ResponseListener<ResetPasswordResponse>() {
             @Override
             public void onGetErrore(String error) {

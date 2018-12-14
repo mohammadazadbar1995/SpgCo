@@ -9,8 +9,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.spg.sgpco.R;
+import com.spg.sgpco.baseView.BaseLinearLayout;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.service.ResponseModel.ProjectListResultItem;
@@ -85,6 +87,21 @@ public class GetListProjectAdapter extends RecyclerView.Adapter<GetListProjectAd
             holder.tvDescription.setVisibility(View.GONE);
         }
 
+        if (position % 2 == 0) {
+            holder.back.setBackground(res.getDrawable(R.drawable.ripplewhite_no_radius));
+        } else {
+            holder.back.setBackground(res.getDrawable(R.drawable.rippleligh_gray_no_radius));
+        }
+
+        if (position == list.size() - 1) {
+            RelativeLayout.LayoutParams par = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            par.setMargins(0, 0, 0, res.getDimensionPixelSize(R.dimen.size_width));
+            holder.back.setLayoutParams(par);
+        } else {
+            RelativeLayout.LayoutParams par = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            par.setMargins(0, 0, 0, 0);
+            holder.back.setLayoutParams(par);
+        }
         holder.bind(position, object, listener);
     }
 
@@ -108,7 +125,8 @@ public class GetListProjectAdapter extends RecyclerView.Adapter<GetListProjectAd
         BaseTextView tvDescription;
         @BindView(R.id.root)
         BaseRelativeLayout root;
-
+        @BindView(R.id.back)
+        BaseLinearLayout back;
 
         ViewHolder(View view) {
             super(view);

@@ -60,14 +60,14 @@
 
     <dimen name="height_multitext_edit_text_view">90dp</dimen>
 
-    <dimen name="image_size_on_splash">200dp</dimen>
+    <dimen name="image_size_on_splash">180dp</dimen>
 
     <dimen name="input_field_padding">6dp</dimen>
     <dimen name="one_and_a_half_grid_unit">2dp</dimen>
     <dimen name="three_grid_unit">24dp</dimen>
 
     <dimen name="dialog_corner_radius">10dp</dimen>
-    <dimen name="dialog_height_transparent">370dp</dimen>
+    <dimen name="dialog_height_transparent">340dp</dimen>
 
     <dimen name="half_btn_width">200dp</dimen>
     <dimen name="size_item_create">44dp</dimen>

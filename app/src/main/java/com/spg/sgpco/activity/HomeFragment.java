@@ -1,9 +1,11 @@
 package com.spg.sgpco.activity;
 
+import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,9 +31,11 @@ import com.spg.sgpco.service.ResponseModel.DeleteProjectResponse;
 import com.spg.sgpco.service.ResponseModel.GetProjectListResponse;
 import com.spg.sgpco.service.ResponseModel.ProjectListResultItem;
 import com.spg.sgpco.service.ResponseModel.SettingAllResponse;
+import com.spg.sgpco.utils.PreferencesData;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
@@ -57,6 +61,8 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
     BaseTextView tvEmptyView;
     @BindView(R.id.rootEmptyView)
     BaseRelativeLayout rootEmptyView;
+    @BindView(R.id.fabButton)
+    FloatingActionButton fabButton;
     private ProjectListResultItem list;
     private GetListProjectAdapter adapter;
     public SettingAllResponse allResponseProject;
@@ -71,7 +77,9 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         unbinder = ButterKnife.bind(this, view);
-        tvCenterTitle.setText(getString(R.string.dashbpard));
+        tvCenterTitle.setText(getString(R.string.projects));
+        fabButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.redColor)));
+
 
         getProjectListRequest();
         return view;
@@ -200,6 +208,23 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
         deleteProjectRequest();
     }
 
+    @Override
+    public void onPdfItem() {
+        if (getActivity() != null) {
+            ShowProjectWebViewFragment showProjectWebViewFragment = new ShowProjectWebViewFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("link", list.getLink());
+            showProjectWebViewFragment.setArguments(bundle);
+            FragmentManager fragMgr = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragTrans = fragMgr.beginTransaction();
+            fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+            fragTrans.add(R.id.frameLayout, showProjectWebViewFragment, ShowProjectWebViewFragment.class.getName());
+            fragTrans.addToBackStack(ShowProjectWebViewFragment.class.getName());
+            fragTrans.commit();
+        }
+
+    }
+
     private void deleteProjectRequest() {
         roundedLoadingView.setVisibility(View.VISIBLE);
         enableDisableViewGroup(root, true);
@@ -235,4 +260,12 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
     }
 
 
+    @OnClick(R.id.fabButton)
+    public void onViewClicked() {
+        Intent intent = new Intent(getActivity(), Activity.class);
+        intent.putExtra("two", "two");
+        intent.putExtra("responseAllProject", allResponseProject);
+        PreferencesData.isList(getActivity(), true);
+        startActivity(intent);
+    }
 }

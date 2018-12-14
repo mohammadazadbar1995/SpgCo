@@ -40,5 +40,6 @@
     <color name="seven">#f27529</color>
     <color name="eight">#ff0000</color>
     <color name="nine">#060b74</color>
+    <color name="backgrorundListLight">#EFEFF4</color>
 
 </resources>

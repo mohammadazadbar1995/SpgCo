@@ -5,4 +5,6 @@ public interface OpenEditFragment {
     void onEdit();
 
     void onDelete();
+
+    void onPdfItem();
 }

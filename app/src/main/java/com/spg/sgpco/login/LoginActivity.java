@@ -21,6 +21,7 @@ import com.spg.sgpco.service.Request.LoginService;
 import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.RequestModel.LoginReq;
 import com.spg.sgpco.service.ResponseModel.LoginResponse;
+import com.spg.sgpco.utils.Constants;
 import com.spg.sgpco.utils.PreferencesData;
 
 import java.util.ArrayList;
@@ -84,7 +85,7 @@ public class LoginActivity extends BaseActivity {
 
         req = new LoginReq();
         req.setPhonenumber(edtMobile.getValueString());
-        req.setPassword(edtPassword.getValueString());
+        req.setPassword(Constants.convertToEnglishDigits(edtPassword.getValueString()));
         LoginService.getInstance().login(getResources(), req, new ResponseListener<LoginResponse>() {
             @Override
             public void onGetErrore(String error) {

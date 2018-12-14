@@ -13,10 +13,10 @@
     <string name="password_text">رمز عبور</string>
     <string name="login">ورود</string>
     <string name="register">ثبت نام</string>
-    <string name="name_hint">نام</string>
+    <string name="name_hint">نام را وارد کنید</string>
     <string name="name_text">نام</string>
     <string name="family_hint">نام خانوادگی</string>
-    <string name="family_text">نام خانوادگی</string>
+    <string name="family_text">نام خانوادگی را وارد کنید</string>
     <string name="drawer_opened">باز</string>
     <string name="drawer_closed">بسته</string>
     <string name="typeNameProject">نوع و نام پروژه</string>
@@ -33,7 +33,7 @@
     <string name="enter_mobile">موبایل را وارد کنید</string>
     <string name="invalid_mobile">موبایل نامعتبر است</string>
     <string name="enter_password">رمز عبور را وارد نمایید</string>
-    <string name="invalid_password">رمز عبور نامعبر است</string>
+    <string name="invalid_password">رمز عبور باید بیش از ۶ رقم باشد</string>
     <string name="ok">باشه</string>
     <string name="fill_following">پر کردن موارد زیر الزامی است</string>
     <string name="dialog_yes">بله</string>
@@ -79,7 +79,7 @@
     <string name="intro_friend">معرفی به دوستان</string>
     <string name="contact_whit_us">تماس با ما</string>
     <string name="tvBrand">SGP</string>
-    <string name="share_text">در صورت رضایت لطفا ما ره به دوستان خود معرفی کنید</string>
+    <string name="share_text">لطفا ما را به دوستان خود معرفی کنید.</string>
     <string name="share">اشتراک گذاری</string>
     <string name="register_info">ثبت اطلاعات</string>
     <string name="posts">نوشته ها</string>
@@ -93,8 +93,9 @@
     <string name="thermostatic_system">سیستم ترموستاتیک</string>
     <string name="gendar_of_floor">جنس کف را انتخاب کنید</string>
     <string name="next_page">مرحله بعد</string>
-    <string name="dashbpard">داشبورد</string>
+    <string name="projects">پروژه ها</string>
     <string name="customer">مشتری</string>
+    <string name="customers">مشتری ها</string>
     <string name="systems">سیستم</string>
     <string name="city">شهر</string>
     <string name="observation_text">مشاهده</string>
@@ -123,5 +124,6 @@
     <string name="estimate">برآورد</string>
     <string name="password_textـconfirm">تایید رمز عبور</string>
     <string name="not_equal">رمز عبور و تایید آن یکسان نیست</string>
+    <string name="sure_want_to_delete_customer">آیا از حذف مشتری اطمینان دارید؟</string>
 
 </resources>

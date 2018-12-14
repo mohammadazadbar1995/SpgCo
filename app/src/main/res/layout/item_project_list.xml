@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <com.spg.sgpco.baseView.BaseLinearLayout
+        android:id="@+id/back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_width"
@@ -84,8 +85,14 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/text_size_1" />
+
+            <ImageView
+                android:layout_width="@dimen/icon_18"
+                android:layout_height="@dimen/icon_18"
+                app:srcCompat="@drawable/ic_keyboard_arrow_gray" />
         </com.spg.sgpco.baseView.BaseLinearLayout>
     </com.spg.sgpco.baseView.BaseLinearLayout>
+
 
 
 </com.spg.sgpco.baseView.BaseRelativeLayout>

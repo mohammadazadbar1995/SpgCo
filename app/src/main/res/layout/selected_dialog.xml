@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height_detail"
             android:gravity="center"
-            android:text="@string/observation_text"
+            android:text="@string/estimate"
             android:textColor="@color/secondaryBack1"
             android:textSize="@dimen/text_size_3"
             app:fontType="Regular" />

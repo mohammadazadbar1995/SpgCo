@@ -46,7 +46,7 @@ public class Validation {
         if (password == null || password.trim().isEmpty()) {
             return isRequired ? res.getString(R.string.enter_password) : null;
         }
-        if (password.length() < 3){
+        if (password.length() < 6){
             return res.getString(R.string.invalid_password);
         }
         return null;

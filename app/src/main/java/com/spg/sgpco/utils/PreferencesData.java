@@ -32,6 +32,14 @@ public class PreferencesData {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("isLogin", false);
     }
 
+    public static void isList(Context context, boolean value) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("isList", value).apply();
+    }
+
+    public static boolean getIsList(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("isList", false);
+    }
+
     public static void saveBoolean(Context context, String key, boolean value) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(key, value).apply();
     }

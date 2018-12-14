@@ -67,6 +67,7 @@ public class Activity extends BaseActivity {
         fragTrans.commit();
     }
 
+
     @Override
     public void onBackPressed() {
         finish();

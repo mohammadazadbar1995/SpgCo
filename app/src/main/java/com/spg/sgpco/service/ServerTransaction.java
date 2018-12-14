@@ -1,5 +1,6 @@
 package com.spg.sgpco.service;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -7,6 +8,7 @@ import android.text.TextUtils;
 import com.google.gson.JsonObject;
 import com.spg.sgpco.BuildConfig;
 import com.spg.sgpco.R;
+import com.spg.sgpco.login.LoginActivity;
 
 import org.json.JSONObject;
 
@@ -31,7 +33,7 @@ public class ServerTransaction {
                                 serverListener.onFailure(res.getString(R.string.notFound));
                             }
                         }
-                    } else if (response.code() == 401) {
+                    } else if (response.code() == 401 || response.code() == 403) {
                         serverListener.onFailure(res.getString(R.string.unauthorized));
                     } else if (response.code() == 404) {
                         serverListener.onFailure(res.getString(R.string.notFound));

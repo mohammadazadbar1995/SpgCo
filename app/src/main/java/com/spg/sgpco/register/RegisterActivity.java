@@ -18,6 +18,7 @@ import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.Request.VerifyCodeService;
 import com.spg.sgpco.service.RequestModel.VerifyReq;
 import com.spg.sgpco.service.ResponseModel.VerifyResponse;
+import com.spg.sgpco.utils.Constants;
 import com.spg.sgpco.utils.PreferencesData;
 
 import java.util.ArrayList;
@@ -69,8 +70,8 @@ public class RegisterActivity extends BaseActivity {
         PreferencesData.saveString(this, "foreName", edtName.getValueString());
         req.setSurename(edtFamily.getValueString());
         PreferencesData.saveString(this, "sureName", edtFamily.getValueString());
-        req.setPassword(edtPassword.getValueString());
-        PreferencesData.saveString(this, "password", edtPassword.getValueString());
+        req.setPassword(Constants.convertToEnglishDigits(edtPassword.getValueString()));
+        PreferencesData.saveString(this, "password", Constants.convertToEnglishDigits(edtPassword.getValueString()));
         req.setPhonenumber(edtMobile.getValueString());
         PreferencesData.saveString(this, "mobile", edtMobile.getValueString());
         VerifyCodeService.getInstance().verifyCode(getResources(), req, new ResponseListener<VerifyResponse>() {
@@ -85,7 +86,7 @@ public class RegisterActivity extends BaseActivity {
             public void onSuccess(VerifyResponse response) {
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
-                if (response.isSuccess()){
+                if (response.isSuccess()) {
                     Intent intent = new Intent(RegisterActivity.this, VerifyCodeActivity.class);
                     Toast.makeText(RegisterActivity.this, response.getResult(), Toast.LENGTH_SHORT).show();
                     startActivity(intent);

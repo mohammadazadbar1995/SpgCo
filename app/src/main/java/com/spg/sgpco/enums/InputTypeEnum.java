@@ -49,7 +49,7 @@ public enum InputTypeEnum {
             case PHONE:
                 return InputType.TYPE_CLASS_NUMBER;
             case PASSWORD:
-                return InputType.TYPE_NUMBER_VARIATION_PASSWORD | InputType.TYPE_CLASS_NUMBER;
+                return InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT;
             case CODEVERIFY:
                 return InputType.TYPE_CLASS_NUMBER;
             case NUMBER:
