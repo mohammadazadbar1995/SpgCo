@@ -23,6 +23,7 @@ import com.spg.sgpco.baseView.BaseToolbar;
 import com.spg.sgpco.createProjcet.CreateProjectFragment;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
+import com.spg.sgpco.login.LoginActivity;
 import com.spg.sgpco.service.Request.DeleteProjectService;
 import com.spg.sgpco.service.Request.GetProjectListService;
 import com.spg.sgpco.service.Request.ResponseListener;
@@ -115,6 +116,17 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
                 } else {
                     rootEmptyView.setVisibility(View.VISIBLE);
                 }
+            }
+
+            @Override
+            public void onUtorized() {
+                if (getActivity() == null){
+                    return;
+                }
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                PreferencesData.isLogin(getActivity(), false);
+                startActivity(intent);
             }
         });
 
@@ -217,9 +229,13 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
             showProjectWebViewFragment.setArguments(bundle);
             FragmentManager fragMgr = getActivity().getSupportFragmentManager();
             FragmentTransaction fragTrans = fragMgr.beginTransaction();
-            fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+            PreferencesData.isShowPdf(getActivity(), true);
+//            fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+//            fragTrans.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
             fragTrans.add(R.id.frameLayout, showProjectWebViewFragment, ShowProjectWebViewFragment.class.getName());
             fragTrans.addToBackStack(ShowProjectWebViewFragment.class.getName());
+            fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
             fragTrans.commit();
         }
 
@@ -255,6 +271,17 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
                 }
 
             }
+
+            @Override
+            public void onUtorized() {
+                if (getActivity() == null){
+                    return;
+                }
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                PreferencesData.isLogin(getActivity(), false);
+                startActivity(intent);
+            }
         });
 
     }
@@ -266,6 +293,7 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
         intent.putExtra("two", "two");
         intent.putExtra("responseAllProject", allResponseProject);
         PreferencesData.isList(getActivity(), true);
+        PreferencesData.isShowPdf(getActivity(), false);
         startActivity(intent);
     }
 }

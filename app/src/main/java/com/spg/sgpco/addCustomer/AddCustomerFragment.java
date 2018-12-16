@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.spg.sgpco.R;
+import com.spg.sgpco.activity.MainActivity;
 import com.spg.sgpco.baseView.BaseFragment;
 import com.spg.sgpco.baseView.BaseImageView;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
@@ -22,6 +23,7 @@ import com.spg.sgpco.customView.CustomEditText;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.database.Customer;
 import com.spg.sgpco.dialog.CustomDialog;
+import com.spg.sgpco.login.LoginActivity;
 import com.spg.sgpco.service.Request.CreateCustomerService;
 import com.spg.sgpco.service.Request.DeleteCustomerService;
 import com.spg.sgpco.service.Request.GetListCustomerService;
@@ -35,6 +37,7 @@ import com.spg.sgpco.service.ResponseModel.CustomerItem;
 import com.spg.sgpco.service.ResponseModel.DeleteCustomerResponse;
 import com.spg.sgpco.service.ResponseModel.GetListCustomerResponse;
 import com.spg.sgpco.service.ResponseModel.UpdateCustomerResponse;
+import com.spg.sgpco.utils.PreferencesData;
 
 import java.util.List;
 
@@ -125,6 +128,15 @@ public class AddCustomerFragment extends BaseFragment implements CustomerAdapter
                     btnCreate.setText(getResources().getString(R.string.create));
 
                 }
+            }
+
+            @Override
+            public void onUtorized() {
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                PreferencesData.isLogin(getActivity(), false);
+
+                startActivity(intent);
             }
         });
 
@@ -219,6 +231,18 @@ public class AddCustomerFragment extends BaseFragment implements CustomerAdapter
                     isUpdate = false;
                 }
             }
+
+            @Override
+            public void onUtorized() {
+                if (getActivity() == null){
+                    return;
+                }
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                PreferencesData.isLogin(getActivity(), false);
+
+                startActivity(intent);
+            }
         });
 
 
@@ -291,6 +315,18 @@ public class AddCustomerFragment extends BaseFragment implements CustomerAdapter
                     goneView();
                 }
             }
+
+            @Override
+            public void onUtorized() {
+                if (getActivity() == null){
+                    return;
+                }
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                PreferencesData.isLogin(getActivity(), false);
+
+                startActivity(intent);
+            }
         });
     }
 
@@ -320,6 +356,19 @@ public class AddCustomerFragment extends BaseFragment implements CustomerAdapter
                     isUpdate = false;
                     goneView();
                 }
+            }
+
+            @Override
+            public void onUtorized() {
+                if (getActivity() == null){
+                    return;
+                }
+
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                PreferencesData.isLogin(getActivity(), false);
+
+                startActivity(intent);
             }
         });
     }

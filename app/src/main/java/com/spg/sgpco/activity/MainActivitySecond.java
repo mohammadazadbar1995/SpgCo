@@ -1,5 +1,6 @@
 package com.spg.sgpco.activity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -21,12 +22,14 @@ import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.createProjcet.CreateProjectFragment;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
+import com.spg.sgpco.login.LoginActivity;
 import com.spg.sgpco.profile.ProfileFragment;
 import com.spg.sgpco.service.Request.GetAllSettingService;
 import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.ResponseModel.SettingAllResponse;
 import com.spg.sgpco.utils.Constants;
 import com.spg.sgpco.utils.CustomTypefaceSpan;
+import com.spg.sgpco.utils.PreferencesData;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,6 +90,15 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
                 enableDisableViewGroup(root, true);
                 MainActivitySecond.this.responseAllProject = response;
                 Constants.OpenProjectUrl = response.getResult().getUrl_pdf();
+            }
+
+            @Override
+            public void onUtorized() {
+                finish();
+                Intent intent = new Intent(MainActivitySecond.this, LoginActivity.class);
+                PreferencesData.isLogin(MainActivitySecond.this, false);
+
+                startActivity(intent);
             }
         });
     }
@@ -211,9 +223,13 @@ public class MainActivitySecond extends BaseActivity implements FragmentManager.
     public void loadFragment(Fragment fragment, String fragmentTag) {
         FragmentManager fragMgr = getSupportFragmentManager();
         FragmentTransaction fragTrans = fragMgr.beginTransaction();
-        fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+//        fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+//        fragTrans.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
         fragTrans.addToBackStack(fragmentTag);
         fragTrans.add(R.id.frameLayout, fragment, fragmentTag);
+        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
         fragTrans.commit();
     }
 

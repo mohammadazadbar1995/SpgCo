@@ -8,8 +8,8 @@
     android:layout_centerInParent="true"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
-    android:clickable="true"
-    android:background="@color/backColor">
+    android:background="@color/backColor"
+    android:clickable="true">
 
 
     <include
@@ -98,10 +98,10 @@
                 android:layout_marginEnd="@dimen/margin_16"
                 android:focusableInTouchMode="false"
                 app:edtIcon="@drawable/ic_person_gray"
-                app:hint="@string/family_hint"
+                app:hint="@string/family_text"
                 app:inputType="NAME"
                 app:isRequired="true"
-                app:tvTitle="@string/family_text" />
+                app:tvTitle="@string/family_hint" />
 
             <com.spg.sgpco.baseView.BaseRelativeLayout
                 android:layout_width="match_parent"

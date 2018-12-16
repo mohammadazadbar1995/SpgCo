@@ -39,7 +39,11 @@
     <color name="six">#ee2b7a</color>
     <color name="seven">#f27529</color>
     <color name="eight">#ff0000</color>
-    <color name="nine">#060b74</color>
+    <color name="nine">#ff0000</color>
+    <color name="ten">#ee2b7a</color>
+    <color name="eleven">#8dc73f</color>
+    <color name="twelve">#060b74</color>
     <color name="backgrorundListLight">#EFEFF4</color>
+
 
 </resources>

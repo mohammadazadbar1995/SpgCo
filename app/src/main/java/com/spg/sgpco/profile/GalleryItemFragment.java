@@ -13,17 +13,20 @@ import android.view.ViewGroup;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.activity.BackPressedFragment;
+import com.spg.sgpco.activity.MainActivity;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.baseView.BaseToolbar;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
+import com.spg.sgpco.login.LoginActivity;
 import com.spg.sgpco.service.Request.GalleryItemService;
 import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.ResponseModel.GalleryItem;
 import com.spg.sgpco.service.ResponseModel.GalleryItemList;
 import com.spg.sgpco.service.ResponseModel.GalleryItemResponse;
 import com.spg.sgpco.utils.EqualSpacingItemDecoration;
+import com.spg.sgpco.utils.PreferencesData;
 
 import java.util.ArrayList;
 
@@ -108,6 +111,18 @@ public class GalleryItemFragment extends Fragment implements BackPressedFragment
                     tvCenterTitle.setText(response.getResult().getPost().getPost_title());
                     setAdapter(response.getResult().getGallery());
                 }
+            }
+
+            @Override
+            public void onUtorized() {
+                if (getActivity() == null){
+                    return;
+                }
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                PreferencesData.isLogin(getActivity(), false);
+
+                startActivity(intent);
             }
         });
     }

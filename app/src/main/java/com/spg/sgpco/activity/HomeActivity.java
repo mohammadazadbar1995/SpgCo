@@ -1,6 +1,8 @@
 package com.spg.sgpco.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
@@ -11,7 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.view.WindowManager;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.baseView.BaseActivity;
@@ -67,8 +69,17 @@ public class HomeActivity extends BaseActivity implements MenuAdapter.OnItemClic
 
     private void setMainMenu() {
         adapter = new MenuAdapter(this, getMainList(), this);
-        myMenu.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        myMenu.setAdapter(adapter);
+        WindowManager windowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
+        if (windowManager != null) {
+            Point size = Constants.getScreenSize(windowManager);
+            if (size.x > getResources().getDimensionPixelSize(R.dimen.device_width)) {
+                myMenu.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+                myMenu.setAdapter(adapter);
+            } else {
+                myMenu.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+                myMenu.setAdapter(adapter);
+            }
+        }
     }
 
     private ArrayList<MyMenuItem> getMainList() {
@@ -82,7 +93,10 @@ public class HomeActivity extends BaseActivity implements MenuAdapter.OnItemClic
         myMenuItems.add(new MyMenuItem(6, "گالری تصاویر", R.drawable.gallery, getResources().getColor(R.color.six)));
         myMenuItems.add(new MyMenuItem(7, "پروفایل", R.drawable.profile, getResources().getColor(R.color.seven)));
         myMenuItems.add(new MyMenuItem(8, "تماس با ما", R.drawable.contact_us, getResources().getColor(R.color.eight)));
-        myMenuItems.add(new MyMenuItem(9, "خروج", R.drawable.exit, getResources().getColor(R.color.nine)));
+        myMenuItems.add(new MyMenuItem(9, getResources().getString(R.string.about_sgp_title), R.drawable.ic_info_outline_white, getResources().getColor(R.color.nine)));
+        myMenuItems.add(new MyMenuItem(10, getResources().getString(R.string.about_system_heat), R.drawable.ic_info_outline_white, getResources().getColor(R.color.ten)));
+        myMenuItems.add(new MyMenuItem(11, getResources().getString(R.string.about_application), R.mipmap.ic_launcher, getResources().getColor(R.color.eleven)));
+        myMenuItems.add(new MyMenuItem(12, "خروج", R.drawable.exit, getResources().getColor(R.color.twelve)));
 
         return myMenuItems;
     }
@@ -128,6 +142,18 @@ public class HomeActivity extends BaseActivity implements MenuAdapter.OnItemClic
             intent.putExtra("eight", "eight");
             startActivity(intent);
         } else if (item.getId() == 9) {
+            intent = new Intent(this, Activity.class);
+            intent.putExtra("nine", "nine");
+            startActivity(intent);
+        } else if (item.getId() == 10) {
+            intent = new Intent(this, Activity.class);
+            intent.putExtra("ten", "ten");
+            startActivity(intent);
+        } else if (item.getId() == 11) {
+            intent = new Intent(this, Activity.class);
+            intent.putExtra("eleven", "eleven");
+            startActivity(intent);
+        } else if (item.getId() == 12) {
             logoutDialog();
         }
     }
@@ -167,6 +193,14 @@ public class HomeActivity extends BaseActivity implements MenuAdapter.OnItemClic
                 startActivity(login);
                 finish();
             }
+
+            @Override
+            public void onUtorized() {
+                finish();
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                PreferencesData.isLogin(HomeActivity.this, false);
+                startActivity(intent);
+            }
         });
     }
 
@@ -200,6 +234,14 @@ public class HomeActivity extends BaseActivity implements MenuAdapter.OnItemClic
                 enableDisableViewGroup(root, true);
                 HomeActivity.this.responseAllProject = response;
                 Constants.OpenProjectUrl = response.getResult().getUrl_pdf();
+            }
+
+            @Override
+            public void onUtorized() {
+                finish();
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                PreferencesData.isLogin(HomeActivity.this, false);
+                startActivity(intent);
             }
         });
     }

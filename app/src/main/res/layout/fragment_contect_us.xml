@@ -8,8 +8,8 @@
     android:layout_centerInParent="true"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
-    android:clickable="true"
-    android:background="@color/backColor">
+    android:background="@color/backColor"
+    android:clickable="true">
 
 
     <include
@@ -91,26 +91,16 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <com.spg.sgpco.baseView.BaseImageView
-                        android:id="@+id/email"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        />
 
-
-                    <com.spg.sgpco.baseView.BaseImageView
-                        android:id="@+id/instagram"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                    <com.spg.sgpco.baseView.BaseTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_3"
-                        />
-
-                    <com.spg.sgpco.baseView.BaseImageView
-                        android:id="@+id/tellphone"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="@dimen/margin_3"
-                        />
+                        android:layout_marginEnd="@dimen/margin_3"
+                        android:gravity="center"
+                        android:text="@string/contact_us_desc"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="@dimen/text_size_2" />
 
                 </com.spg.sgpco.baseView.BaseLinearLayout>
 
@@ -123,12 +113,34 @@
 
 
                 <com.spg.sgpco.baseView.BaseTextView
-                    android:id="@+id/tvPhone"
+                    android:id="@+id/tvPhoneOfficeTehran"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/margin_3"
-                    android:text="@string/phoneNumber"
+                    android:text="@string/office_tehran"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="@dimen/text_size_3"
+                    app:fontType="Regular" />
+
+                <com.spg.sgpco.baseView.BaseTextView
+                    android:id="@+id/tvPhoneOfficeEsfahan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_3"
+                    android:text="@string/office_esfahan"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="@dimen/text_size_3"
+                    app:fontType="Regular" />
+
+                <com.spg.sgpco.baseView.BaseTextView
+                    android:id="@+id/tvPhoneOfficeMashhad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_3"
+                    android:text="@string/office_mashhad"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="@dimen/text_size_3"
                     app:fontType="Regular" />
@@ -139,9 +151,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/margin_2"
+                    android:text="@string/email"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="@dimen/text_size_3"
-                    android:text="@string/email"
                     app:fontType="Medium" />
 
 

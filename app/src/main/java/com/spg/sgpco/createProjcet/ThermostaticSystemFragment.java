@@ -27,6 +27,7 @@ import com.spg.sgpco.customView.CustomNoReduisEditText;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
 import com.spg.sgpco.enums.TypeEnum;
+import com.spg.sgpco.login.LoginActivity;
 import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.Request.ThermostaticProjectService;
 import com.spg.sgpco.service.Request.UpdateThermostaticProjectService;
@@ -37,6 +38,7 @@ import com.spg.sgpco.service.ResponseModel.SettingResultItem;
 import com.spg.sgpco.service.ResponseModel.SucessUpdateResponse;
 import com.spg.sgpco.service.ResponseModel.UpdateProjectResult;
 import com.spg.sgpco.utils.Constants;
+import com.spg.sgpco.utils.PreferencesData;
 
 import java.util.ArrayList;
 
@@ -237,6 +239,18 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
                     }
                 }
             }
+
+            @Override
+            public void onUtorized() {
+                if (getActivity() == null){
+                    return;
+                }
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                PreferencesData.isLogin(getActivity(), false);
+
+                startActivity(intent);
+            }
         });
 
     }
@@ -307,9 +321,11 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
                         showProjectWebViewFragment.setArguments(bundle);
                         FragmentManager fragMgr = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragTrans = fragMgr.beginTransaction();
-                        fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+//                        fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
                         fragTrans.add(R.id.frameLayout, showProjectWebViewFragment, ShowProjectWebViewFragment.class.getName());
                         fragTrans.addToBackStack(ShowProjectWebViewFragment.class.getName());
+                        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
                         fragTrans.commit();
 //                        HomeFragment homeFragment = new HomeFragment();
 //                        FragmentManager fragMgr = getActivity().getSupportFragmentManager();
@@ -323,6 +339,18 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
 //                            ((MainActivitySecond) getActivity()).getNavigation().setSelectedItemId(R.id.tab_home);
                     }
                 }
+            }
+
+            @Override
+            public void onUtorized() {
+                if (getActivity() == null){
+                    return;
+                }
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                PreferencesData.isLogin(getActivity(), false);
+
+                startActivity(intent);
             }
         });
     }

@@ -75,5 +75,6 @@
     <dimen name="button_height_detail">34dp</dimen>
 
     <dimen name="dialog_width_comminucatio">300dp</dimen>
+    <dimen name="device_width">600dp</dimen>
 
 </resources>

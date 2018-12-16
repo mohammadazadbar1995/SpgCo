@@ -1,5 +1,6 @@
 package com.spg.sgpco.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,8 @@ import android.widget.Toast;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.activity.BackPressedFragment;
+import com.spg.sgpco.activity.HomeActivity;
+import com.spg.sgpco.activity.MainActivity;
 import com.spg.sgpco.baseView.BaseFragment;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
@@ -17,6 +20,7 @@ import com.spg.sgpco.baseView.BaseToolbar;
 import com.spg.sgpco.customView.CustomEditText;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
+import com.spg.sgpco.login.LoginActivity;
 import com.spg.sgpco.service.Request.GetInfoService;
 import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.Request.UpdateProfileService;
@@ -112,6 +116,18 @@ public class UpdateProfileFragment extends BaseFragment implements BackPressedFr
 
                 }
             }
+
+            @Override
+            public void onUtorized() {
+                if (getActivity() == null){
+                    return;
+                }
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                PreferencesData.isLogin(getActivity(), false);
+
+                startActivity(intent);
+            }
         });
     }
 
@@ -171,7 +187,6 @@ public class UpdateProfileFragment extends BaseFragment implements BackPressedFr
             updateProfileRequest();
     }
 
-    ArrayList<String> errorMsgList = new ArrayList<>();
 
     private boolean isValidData() {
         ArrayList<String> errorMsgList = new ArrayList<>();
@@ -216,6 +231,18 @@ public class UpdateProfileFragment extends BaseFragment implements BackPressedFr
                     edtFamily.setBody("");
 
                 }
+            }
+
+            @Override
+            public void onUtorized() {
+                if (getActivity() == null){
+                    return;
+                }
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                PreferencesData.isLogin(getActivity(), false);
+
+                startActivity(intent);
             }
         });
     }

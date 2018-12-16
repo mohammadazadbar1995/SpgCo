@@ -25,6 +25,7 @@ import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
 import com.spg.sgpco.enums.ControlSystemEnum;
 import com.spg.sgpco.enums.TypeEnum;
+import com.spg.sgpco.login.LoginActivity;
 import com.spg.sgpco.service.Request.GetProjectDataItemService;
 import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.ResponseModel.CitiesListItem;
@@ -35,6 +36,7 @@ import com.spg.sgpco.service.ResponseModel.SettingResultItem;
 import com.spg.sgpco.service.ResponseModel.SystemsItem;
 import com.spg.sgpco.service.ResponseModel.UpdateProjectResponse;
 import com.spg.sgpco.utils.Constants;
+import com.spg.sgpco.utils.PreferencesData;
 
 import java.util.ArrayList;
 
@@ -176,6 +178,18 @@ public class CreateProjectFragment extends BaseFragment {
                     CreateProjectFragment.this.updateResponse = response;
                     setDataInView(response);
                 }
+            }
+
+            @Override
+            public void onUtorized() {
+                if (getActivity() == null){
+                    return;
+                }
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                PreferencesData.isLogin(getActivity(), false);
+
+                startActivity(intent);
             }
         });
     }
@@ -381,7 +395,9 @@ public class CreateProjectFragment extends BaseFragment {
         if (getActivity() != null) {
             FragmentManager fragMgr = getActivity().getSupportFragmentManager();
             FragmentTransaction fragTrans = fragMgr.beginTransaction();
-            fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+//            fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+            fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
             fragTrans.addToBackStack(fragmentTag);
             fragTrans.add(R.id.frameLayout, fragment, fragmentTag);
             fragTrans.commit();

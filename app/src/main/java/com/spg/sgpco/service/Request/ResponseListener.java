@@ -6,4 +6,5 @@ public interface ResponseListener<T> {
 
     void onSuccess(T response);
 
+    void onUtorized();
 }

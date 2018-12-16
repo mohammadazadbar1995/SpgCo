@@ -7,6 +7,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatDelegate;
 
 import com.spg.sgpco.R;
+import com.spg.sgpco.about.AboutApplicationFragment;
+import com.spg.sgpco.about.AboutSgpFragment;
+import com.spg.sgpco.about.AboutSystemHeatFragment;
 import com.spg.sgpco.addCustomer.AddCustomerFragment;
 import com.spg.sgpco.baseView.BaseActivity;
 import com.spg.sgpco.createProjcet.CreateProjectFragment;
@@ -31,6 +34,8 @@ public class Activity extends BaseActivity {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         ButterKnife.bind(this);
 
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             if ("one".equals(bundle.getString("one"))) {
@@ -53,6 +58,12 @@ public class Activity extends BaseActivity {
                 loadFragment(new UpdateProfileFragment(), UpdateProfileFragment.class.getName());
             } else if ("eight".equals(bundle.getString("eight"))) {
                 loadFragment(new ContactUsFragment(), ContactUsFragment.class.getName());
+            }else if ("nine".equals(bundle.getString("nine"))) {
+                loadFragment(new AboutSgpFragment(), AboutSgpFragment.class.getName());
+            }else if ("ten".equals(bundle.getString("ten"))) {
+                loadFragment(new AboutSystemHeatFragment(), AboutSystemHeatFragment.class.getName());
+            }else if ("eleven".equals(bundle.getString("eleven"))) {
+                loadFragment(new AboutApplicationFragment(), AboutApplicationFragment.class.getName());
             }
         }
     }
@@ -61,15 +72,29 @@ public class Activity extends BaseActivity {
     public void loadFragment(Fragment fragment, String fragmentTag) {
         FragmentManager fragMgr = getSupportFragmentManager();
         FragmentTransaction fragTrans = fragMgr.beginTransaction();
-        fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+//        fragTrans.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.pop_enter, R.anim.pop_exit);
+//        fragTrans.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+
         fragTrans.addToBackStack(null);
-        fragTrans.replace(R.id.frameLayout, fragment, fragmentTag);
+        fragTrans.add(R.id.frameLayout, fragment, fragmentTag);
+        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
         fragTrans.commit();
     }
 
 
     @Override
     public void onBackPressed() {
-        finish();
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            String fragmentTag = fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName();
+            Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(fragmentTag);
+            if (currentFragment instanceof BackPressedFragment) {
+                ((BackPressedFragment) currentFragment).onPopBackStack();
+                return;
+            } else {
+                finish();
+            }
+        }
     }
 }

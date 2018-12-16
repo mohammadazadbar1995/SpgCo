@@ -2,16 +2,19 @@ package com.spg.sgpco.customView;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.baseView.BaseEditText;
 import com.spg.sgpco.baseView.BaseImageView;
 import com.spg.sgpco.baseView.BaseTextView;
+import com.spg.sgpco.dialog.CustomDialog;
 import com.spg.sgpco.enums.InputTypeEnum;
 import com.spg.sgpco.enums.TypeEnum;
 import com.spg.sgpco.listener.OnEditTextChangeListener;
@@ -77,6 +80,15 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
             setTextHint(hint);
             setIsRequired(isRequired);
             setImageInfo(isImageInfo);
+            imageInfo.setOnClickListener(view -> {
+                CustomDialog customDialog = new CustomDialog(getContext());
+                customDialog.setOkListener(getResources().getString(R.string.attention), view1 -> customDialog.dismiss());
+                customDialog.setIcon(R.drawable.ic_info);
+                customDialog.setDescription(getResources().getString(R.string.info));
+                customDialog.setDialogTitle(getResources().getString(R.string.cold_area));
+                customDialog.show();
+
+            });
         }
         edtBody.onEditTextChangeListener = this;
 
@@ -189,7 +201,6 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
     public long getValueLong() {
         return edtBody.getValueLong();
     }
-
 
 
 }

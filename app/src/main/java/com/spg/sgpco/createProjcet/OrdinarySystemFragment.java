@@ -24,6 +24,7 @@ import com.spg.sgpco.customView.CustomNoReduisEditText;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
 import com.spg.sgpco.enums.TypeEnum;
+import com.spg.sgpco.login.LoginActivity;
 import com.spg.sgpco.service.Request.OrdinaryProjectService;
 import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.Request.UpdateOrdinaryProjectService;
@@ -35,6 +36,7 @@ import com.spg.sgpco.service.ResponseModel.SettingResultItem;
 import com.spg.sgpco.service.ResponseModel.SucessUpdateResponse;
 import com.spg.sgpco.service.ResponseModel.UpdateProjectResult;
 import com.spg.sgpco.utils.Constants;
+import com.spg.sgpco.utils.PreferencesData;
 
 import java.util.ArrayList;
 
@@ -162,6 +164,7 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
         roundedLoadingView.setVisibility(View.VISIBLE);
         enableDisableViewGroup(root, false);
 
+
         UpdateOrdinaryProjectReq req = new UpdateOrdinaryProjectReq();
         req.setProject_id(updateSystemsOrdinary.getId());
         req.setTitle(title);
@@ -195,6 +198,18 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
 
                     }
                 }
+            }
+
+            @Override
+            public void onUtorized() {
+                if (getActivity() == null){
+                    return;
+                }
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                PreferencesData.isLogin(getActivity(), false);
+
+                startActivity(intent);
             }
         });
     }
@@ -236,7 +251,9 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
                         showProjectWebViewFragment.setArguments(bundle);
                         FragmentManager fragMgr = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragTrans = fragMgr.beginTransaction();
-                        fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+//                        fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+                        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
                         fragTrans.add(R.id.frameLayout, showProjectWebViewFragment, ShowProjectWebViewFragment.class.getName());
                         fragTrans.addToBackStack(ShowProjectWebViewFragment.class.getName());
                         fragTrans.commit();
@@ -253,6 +270,18 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
 //                            ((MainActivitySecond) getActivity()).getNavigation().setSelectedItemId(R.id.tab_home);
                     }
                 }
+            }
+
+            @Override
+            public void onUtorized() {
+                if (getActivity() == null){
+                    return;
+                }
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                PreferencesData.isLogin(getActivity(), false);
+
+                startActivity(intent);
             }
         });
     }

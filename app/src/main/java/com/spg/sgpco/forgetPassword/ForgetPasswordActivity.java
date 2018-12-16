@@ -8,16 +8,20 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.spg.sgpco.R;
+import com.spg.sgpco.activity.MainActivity;
 import com.spg.sgpco.baseView.BaseActivity;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.customView.CustomEditText;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
+import com.spg.sgpco.login.LoginActivity;
+import com.spg.sgpco.register.VerifyCodeActivity;
 import com.spg.sgpco.service.Request.ForgetPasswordService;
 import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.RequestModel.ForgetPassReq;
 import com.spg.sgpco.service.ResponseModel.VerifyResponse;
+import com.spg.sgpco.utils.PreferencesData;
 
 import java.util.ArrayList;
 
@@ -76,6 +80,15 @@ public class ForgetPasswordActivity extends BaseActivity {
                     finish();
 
                 }
+            }
+
+            @Override
+            public void onUtorized() {
+                finish();
+                Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
+                PreferencesData.isLogin(ForgetPasswordActivity.this, false);
+
+                startActivity(intent);
             }
         });
     }

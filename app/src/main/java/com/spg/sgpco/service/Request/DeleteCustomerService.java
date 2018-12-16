@@ -43,6 +43,12 @@ public class DeleteCustomerService {
             }
 
             @Override
+            public void onUtorized() {
+                responseListener.onUtorized();
+
+            }
+
+            @Override
             public void onSuccess(JsonObject jsonObject) throws JSONException, UnsupportedEncodingException {
                 Gson gson = new Gson();
                 try {

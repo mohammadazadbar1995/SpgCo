@@ -1,5 +1,6 @@
 package com.spg.sgpco.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,11 +19,14 @@ import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
+import com.spg.sgpco.login.LoginActivity;
+import com.spg.sgpco.register.VerifyCodeActivity;
 import com.spg.sgpco.service.Request.GalleryService;
 import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.ResponseModel.GalleryItem;
 import com.spg.sgpco.service.ResponseModel.GalleryResponse;
 import com.spg.sgpco.utils.EqualSpacingItemDecoration;
+import com.spg.sgpco.utils.PreferencesData;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -99,6 +103,18 @@ public class GalleryFragment extends Fragment implements BackPressedFragment, Ga
                     GalleryFragment.this.response = response;
                     setAdapter();
                 }
+            }
+
+            @Override
+            public void onUtorized() {
+                if (getActivity() == null){
+                    return;
+                }
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                PreferencesData.isLogin(getActivity(), false);
+
+                startActivity(intent);
             }
         });
     }

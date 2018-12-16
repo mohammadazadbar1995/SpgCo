@@ -35,6 +35,7 @@ public class ServerTransaction {
                         }
                     } else if (response.code() == 401 || response.code() == 403) {
                         serverListener.onFailure(res.getString(R.string.unauthorized));
+                        serverListener.onUtorized();
                     } else if (response.code() == 404) {
                         serverListener.onFailure(res.getString(R.string.notFound));
                     } else if (response.code() == 500) {

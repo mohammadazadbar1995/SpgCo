@@ -32,8 +32,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
+                android:layout_marginStart="@dimen/margin_3"
+                android:layout_marginEnd="@dimen/margin_3"
                 android:layout_marginBottom="@dimen/margin_3"
-                android:maxLines="1"
+                android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_3"
                 app:fontType="Medium" />

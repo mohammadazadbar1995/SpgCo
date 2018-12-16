@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.spg.sgpco.R;
 import com.spg.sgpco.activity.HomeActivity;
+import com.spg.sgpco.activity.MainActivity;
 import com.spg.sgpco.activity.MainActivitySecond;
 import com.spg.sgpco.baseView.BaseActivity;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
@@ -22,6 +23,7 @@ import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.customView.CustomEditText;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
+import com.spg.sgpco.login.LoginActivity;
 import com.spg.sgpco.service.Request.RegisterService;
 import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.Request.VerifyCodeService;
@@ -151,6 +153,14 @@ public class VerifyCodeActivity extends BaseActivity {
                     Toast.makeText(VerifyCodeActivity.this, response.getResult(), Toast.LENGTH_SHORT).show();
                 }
             }
+
+            @Override
+            public void onUtorized() {
+                finish();
+                Intent intent = new Intent(VerifyCodeActivity.this, LoginActivity.class);
+                PreferencesData.isLogin(VerifyCodeActivity.this, false);
+                startActivity(intent);
+            }
         });
     }
 
@@ -184,6 +194,15 @@ public class VerifyCodeActivity extends BaseActivity {
                     startActivity(loginIntent);
                     finish();
                 }
+            }
+
+            @Override
+            public void onUtorized() {
+                finish();
+                Intent intent = new Intent(VerifyCodeActivity.this, LoginActivity.class);
+                PreferencesData.isLogin(VerifyCodeActivity.this, false);
+
+                startActivity(intent);
             }
         });
     }

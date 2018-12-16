@@ -10,5 +10,7 @@ public interface ServerListener {
 
     void onFailure(String str);
 
+    void onUtorized();
+
     void onSuccess(JsonObject jsonObject) throws JSONException, UnsupportedEncodingException;
 }

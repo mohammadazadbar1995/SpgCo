@@ -244,6 +244,18 @@ public class ProfileFragment extends BaseFragment {
                     getActivity().finish();
                 }
             }
+
+            @Override
+            public void onUtorized() {
+                if (getActivity() == null){
+                    return;
+                }
+                getActivity().finish();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                PreferencesData.isLogin(getActivity(), false);
+
+                startActivity(intent);
+            }
         });
     }
 
@@ -264,11 +276,14 @@ public class ProfileFragment extends BaseFragment {
         }
         FragmentManager fragMgr = getActivity().getSupportFragmentManager();
         FragmentTransaction fragTrans = fragMgr.beginTransaction();
-        fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+//        fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+
         fragTrans.add(R.id.frameLayout, fragment, fragmentTag);
         fragTrans.addToBackStack(fragmentTag);
         if (hideOtherFragmnet)
             hideOtherFragment(fragment);
+        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
         fragTrans.commit();
 
     }

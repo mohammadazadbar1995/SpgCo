@@ -48,6 +48,14 @@ public class PreferencesData {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(key, defaultValue);
     }
 
+    public static void isShowPdf(Context context, boolean value) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("isShowPdf", value).apply();
+    }
+
+    public static boolean getISShowPDf(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("isShowPdf", false);
+    }
+
 //    public static void saveString(String key, String value) {
 //        PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString(key, value).commit();
 //    }

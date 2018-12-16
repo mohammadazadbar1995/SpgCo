@@ -16,11 +16,14 @@ import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.customView.CustomEditText;
 import com.spg.sgpco.customView.RoundedLoadingView;
 import com.spg.sgpco.dialog.CustomDialog;
+import com.spg.sgpco.login.LoginActivity;
+import com.spg.sgpco.register.VerifyCodeActivity;
 import com.spg.sgpco.service.Request.ResetPasswordService;
 import com.spg.sgpco.service.Request.ResponseListener;
 import com.spg.sgpco.service.RequestModel.ResetPasswordReq;
 import com.spg.sgpco.service.ResponseModel.ResetPasswordResponse;
 import com.spg.sgpco.utils.Constants;
+import com.spg.sgpco.utils.PreferencesData;
 
 import java.util.ArrayList;
 
@@ -83,6 +86,16 @@ public class ResetPasswordActivity extends BaseActivity {
                     finish();
 
                 }
+            }
+
+            @Override
+            public void onUtorized() {
+
+                finish();
+                Intent intent = new Intent(ResetPasswordActivity.this, LoginActivity.class);
+                PreferencesData.isLogin(ResetPasswordActivity.this, false);
+
+                startActivity(intent);
             }
         });
     }

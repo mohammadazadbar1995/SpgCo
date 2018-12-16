@@ -94,6 +94,15 @@ public class MainActivity extends BaseActivity {
                 setupDrawer();
                 setupDrawerContent(nvDrawer);
             }
+
+            @Override
+            public void onUtorized() {
+                finish();
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                PreferencesData.isLogin(MainActivity.this, false);
+
+                startActivity(intent);
+            }
         });
     }
 
@@ -144,7 +153,9 @@ public class MainActivity extends BaseActivity {
     private void selectDrawerItem(MenuItem menuItem) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+//        ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
         switch (menuItem.getItemId()) {
             case R.id.nav_main_page:
                 ft.replace(R.id.flContent, this.listFragments.get(0)).commit();
@@ -182,6 +193,7 @@ public class MainActivity extends BaseActivity {
 
         roundedLoadingView.setVisibility(View.VISIBLE);
         LogoutService.getInstance().logout(getResources(), new ResponseListener<LogoutService>() {
+
             @Override
             public void onGetErrore(String error) {
                 roundedLoadingView.setVisibility(View.GONE);
@@ -195,6 +207,15 @@ public class MainActivity extends BaseActivity {
                 Intent login = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(login);
                 finish();
+            }
+
+            @Override
+            public void onUtorized() {
+                finish();
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                PreferencesData.isLogin(MainActivity.this, false);
+
+                startActivity(intent);
             }
         });
     }

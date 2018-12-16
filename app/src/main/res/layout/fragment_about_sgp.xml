@@ -1,20 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <com.spg.sgpco.baseView.BaseRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
     android:layout_centerInParent="true"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
-    android:gravity="center">
+    android:background="@color/backColor"
+    android:clickable="true">
 
-    <com.spg.sgpco.baseView.BaseTextView
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        android:text="about Spg" />
+        android:layout_below="@+id/toolbar"
+        android:fillViewport="true">
+
+        <com.spg.sgpco.baseView.BaseTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_2"
+            android:layout_marginTop="@dimen/margin_2"
+
+            android:layout_marginEnd="@dimen/margin_2"
+            android:layout_marginBottom="@dimen/margin_2"
+            android:text="@string/about_sgp"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/text_size_2"
+            app:fontType="Regular" />
+
+
+    </ScrollView>
+
+    <com.spg.sgpco.customView.RoundedLoadingView
+        android:id="@+id/roundedLoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
 
 </com.spg.sgpco.baseView.BaseRelativeLayout>
 

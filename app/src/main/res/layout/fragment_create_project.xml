@@ -37,7 +37,7 @@
                 app:hint="@string/enter_your_project_name"
                 app:inputType="NAME"
                 app:isRequired="true"
-                app:tvTitle="@string/name_text" />
+                app:tvTitle="" />
 
             <View
                 android:layout_width="match_parent"

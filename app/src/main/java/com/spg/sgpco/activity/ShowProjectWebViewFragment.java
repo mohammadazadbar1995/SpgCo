@@ -107,19 +107,15 @@ public class ShowProjectWebViewFragment extends BaseFragment implements BackPres
     }
 
 
-
-
     @Override
     public void onPopBackStack() {
         if (getActivity() != null) {
-            if (PreferencesData.getIsList(getActivity())) {
-                Intent intent = new Intent(getActivity(), Activity.class);
-                intent.putExtra("one", "one");
-                startActivity(intent);
-            } else {
+            if (PreferencesData.getISShowPDf(getActivity())) {
                 getActivity().getSupportFragmentManager().popBackStack();
-            }
+            } else {
+                getActivity().finish();
 
+            }
         }
     }
 
