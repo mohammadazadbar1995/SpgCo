@@ -50,7 +50,7 @@ public class AboutApplicationFragment extends BaseFragment implements BackPresse
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_about_system_heat, container, false);
+        View view = inflater.inflate(R.layout.fragment_about_application, container, false);
         unbinder = ButterKnife.bind(this, view);
         tvCenterTitle.setText(getResources().getString(R.string.about_application));
 

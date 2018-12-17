@@ -25,11 +25,11 @@
         <com.spg.sgpco.baseView.BaseTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_2"
-            android:layout_marginTop="@dimen/margin_2"
-
-            android:layout_marginEnd="@dimen/margin_2"
-            android:layout_marginBottom="@dimen/margin_2"
+            android:layout_marginStart="@dimen/margin_3"
+            android:layout_marginTop="@dimen/margin_3"
+            android:layout_marginEnd="@dimen/margin_3"
+            android:layout_marginBottom="@dimen/margin_3"
+            android:lineSpacingMultiplier="1.3"
             android:text="@string/about_application_desc"
             android:textColor="@color/primaryTextColor"
             android:textSize="@dimen/text_size_2"

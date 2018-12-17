@@ -81,6 +81,7 @@ public class LoginActivity extends BaseActivity {
 
     private void loginRequest() {
         roundedLoadingView.setVisibility(View.VISIBLE);
+        roundedLoadingView.showLoading();
         enableDisableViewGroup(root, false);
 
         req = new LoginReq();

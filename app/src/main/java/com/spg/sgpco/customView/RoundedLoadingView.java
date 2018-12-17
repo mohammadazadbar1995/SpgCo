@@ -1,6 +1,11 @@
 package com.spg.sgpco.customView;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ProgressBar;
@@ -37,6 +42,14 @@ public class RoundedLoadingView extends RelativeLayout {
         progress = findViewById(R.id.progress);
         root = findViewById(R.id.root);
         this.setLayoutDirection(Constants.language.getLayoutDirection());
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            Drawable drawableProgress = DrawableCompat.wrap(progress.getIndeterminateDrawable());
+            DrawableCompat.setTint(drawableProgress, ContextCompat.getColor(context, R.color.colorAccent));
+            progress.setIndeterminateDrawable(DrawableCompat.unwrap(drawableProgress));
+
+        } else {
+            progress.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(context, R.color.colorAccent), PorterDuff.Mode.SRC_IN);
+        }
     }
 
 

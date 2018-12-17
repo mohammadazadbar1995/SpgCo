@@ -1,6 +1,7 @@
 package com.spg.sgpco.activity;
 
 import android.app.Activity;
+import android.graphics.PorterDuff;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -57,6 +58,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         holder.txtTitle.setText(obj.getTitle());
         holder.imageView.setImageResource(obj.getDrawableId());
         holder.rlLayout.setCardBackgroundColor(obj.getBackColor());
+        holder.imageView.setColorFilter(obj.getImageColor(), PorterDuff.Mode.SRC_ATOP);
         holder.bind(list.get(position), listener);
 
         setFadeAnimation(holder.rlLayout);

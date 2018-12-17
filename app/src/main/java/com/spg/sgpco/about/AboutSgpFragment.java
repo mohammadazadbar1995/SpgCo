@@ -3,6 +3,7 @@ package com.spg.sgpco.about;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,8 @@ public class AboutSgpFragment extends BaseFragment implements BackPressedFragmen
     @BindView(R.id.root)
     BaseRelativeLayout root;
     Unbinder unbinder;
+    @BindView(R.id.about)
+    BaseTextView about;
 
     public AboutSgpFragment() {
     }

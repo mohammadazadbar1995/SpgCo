@@ -19,6 +19,8 @@
         <ProgressBar
             android:id="@+id/progress"
             android:layout_width="48dp"
+            android:indeterminate="true"
+
             android:layout_height="48dp"
             android:layout_below="@+id/tvTitle"
             android:layout_gravity="center|center_vertical"

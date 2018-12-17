@@ -137,7 +137,7 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
     }
 
     public void setTextsTitle(String title) {
-        if (title != null || title.trim().isEmpty()) {
+        if (title != null && title.trim().isEmpty()) {
             tvTitle.setVisibility(VISIBLE);
             tvTitle.setText(title);
             edtBody.title = title;
