@@ -23,6 +23,7 @@
         android:fillViewport="true">
 
         <com.spg.sgpco.baseView.BaseTextView
+            android:id="@+id/about"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_3"
@@ -30,7 +31,6 @@
             android:layout_marginEnd="@dimen/margin_3"
             android:layout_marginBottom="@dimen/margin_3"
             android:lineSpacingMultiplier="1.3"
-            android:text="@string/about_system_head_desc"
             android:textColor="@color/primaryTextColor"
             android:textSize="@dimen/text_size_2"
             app:fontType="Regular" />

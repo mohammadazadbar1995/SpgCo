@@ -103,6 +103,15 @@ public interface ReqInterface {
     @POST("user/forget/password/reset")
     Call<JsonObject> resetPassword(@Body ResetPasswordReq req);
 
+    @GET("about/sgp")
+    Call<JsonObject> aboutSGP();
+
+    @GET("about/app")
+    Call<JsonObject> aboutApp();
+
+    @GET("about/system")
+    Call<JsonObject> aboutSystem();
+
 //    @POST("v2/home/GetNewVersion")
 //    Call<JsonObject> VersionControl(@Body ForceUpdateReq req);
 
