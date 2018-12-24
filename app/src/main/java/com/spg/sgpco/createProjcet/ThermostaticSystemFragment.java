@@ -83,7 +83,6 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
     BaseImageView addThermostatic;
     @BindView(R.id.rvThermostatic)
     RecyclerView rvThermostatic;
-    View.OnClickListener clickListener;
 
     private ArrayList<ThermostaticSystemItem> thermostaticSystemItems = new ArrayList<>();
 
@@ -92,6 +91,7 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
     private String title;
     private int customerId;
     private int cityId;
+    private int stateId;
     private int projectTypeId;
     private int systemsTypeId;
     private int heatSourceId;
@@ -125,6 +125,7 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
             title = b.getString("title");
             customerId = b.getInt("customer_id");
             cityId = b.getInt("city_id");
+            stateId = b.getInt("state_id");
             projectTypeId = b.getInt("project_type_id");
             systemsTypeId = b.getInt("systems_type_id");
             heatSourceId = b.getInt("heat_source_id");
@@ -213,6 +214,7 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
         req.setTitle(title);
         req.setCustomer_id(customerId);
         req.setCity_id(cityId);
+        req.setState_id(stateId);
         req.setProject_type_id(projectTypeId);
         req.setSystems_type_id(systemsTypeId);
         req.setHeat_source_id(heatSourceId);
@@ -242,7 +244,7 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
 
             @Override
             public void onUtorized() {
-                if (getActivity() == null){
+                if (getActivity() == null) {
                     return;
                 }
                 getActivity().finish();
@@ -274,6 +276,7 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
             edtColdArea.setBody("");
         }
 
+
     }
 
 
@@ -295,11 +298,14 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
         req.setName(title);
         req.setCustomer_id(customerId);
         req.setCity_id(cityId);
+        req.setState_id(stateId);
         req.setProject_type_id(projectTypeId);
         req.setSystems_type_id(systemsTypeId);
         req.setHeat_source_id(heatSourceId);
         req.setContent(descreption);
         req.setThermostatic_system(thermostaticSystemItems);
+        PreferencesData.isShowPdf(getActivity(), false);
+
 
         ThermostaticProjectService.getInstance().createThemostaticProject(getResources(), req, new ResponseListener<CreateOrdinaryProjectResponse>() {
             @Override
@@ -325,7 +331,7 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
                         fragTrans.add(R.id.frameLayout, showProjectWebViewFragment, ShowProjectWebViewFragment.class.getName());
                         fragTrans.addToBackStack(ShowProjectWebViewFragment.class.getName());
                         fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-
+                        Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         fragTrans.commit();
 //                        HomeFragment homeFragment = new HomeFragment();
 //                        FragmentManager fragMgr = getActivity().getSupportFragmentManager();
@@ -343,7 +349,7 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
 
             @Override
             public void onUtorized() {
-                if (getActivity() == null){
+                if (getActivity() == null) {
                     return;
                 }
                 getActivity().finish();
@@ -371,7 +377,7 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
             errorMsgList.add(message);
         }
 
-        if (typeOfSpaceLayout == null) {
+        if (typeSpaceItem == null) {
             String message = getResources().getString(R.string.select_type_space);
             typeOfSpaceLayout.setError(message);
             errorMsgList.add(message);
@@ -486,6 +492,14 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
         thermostaticSystemItems.remove(thermostaticSystemItems.get(position));
         adapter.notifyDataSetChanged();
 
+    }
+
+    @Override
+    public void onRowClick(int position, ThermostaticSystemItem item) {
+        genderOfFloorLayout.setValue(item.getFloor_type_title());
+        typeOfSpaceLayout.setValue(item.getType_of_space_title());
+        edtMetr.setBody(String.valueOf(item.getMetr()));
+        edtColdArea.setBody(String.valueOf(item.getCold_area()));
     }
 
 

@@ -112,6 +112,9 @@ public interface ReqInterface {
     @GET("about/system")
     Call<JsonObject> aboutSystem();
 
+    @GET("download/list")
+    Call<JsonObject> getDownloadList();
+
 //    @POST("v2/home/GetNewVersion")
 //    Call<JsonObject> VersionControl(@Body ForceUpdateReq req);
 

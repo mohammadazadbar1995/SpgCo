@@ -66,7 +66,7 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
             if (a.hasValue(R.styleable.CustomEditText_inputType)) {
                 int value = a.getInt(R.styleable.CustomEditText_inputType, 0);
 
-                if (value >= 0 && value < TypeEnum.values().length) {
+                if (value >= 0 && value < InputTypeEnum.values().length) {
                     setTypeEnum(InputTypeEnum.values()[value]);
                 }
             }
@@ -137,12 +137,12 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
     }
 
     public void setTextsTitle(String title) {
-        if (title != null && title.trim().isEmpty()) {
+        if (title != null && !title.trim().isEmpty()) {
             tvTitle.setVisibility(VISIBLE);
             tvTitle.setText(title);
             edtBody.title = title;
         } else {
-            tvTitle.setVisibility(GONE);
+            tvTitle.setVisibility(INVISIBLE);
 
         }
     }

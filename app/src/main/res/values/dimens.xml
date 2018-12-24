@@ -76,5 +76,6 @@
 
     <dimen name="dialog_width_comminucatio">300dp</dimen>
     <dimen name="device_width">600dp</dimen>
+    <dimen name="size_thermo">80dp</dimen>
 
 </resources>

@@ -5,12 +5,21 @@ public class UpdateOrdinaryProjectReq {
 	private String title;
 	private int customer_id;
 	private int city_id;
+	private int state_id;
 	private int project_type_id;
 	private int heat_source_id;
 	private OrdinarySystem ordinary_system;
 	private int systems_type_id;
 	private String content;
 
+
+	public int getState_id() {
+		return state_id;
+	}
+
+	public void setState_id(int state_id) {
+		this.state_id = state_id;
+	}
 
 	public int getHeat_source_id() {
 		return heat_source_id;

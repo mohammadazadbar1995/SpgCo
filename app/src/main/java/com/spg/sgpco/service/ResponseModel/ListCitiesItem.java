@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class ListCitiesItem implements Parcelable {
 	private ArrayList<CitiesListItem> cities_list;
 	private String state;
+	private int state_id;
 
 	public ArrayList<CitiesListItem> getCities_list() {
 		return cities_list;
@@ -25,6 +26,14 @@ public class ListCitiesItem implements Parcelable {
 		this.state = state;
 	}
 
+	public int getState_id() {
+		return state_id;
+	}
+
+	public void setState_id(int state_id) {
+		this.state_id = state_id;
+	}
+
 
 	@Override
 	public int describeContents() {
@@ -33,20 +42,21 @@ public class ListCitiesItem implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeList(this.cities_list);
+		dest.writeTypedList(this.cities_list);
 		dest.writeString(this.state);
+		dest.writeInt(this.state_id);
 	}
 
 	public ListCitiesItem() {
 	}
 
 	protected ListCitiesItem(Parcel in) {
-		this.cities_list = new ArrayList<CitiesListItem>();
-		in.readList(this.cities_list, CitiesListItem.class.getClassLoader());
+		this.cities_list = in.createTypedArrayList(CitiesListItem.CREATOR);
 		this.state = in.readString();
+		this.state_id = in.readInt();
 	}
 
-	public static final Parcelable.Creator<ListCitiesItem> CREATOR = new Parcelable.Creator<ListCitiesItem>() {
+	public static final Creator<ListCitiesItem> CREATOR = new Creator<ListCitiesItem>() {
 		@Override
 		public ListCitiesItem createFromParcel(Parcel source) {
 			return new ListCitiesItem(source);

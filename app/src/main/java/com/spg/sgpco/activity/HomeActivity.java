@@ -96,7 +96,8 @@ public class HomeActivity extends BaseActivity implements MenuAdapter.OnItemClic
         myMenuItems.add(new MyMenuItem(9, getResources().getString(R.string.about_sgp_title), R.drawable.ic_info_outline_white, getResources().getColor(R.color.nine), getResources().getColor(R.color.white)));
         myMenuItems.add(new MyMenuItem(10, getResources().getString(R.string.about_system_heat), R.drawable.ic_info_outline_white, getResources().getColor(R.color.ten), getResources().getColor(R.color.white)));
         myMenuItems.add(new MyMenuItem(11, getResources().getString(R.string.about_application), R.mipmap.ic_launcher, getResources().getColor(R.color.eleven), getResources().getColor(R.color.white)));
-        myMenuItems.add(new MyMenuItem(12, "خروج", R.drawable.exit, getResources().getColor(R.color.twelve), getResources().getColor(R.color.white)));
+        myMenuItems.add(new MyMenuItem(12, getResources().getString(R.string.download_list), R.drawable.outline_cloud_download_white_48, getResources().getColor(R.color.thirteen), getResources().getColor(R.color.white)));
+        myMenuItems.add(new MyMenuItem(13, "خروج", R.drawable.exit, getResources().getColor(R.color.twelve), getResources().getColor(R.color.white)));
 
         return myMenuItems;
     }
@@ -154,6 +155,10 @@ public class HomeActivity extends BaseActivity implements MenuAdapter.OnItemClic
             intent.putExtra("eleven", "eleven");
             startActivity(intent);
         } else if (item.getId() == 12) {
+            intent = new Intent(this, Activity.class);
+            intent.putExtra("thirteen", "thirteen");
+            startActivity(intent);
+        } else if (item.getId() == 13) {
             logoutDialog();
         }
     }

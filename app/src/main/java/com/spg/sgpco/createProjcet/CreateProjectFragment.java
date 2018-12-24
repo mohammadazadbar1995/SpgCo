@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.spg.sgpco.R;
+import com.spg.sgpco.activity.BackPressedFragment;
 import com.spg.sgpco.addCustomer.AddCustomerFragment;
 import com.spg.sgpco.baseView.BaseFragment;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
@@ -52,7 +53,7 @@ import static android.app.Activity.RESULT_OK;
  * Created by m.azadbar on 5/28/2018.
  */
 
-public class CreateProjectFragment extends BaseFragment {
+public class CreateProjectFragment extends BaseFragment implements BackPressedFragment {
 
 
     public boolean isUpdate = false;
@@ -182,7 +183,7 @@ public class CreateProjectFragment extends BaseFragment {
 
             @Override
             public void onUtorized() {
-                if (getActivity() == null){
+                if (getActivity() == null) {
                     return;
                 }
                 getActivity().finish();
@@ -197,6 +198,12 @@ public class CreateProjectFragment extends BaseFragment {
     private void setDataInView(UpdateProjectResponse response) {
         listProjectTypes = response.getResult().getProject_type();
         listCities = response.getResult().getCity();
+        for (int i = 0; i < this.response.getResult().getList_cities().size(); i++) {
+            if (this.response.getResult().getList_cities().get(i).getState_id() == response.getResult().getState_id()){
+                provinceLayout.setValue(this.response.getResult().getList_cities().get(i).getState());
+                listStates = this.response.getResult().getList_cities().get(i);
+            }
+        }
         customerItem = response.getResult().getCustomer();
         heatSource = response.getResult().getHeat_source();
         systemsItems = response.getResult().getSystems_type();
@@ -212,7 +219,11 @@ public class CreateProjectFragment extends BaseFragment {
             typeProjectLayout.reset();
         }
 
-        cityLayout.setValue(response.getResult().getCity().getCity());
+        if (response.getResult().getCity() != null) {
+            cityLayout.setValue(response.getResult().getCity().getCity());
+        } else {
+            cityLayout.reset();
+        }
         if (response.getResult().getCustomer() != null) {
             addCustomerLayout.setValue(response.getResult().getCustomer().getName());
         } else {
@@ -312,6 +323,7 @@ public class CreateProjectFragment extends BaseFragment {
                         bundle.putString("title", edtName.getValueString());
                         bundle.putInt("customer_id", customerItem.getId());
                         bundle.putInt("city_id", Integer.valueOf(listCities.getId()));
+                        bundle.putInt("state_id", listStates.getState_id());
                         bundle.putInt("project_type_id", listProjectTypes.getId());
                         bundle.putInt("systems_type_id", systemsItems.getId());
                         bundle.putInt("heat_source_id", heatSource.getId());
@@ -330,6 +342,7 @@ public class CreateProjectFragment extends BaseFragment {
                         bundle.putString("title", edtName.getValueString());
                         bundle.putInt("customer_id", customerItem.getId());
                         bundle.putInt("city_id", Integer.valueOf(listCities.getId()));
+                        bundle.putInt("state_id", listStates.getState_id());
                         bundle.putInt("project_type_id", listProjectTypes.getId());
                         bundle.putInt("systems_type_id", systemsItems.getId());
                         bundle.putInt("heat_source_id", heatSource.getId());
@@ -356,6 +369,13 @@ public class CreateProjectFragment extends BaseFragment {
         if (listProjectTypes == null) {
             String message = getResources().getString(R.string.select_type_name_project);
             typeProjectLayout.setError(message);
+            errorMsgList.add(message);
+        }
+
+
+        if (listStates == null) {
+            String message = getResources().getString(R.string.select_province);
+            provinceLayout.setError(message);
             errorMsgList.add(message);
         }
 
@@ -535,4 +555,10 @@ public class CreateProjectFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void onPopBackStack() {
+        if (getActivity() != null) {
+            getActivity().getSupportFragmentManager().popBackStack();
+        }
+    }
 }

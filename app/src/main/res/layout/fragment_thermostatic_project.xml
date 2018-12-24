@@ -63,7 +63,7 @@
                 android:background="@drawable/ripplewhite_no_radius"
                 app:edtIcon="@drawable/ic_person_gray"
                 app:hint="@string/enter_metr"
-                app:inputType="PHONE"
+                app:inputType="NUMBER"
                 app:isRequired="true"
                 app:tvTitle="متراژ" />
 
@@ -82,7 +82,7 @@
                 android:background="@drawable/ripplewhite_no_radius"
                 app:edtIcon="@drawable/ic_person_gray"
                 app:hint="@string/enter_cold_area"
-                app:inputType="PHONE"
+                app:inputType="NUMBER"
                 app:isImageInfo="true"
                 app:isRequired="true"
                 app:tvTitle="متراژ سرد" />

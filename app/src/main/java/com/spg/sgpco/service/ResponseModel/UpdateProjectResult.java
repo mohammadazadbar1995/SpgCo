@@ -14,8 +14,9 @@ public class UpdateProjectResult implements Parcelable {
 	private ArrayList<ThermostaticSystemItem> thermostatic_system;
 	private SettingResultItem heat_source;
 	private CitiesListItem city;
+	private int state_id;
 	private SystemsItem systems_type;
-	private String description;
+	private String content;
 	private int id;
 	private String title;
 	private CustomerItem customer;
@@ -78,11 +79,11 @@ public class UpdateProjectResult implements Parcelable {
 	}
 
 	public String getDescription() {
-		return description;
+		return content;
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		this.content = description;
 	}
 
 	public int getId() {
@@ -109,6 +110,14 @@ public class UpdateProjectResult implements Parcelable {
 		this.customer = customer;
 	}
 
+	public int getState_id() {
+		return state_id;
+	}
+
+	public void setState_id(int state_id) {
+		this.state_id = state_id;
+	}
+
 
 	@Override
 	public int describeContents() {
@@ -123,8 +132,9 @@ public class UpdateProjectResult implements Parcelable {
 		dest.writeList(this.thermostatic_system);
 		dest.writeParcelable(this.heat_source, flags);
 		dest.writeParcelable(this.city, flags);
+		dest.writeInt(this.state_id);
 		dest.writeParcelable(this.systems_type, flags);
-		dest.writeString(this.description);
+		dest.writeString(this.content);
 		dest.writeInt(this.id);
 		dest.writeString(this.title);
 		dest.writeParcelable(this.customer, flags);
@@ -141,8 +151,9 @@ public class UpdateProjectResult implements Parcelable {
 		in.readList(this.thermostatic_system, ThermostaticSystemItem.class.getClassLoader());
 		this.heat_source = in.readParcelable(SettingResultItem.class.getClassLoader());
 		this.city = in.readParcelable(CitiesListItem.class.getClassLoader());
+		this.state_id = in.readInt();
 		this.systems_type = in.readParcelable(SystemsItem.class.getClassLoader());
-		this.description = in.readString();
+		this.content = in.readString();
 		this.id = in.readInt();
 		this.title = in.readString();
 		this.customer = in.readParcelable(CustomerItem.class.getClassLoader());

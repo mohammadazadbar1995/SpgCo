@@ -13,6 +13,7 @@ import com.spg.sgpco.about.AboutSystemHeatFragment;
 import com.spg.sgpco.addCustomer.AddCustomerFragment;
 import com.spg.sgpco.baseView.BaseActivity;
 import com.spg.sgpco.createProjcet.CreateProjectFragment;
+import com.spg.sgpco.downloadList.DownloadListFragment;
 import com.spg.sgpco.profile.ContactUsFragment;
 import com.spg.sgpco.profile.GalleryFragment;
 import com.spg.sgpco.profile.ShareAppFragment;
@@ -58,12 +59,14 @@ public class Activity extends BaseActivity {
                 loadFragment(new UpdateProfileFragment(), UpdateProfileFragment.class.getName());
             } else if ("eight".equals(bundle.getString("eight"))) {
                 loadFragment(new ContactUsFragment(), ContactUsFragment.class.getName());
-            }else if ("nine".equals(bundle.getString("nine"))) {
+            } else if ("nine".equals(bundle.getString("nine"))) {
                 loadFragment(new AboutSgpFragment(), AboutSgpFragment.class.getName());
-            }else if ("ten".equals(bundle.getString("ten"))) {
+            } else if ("ten".equals(bundle.getString("ten"))) {
                 loadFragment(new AboutSystemHeatFragment(), AboutSystemHeatFragment.class.getName());
-            }else if ("eleven".equals(bundle.getString("eleven"))) {
+            } else if ("eleven".equals(bundle.getString("eleven"))) {
                 loadFragment(new AboutApplicationFragment(), AboutApplicationFragment.class.getName());
+            } else if ("thirteen".equals(bundle.getString("thirteen"))) {
+                loadFragment(new DownloadListFragment(), DownloadListFragment.class.getName());
             }
         }
     }

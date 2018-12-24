@@ -197,8 +197,6 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
     public void onEdit() {
 
         if (getActivity() != null) {
-
-
             CreateProjectFragment createProjectFragment1 = new CreateProjectFragment();
             FragmentManager fragMgr = getActivity().getSupportFragmentManager();
             FragmentTransaction fragTrans = fragMgr.beginTransaction();
