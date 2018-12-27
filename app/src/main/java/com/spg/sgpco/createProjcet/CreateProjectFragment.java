@@ -94,8 +94,8 @@ public class CreateProjectFragment extends BaseFragment implements BackPressedFr
     private SystemsItem systemsItems;
     private int controlOfSystem;
     private int itemId;
-    private String name;
     private UpdateProjectResponse updateResponse;
+    private String link;
 
 
     public CreateProjectFragment() {
@@ -109,31 +109,31 @@ public class CreateProjectFragment extends BaseFragment implements BackPressedFr
         unbinder = ButterKnife.bind(this, view);
         tvCenterTitle.setText(getResources().getString(R.string.create_project));
 
-        typeProjectLayout.setImgInfo(R.drawable.ic_person_gray);
+        typeProjectLayout.setImgInfo(R.drawable.ic_type_project);
         typeProjectLayout.setTxtTitle("");
         typeProjectLayout.setHint(getString(R.string.select_type_name_project));
 
-        provinceLayout.setImgInfo(R.drawable.ic_person_gray);
+        provinceLayout.setImgInfo(R.drawable.ic_city_project);
         provinceLayout.setTxtTitle("");
         provinceLayout.setHint(getString(R.string.select_province));
 
 
-        cityLayout.setImgInfo(R.drawable.ic_person_gray);
+        cityLayout.setImgInfo(R.drawable.ic_city_project);
         cityLayout.setTxtTitle("");
         cityLayout.setHint(getString(R.string.select_city));
 
 
-        addCustomerLayout.setImgInfo(R.drawable.ic_person_gray);
+        addCustomerLayout.setImgInfo(R.drawable.ic_custome_project);
         addCustomerLayout.setTxtTitle("");
         addCustomerLayout.setHint(getString(R.string.select_customer));
 
 
-        heatSourceLayout.setImgInfo(R.drawable.ic_person_gray);
+        heatSourceLayout.setImgInfo(R.drawable.ic_heat_project);
         heatSourceLayout.setTxtTitle("");
         heatSourceLayout.setHint(getString(R.string.heat_source));
 
 
-        systemControlTypeLayout.setImgInfo(R.drawable.ic_person_gray);
+        systemControlTypeLayout.setImgInfo(R.drawable.ic_heat_project);
         systemControlTypeLayout.setTxtTitle("");
         systemControlTypeLayout.setHint(getString(R.string.system_control_type));
 
@@ -147,6 +147,7 @@ public class CreateProjectFragment extends BaseFragment implements BackPressedFr
             Bundle b = getArguments();
             if (b != null) {
                 itemId = b.getInt("itemId");
+                link = b.getString("link");
                 response = b.getParcelable("allResponseProject");
                 getProjectDataReqeust();
             }
@@ -199,7 +200,7 @@ public class CreateProjectFragment extends BaseFragment implements BackPressedFr
         listProjectTypes = response.getResult().getProject_type();
         listCities = response.getResult().getCity();
         for (int i = 0; i < this.response.getResult().getList_cities().size(); i++) {
-            if (this.response.getResult().getList_cities().get(i).getState_id() == response.getResult().getState_id()){
+            if (this.response.getResult().getList_cities().get(i).getState_id() == response.getResult().getState_id()) {
                 provinceLayout.setValue(this.response.getResult().getList_cities().get(i).getState());
                 listStates = this.response.getResult().getList_cities().get(i);
             }
@@ -328,6 +329,7 @@ public class CreateProjectFragment extends BaseFragment implements BackPressedFr
                         bundle.putInt("systems_type_id", systemsItems.getId());
                         bundle.putInt("heat_source_id", heatSource.getId());
                         bundle.putString("description", edtBugReport.getValue());
+                        bundle.putString("link", link);
                         if (isUpdate) {
                             bundle.putParcelable("updateSystemsOrdinary", updateResponse.getResult());
                         }
@@ -347,6 +349,7 @@ public class CreateProjectFragment extends BaseFragment implements BackPressedFr
                         bundle.putInt("systems_type_id", systemsItems.getId());
                         bundle.putInt("heat_source_id", heatSource.getId());
                         bundle.putString("description", edtBugReport.getValue());
+                        bundle.putString("link", link);
                         if (isUpdate) {
                             bundle.putParcelable("updateSystemsThermostatic", updateResponse.getResult());
                         }

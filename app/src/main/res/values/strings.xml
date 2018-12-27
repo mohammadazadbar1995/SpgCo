@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SgpCo</string>
+    <string name="app_name">SGP</string>
 
     //Error String
     <string name="internalError">خطای سرور</string>

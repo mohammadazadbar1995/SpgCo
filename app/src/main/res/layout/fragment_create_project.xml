@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_item_create"
                 android:background="@drawable/ripplewhite_no_radius"
-                app:edtIcon="@drawable/ic_person_gray"
+                app:edtIcon="@drawable/ic_name_project"
                 app:hint="@string/enter_your_project_name"
                 app:inputType="NAME"
                 app:isRequired="true"

@@ -108,7 +108,7 @@ public class TermostaticItemAdapter extends RecyclerView.Adapter<TermostaticItem
 
         public void bind(int position, ThermostaticSystemItem item, final OnItemClickListener listener) {
             imgDelete.setOnClickListener(v -> listener.onItemClick(position, item));
-//            row.setOnClickListener(v -> listener.onRowClick(position, item));
+            row.setOnClickListener(v -> listener.onRowClick(position, item));
         }
 
     }

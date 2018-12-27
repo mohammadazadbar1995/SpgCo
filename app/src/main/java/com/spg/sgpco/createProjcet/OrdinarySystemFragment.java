@@ -85,6 +85,7 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
     private int heatSourceId;
     private String descreption;
     private UpdateProjectResult updateSystemsOrdinary;
+    private String link;
 
     public OrdinarySystemFragment() {
     }
@@ -97,7 +98,7 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
         unbinder = ButterKnife.bind(this, view);
         tvCenterTitle.setText(getResources().getString(R.string.ordinary_system));
 
-        genderOfFloorLayout.setImgInfo(R.drawable.ic_person_gray);
+        genderOfFloorLayout.setImgInfo(R.drawable.ic_gender);
         genderOfFloorLayout.setTxtTitle("");
         genderOfFloorLayout.setHint(getString(R.string.gendar_of_floor));
 
@@ -111,6 +112,7 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
             systemsTypeId = b.getInt("systems_type_id");
             heatSourceId = b.getInt("heat_source_id");
             descreption = b.getString("description");
+            link = b.getString("link");
             updateSystemsOrdinary = b.getParcelable("updateSystemsOrdinary");
         }
 
@@ -196,8 +198,19 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess()) {
                     if (getActivity() != null) {
-                        getActivity().finish();
+                        ShowProjectWebViewFragment showProjectWebViewFragment = new ShowProjectWebViewFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("link", link);
+                        showProjectWebViewFragment.setArguments(bundle);
+                        FragmentManager fragMgr = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragTrans = fragMgr.beginTransaction();
+//                        fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+                        fragTrans.add(R.id.frameLayout, showProjectWebViewFragment, ShowProjectWebViewFragment.class.getName());
+                        fragTrans.addToBackStack(ShowProjectWebViewFragment.class.getName());
+                        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                        fragTrans.commit();
                         Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+
 
                     }
                 }

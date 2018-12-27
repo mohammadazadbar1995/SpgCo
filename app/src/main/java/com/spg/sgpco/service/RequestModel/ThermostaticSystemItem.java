@@ -1,8 +1,11 @@
 package com.spg.sgpco.service.RequestModel;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.spg.sgpco.service.ResponseModel.SettingResultItem;
 
-public class ThermostaticSystemItem {
+public class ThermostaticSystemItem implements Parcelable {
     private int metr;
     private int type_of_space_id;
     private int floor_type_id;
@@ -77,4 +80,48 @@ public class ThermostaticSystemItem {
     public void setFloor_type(SettingResultItem floor_type) {
         this.floor_type = floor_type;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.metr);
+        dest.writeInt(this.type_of_space_id);
+        dest.writeInt(this.floor_type_id);
+        dest.writeInt(this.cold_area);
+        dest.writeString(this.type_of_space_title);
+        dest.writeString(this.floor_type_title);
+        dest.writeParcelable(this.type_of_space, flags);
+        dest.writeParcelable(this.floor_type, flags);
+    }
+
+    public ThermostaticSystemItem() {
+    }
+
+    protected ThermostaticSystemItem(Parcel in) {
+        this.metr = in.readInt();
+        this.type_of_space_id = in.readInt();
+        this.floor_type_id = in.readInt();
+        this.cold_area = in.readInt();
+        this.type_of_space_title = in.readString();
+        this.floor_type_title = in.readString();
+        this.type_of_space = in.readParcelable(SettingResultItem.class.getClassLoader());
+        this.floor_type = in.readParcelable(SettingResultItem.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<ThermostaticSystemItem> CREATOR = new Parcelable.Creator<ThermostaticSystemItem>() {
+        @Override
+        public ThermostaticSystemItem createFromParcel(Parcel source) {
+            return new ThermostaticSystemItem(source);
+        }
+
+        @Override
+        public ThermostaticSystemItem[] newArray(int size) {
+            return new ThermostaticSystemItem[size];
+        }
+    };
 }

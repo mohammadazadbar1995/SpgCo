@@ -88,15 +88,15 @@ public class HomeActivity extends BaseActivity implements MenuAdapter.OnItemClic
         myMenuItems.add(new MyMenuItem(1, "فهرست پروژه ها", R.drawable.list_projec, getResources().getColor(R.color.one), getResources().getColor(R.color.white)));
         myMenuItems.add(new MyMenuItem(2, "ایجاد پروژه جدید", R.drawable.insert_project, getResources().getColor(R.color.two), getResources().getColor(R.color.white)));
         myMenuItems.add(new MyMenuItem(3, "مشتری ها", R.drawable.customers, getResources().getColor(R.color.three), getResources().getColor(R.color.white)));
-        myMenuItems.add(new MyMenuItem(4, "معرفی به دوستان", R.drawable.friends, getResources().getColor(R.color.four), getResources().getColor(R.color.white)));
-        myMenuItems.add(new MyMenuItem(5, "نوشته ها", R.drawable.writing, getResources().getColor(R.color.five), getResources().getColor(R.color.white)));
-        myMenuItems.add(new MyMenuItem(6, "گالری تصاویر", R.drawable.gallery, getResources().getColor(R.color.six), getResources().getColor(R.color.white)));
-        myMenuItems.add(new MyMenuItem(7, "پروفایل", R.drawable.profile, getResources().getColor(R.color.seven), getResources().getColor(R.color.white)));
-        myMenuItems.add(new MyMenuItem(8, "تماس با ما", R.drawable.contact_us, getResources().getColor(R.color.eight), getResources().getColor(R.color.white)));
-        myMenuItems.add(new MyMenuItem(9, getResources().getString(R.string.about_sgp_title), R.drawable.ic_info_outline_white, getResources().getColor(R.color.nine), getResources().getColor(R.color.white)));
-        myMenuItems.add(new MyMenuItem(10, getResources().getString(R.string.about_system_heat), R.drawable.ic_info_outline_white, getResources().getColor(R.color.ten), getResources().getColor(R.color.white)));
+        myMenuItems.add(new MyMenuItem(10, getResources().getString(R.string.about_system_heat), R.drawable.about_gender_floor_logo, getResources().getColor(R.color.ten), getResources().getColor(R.color.white)));
         myMenuItems.add(new MyMenuItem(11, getResources().getString(R.string.about_application), R.mipmap.ic_launcher, getResources().getColor(R.color.eleven), getResources().getColor(R.color.white)));
-        myMenuItems.add(new MyMenuItem(12, getResources().getString(R.string.download_list), R.drawable.outline_cloud_download_white_48, getResources().getColor(R.color.thirteen), getResources().getColor(R.color.white)));
+        myMenuItems.add(new MyMenuItem(5, "مطالب فنی", R.drawable.writing, getResources().getColor(R.color.five), getResources().getColor(R.color.white)));
+        myMenuItems.add(new MyMenuItem(6, "گالری تصاویر", R.drawable.gallery, getResources().getColor(R.color.six), getResources().getColor(R.color.white)));
+        myMenuItems.add(new MyMenuItem(9, getResources().getString(R.string.about_sgp_title), R.drawable.sgp, getResources().getColor(R.color.nine), getResources().getColor(R.color.redColor)));
+//        myMenuItems.add(new MyMenuItem(12, getResources().getString(R.string.download_list), R.drawable.outline_cloud_download_white_48, getResources().getColor(R.color.thirteen), getResources().getColor(R.color.white)));
+        myMenuItems.add(new MyMenuItem(7, "پروفایل", R.drawable.profile, getResources().getColor(R.color.seven), getResources().getColor(R.color.white)));
+        myMenuItems.add(new MyMenuItem(4, "معرفی به دوستان", R.drawable.friends, getResources().getColor(R.color.four), getResources().getColor(R.color.white)));
+        myMenuItems.add(new MyMenuItem(8, "تماس با ما", R.drawable.contact_us, getResources().getColor(R.color.eight), getResources().getColor(R.color.white)));
         myMenuItems.add(new MyMenuItem(13, "خروج", R.drawable.exit, getResources().getColor(R.color.twelve), getResources().getColor(R.color.white)));
 
         return myMenuItems;
