@@ -31,7 +31,7 @@
         <com.spg.sgpco.baseView.BaseTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/group_spg"
+            android:text="@string/group_sgp"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_3"
             app:fontType="Medium" />
@@ -39,7 +39,7 @@
         <com.spg.sgpco.baseView.BaseTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/group_spg_en"
+            android:text="@string/group_sgp_en"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_4"
             app:fontType="Medium" />
