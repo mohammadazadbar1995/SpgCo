@@ -26,7 +26,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.thefinestartist.utils.content.ContextUtil.startActivity;
 
 /**
  * Created by m.Azadbar on 10/7/2017.

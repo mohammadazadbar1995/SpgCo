@@ -36,7 +36,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/margin_4"
-        android:backgroundTint="@color/redColor"
         app:srcCompat="@drawable/ic_add_white" />
 
     <include

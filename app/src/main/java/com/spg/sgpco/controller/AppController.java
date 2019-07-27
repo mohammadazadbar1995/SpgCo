@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
-import com.thefinestartist.Base;
+
 
 public class AppController extends Application {
 
@@ -19,7 +19,6 @@ public class AppController extends Application {
 //                .setDefaultFontPath("fonts/iransansmobile.ttfontAttrId(R.attr.fontPath).build()
 //        );
 
-        Base.initialize(this);
     }
 
 

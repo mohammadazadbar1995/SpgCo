@@ -2,16 +2,13 @@ package com.spg.sgpco.profile;
 
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.ResolveInfo;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,23 +20,17 @@ import com.spg.sgpco.baseView.BaseTextView;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-import static com.thefinestartist.utils.content.ContextUtil.getApplicationContext;
-import static com.thefinestartist.utils.content.ContextUtil.getExternalCacheDir;
-import static com.thefinestartist.utils.content.ContextUtil.getPackageManager;
-import static com.thefinestartist.utils.content.ContextUtil.getPackageName;
 
 
 /**
@@ -96,7 +87,7 @@ public class ShareAppFragment extends Fragment implements BackPressedFragment {
 
 
     private void shareApplication() {
-        ApplicationInfo app = getApplicationContext().getApplicationInfo();
+        ApplicationInfo app = getActivity().getApplicationContext().getApplicationInfo();
         String filePath = app.sourceDir;
 
         Intent intent = new Intent(Intent.ACTION_SEND);
@@ -112,7 +103,7 @@ public class ShareAppFragment extends Fragment implements BackPressedFragment {
 
         try {
             //Make new directory in new location
-            File tempFile = new File(getExternalCacheDir() + "/ExtractedApk");
+            File tempFile = new File(getActivity().getExternalCacheDir() + "/ExtractedApk");
             //If directory doesn't exists create new
             if (!tempFile.isDirectory())
                 if (!tempFile.mkdirs())
