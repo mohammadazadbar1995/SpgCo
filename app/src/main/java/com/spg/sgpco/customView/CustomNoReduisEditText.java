@@ -2,12 +2,10 @@ package com.spg.sgpco.customView;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.PorterDuff;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.LinearLayout;
 
 import com.spg.sgpco.R;
@@ -16,7 +14,6 @@ import com.spg.sgpco.baseView.BaseImageView;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.dialog.CustomDialog;
 import com.spg.sgpco.enums.InputTypeEnum;
-import com.spg.sgpco.enums.TypeEnum;
 import com.spg.sgpco.listener.OnEditTextChangeListener;
 import com.spg.sgpco.utils.Constants;
 
@@ -66,7 +63,7 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
             if (a.hasValue(R.styleable.CustomEditText_inputType)) {
                 int value = a.getInt(R.styleable.CustomEditText_inputType, 0);
 
-                if (value >= 0 && value < TypeEnum.values().length) {
+                if (value >= 0 && value < InputTypeEnum.values().length) {
                     setTypeEnum(InputTypeEnum.values()[value]);
                 }
             }
@@ -137,12 +134,12 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
     }
 
     public void setTextsTitle(String title) {
-        if (title != null && title.trim().isEmpty()) {
+        if (title != null && !title.trim().isEmpty()) {
             tvTitle.setVisibility(VISIBLE);
             tvTitle.setText(title);
             edtBody.title = title;
         } else {
-            tvTitle.setVisibility(GONE);
+            tvTitle.setVisibility(INVISIBLE);
 
         }
     }
@@ -184,7 +181,7 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
             image.setImageDrawable(getResources().getDrawable(R.drawable.ic_asterisk));
         } else if (!"".equals(edtBody.getTrimedText())) {
             image.setVisibility(VISIBLE);
-            image.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+            image.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle_black_24dp));
         } else {
             image.setVisibility(GONE);
         }
@@ -203,4 +200,12 @@ public class CustomNoReduisEditText extends LinearLayout implements OnEditTextCh
     }
 
 
+    public void clickable() {
+        edtBody.setEnabled(false);
+    }
+
+    public void notClickable() {
+        edtBody.setEnabled(true);
+
+    }
 }

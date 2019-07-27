@@ -110,6 +110,9 @@ public class BaseEditText extends AppCompatEditText implements TextWatcher {
                 case CODEVERIFY:
                     error = Validation.getCodeVerify(text, isRequired, getResources());
                     break;
+                case NUMBER:
+                    error = Validation.getNumberError(text,title,isRequired,getResources());
+                    break;
             }
             if (onEditTextChangeListener != null) {
                 onEditTextChangeListener.onGetError(error);

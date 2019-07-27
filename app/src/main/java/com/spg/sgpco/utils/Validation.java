@@ -46,7 +46,7 @@ public class Validation {
         if (password == null || password.trim().isEmpty()) {
             return isRequired ? res.getString(R.string.enter_password) : null;
         }
-        if (password.length() < 6){
+        if (password.length() < 6) {
             return res.getString(R.string.invalid_password);
         }
         return null;
@@ -67,9 +67,17 @@ public class Validation {
             return isRequired ? res.getString(R.string.enter_code) : null;
         }
 
-        if (code.length() < 5){
+        if (code.length() < 5) {
             return res.getString(R.string.invalid_code);
         }
+        return null;
+    }
+
+    public static String getNumberError(String text,String title,  Boolean isRequired, Resources res) {
+        if (text == null || text.trim().isEmpty()) {
+            return isRequired ? res.getString(R.string.enter_title, title) : null;
+        }
+
         return null;
     }
 

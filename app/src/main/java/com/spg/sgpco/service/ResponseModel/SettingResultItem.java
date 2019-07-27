@@ -6,6 +6,7 @@ import android.os.Parcelable;
 public class SettingResultItem implements Parcelable {
     private int id;
     private String title;
+    private boolean zero;
 
     public int getId() {
         return id;
@@ -23,6 +24,14 @@ public class SettingResultItem implements Parcelable {
         this.title = title;
     }
 
+    public boolean isZero() {
+        return zero;
+    }
+
+    public void setZero(boolean zero) {
+        this.zero = zero;
+    }
+
 
     @Override
     public int describeContents() {
@@ -33,6 +42,7 @@ public class SettingResultItem implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
         dest.writeString(this.title);
+        dest.writeByte(this.zero ? (byte) 1 : (byte) 0);
     }
 
     public SettingResultItem() {
@@ -41,9 +51,10 @@ public class SettingResultItem implements Parcelable {
     protected SettingResultItem(Parcel in) {
         this.id = in.readInt();
         this.title = in.readString();
+        this.zero = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<SettingResultItem> CREATOR = new Parcelable.Creator<SettingResultItem>() {
+    public static final Creator<SettingResultItem> CREATOR = new Creator<SettingResultItem>() {
         @Override
         public SettingResultItem createFromParcel(Parcel source) {
             return new SettingResultItem(source);

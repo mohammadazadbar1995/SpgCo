@@ -79,11 +79,13 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
     private String title;
     private int customerId;
     private int cityId;
+    private int stateId;
     private int projectTypeId;
     private int systemsTypeId;
     private int heatSourceId;
     private String descreption;
     private UpdateProjectResult updateSystemsOrdinary;
+    private String link;
 
     public OrdinarySystemFragment() {
     }
@@ -96,7 +98,7 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
         unbinder = ButterKnife.bind(this, view);
         tvCenterTitle.setText(getResources().getString(R.string.ordinary_system));
 
-        genderOfFloorLayout.setImgInfo(R.drawable.ic_person_gray);
+        genderOfFloorLayout.setImgInfo(R.drawable.ic_gender);
         genderOfFloorLayout.setTxtTitle("");
         genderOfFloorLayout.setHint(getString(R.string.gendar_of_floor));
 
@@ -105,10 +107,12 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
             title = b.getString("title");
             customerId = b.getInt("customer_id");
             cityId = b.getInt("city_id");
+            stateId = b.getInt("state_id");
             projectTypeId = b.getInt("project_type_id");
             systemsTypeId = b.getInt("systems_type_id");
             heatSourceId = b.getInt("heat_source_id");
             descreption = b.getString("description");
+            link = b.getString("link");
             updateSystemsOrdinary = b.getParcelable("updateSystemsOrdinary");
         }
 
@@ -170,6 +174,7 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
         req.setTitle(title);
         req.setCustomer_id(customerId);
         req.setCity_id(cityId);
+        req.setState_id(stateId);
         req.setProject_type_id(projectTypeId);
         req.setSystems_type_id(systemsTypeId);
         req.setHeat_source_id(heatSourceId);
@@ -193,8 +198,19 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess()) {
                     if (getActivity() != null) {
-                        getActivity().finish();
+                        ShowProjectWebViewFragment showProjectWebViewFragment = new ShowProjectWebViewFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("link", link);
+                        showProjectWebViewFragment.setArguments(bundle);
+                        FragmentManager fragMgr = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragTrans = fragMgr.beginTransaction();
+//                        fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+                        fragTrans.add(R.id.frameLayout, showProjectWebViewFragment, ShowProjectWebViewFragment.class.getName());
+                        fragTrans.addToBackStack(ShowProjectWebViewFragment.class.getName());
+                        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                        fragTrans.commit();
                         Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+
 
                     }
                 }
@@ -202,7 +218,7 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
 
             @Override
             public void onUtorized() {
-                if (getActivity() == null){
+                if (getActivity() == null) {
                     return;
                 }
                 getActivity().finish();
@@ -222,6 +238,7 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
         req.setName(title);
         req.setCustomer_id(customerId);
         req.setCity_id(cityId);
+        req.setState_id(stateId);
         req.setProject_type_id(projectTypeId);
         req.setSystems_type_id(systemsTypeId);
         req.setHeat_source_id(heatSourceId);
@@ -231,6 +248,7 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
         ordinarySystem.setCold_area(edtColdArea.getValueInt());
         ordinarySystem.setFloor_type_id(genderFloor.getId());
         req.setOrdinary_system(ordinarySystem);
+        PreferencesData.isShowPdf(getActivity(), false);
         OrdinaryProjectService.getInstance().createOrdinaryProject(getResources(), req, new ResponseListener<CreateOrdinaryProjectResponse>() {
             @Override
             public void onGetErrore(String error) {
@@ -256,6 +274,8 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
 
                         fragTrans.add(R.id.frameLayout, showProjectWebViewFragment, ShowProjectWebViewFragment.class.getName());
                         fragTrans.addToBackStack(ShowProjectWebViewFragment.class.getName());
+                        Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+
                         fragTrans.commit();
 
 //                        HomeFragment homeFragment = new HomeFragment();
@@ -274,7 +294,7 @@ public class OrdinarySystemFragment extends BaseFragment implements BackPressedF
 
             @Override
             public void onUtorized() {
-                if (getActivity() == null){
+                if (getActivity() == null) {
                     return;
                 }
                 getActivity().finish();

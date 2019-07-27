@@ -8,6 +8,7 @@ public class CreateOrdinaryProjectReq{
 	private String name;
 	private int customer_id;
 	private int city_id;
+	private int state_id;
 	private String content;
 
 	public String getContent() {
@@ -72,5 +73,13 @@ public class CreateOrdinaryProjectReq{
 
 	public void setCity_id(int city_id) {
 		this.city_id = city_id;
+	}
+
+	public int getState_id() {
+		return state_id;
+	}
+
+	public void setState_id(int state_id) {
+		this.state_id = state_id;
 	}
 }

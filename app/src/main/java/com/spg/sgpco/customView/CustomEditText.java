@@ -2,7 +2,6 @@ package com.spg.sgpco.customView;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -14,7 +13,6 @@ import com.spg.sgpco.baseView.BaseEditText;
 import com.spg.sgpco.baseView.BaseImageView;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.enums.InputTypeEnum;
-import com.spg.sgpco.enums.TypeEnum;
 import com.spg.sgpco.listener.OnEditTextChangeListener;
 import com.spg.sgpco.utils.Constants;
 
@@ -159,7 +157,7 @@ public class CustomEditText extends LinearLayout implements OnEditTextChangeList
             image.setImageDrawable(getResources().getDrawable(R.drawable.ic_asterisk));
         } else if (!"".equals(edtBody.getTrimedText())) {
             image.setVisibility(VISIBLE);
-            image.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+            image.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_tick));
         } else {
             image.setVisibility(GONE);
         }

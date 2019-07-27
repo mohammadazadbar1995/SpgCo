@@ -8,10 +8,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 
 import com.spg.sgpco.R;
 import com.spg.sgpco.activity.BackPressedFragment;
-import com.spg.sgpco.activity.MainActivity;
 import com.spg.sgpco.baseView.BaseRelativeLayout;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.customView.RoundedLoadingView;
@@ -38,14 +38,15 @@ public class ShowContentItemFragment extends Fragment implements BackPressedFrag
     Unbinder unbinder;
     @BindView(R.id.tvCenterTitle)
     BaseTextView tvCenterTitle;
-    @BindView(R.id.tvPost)
-    BaseTextView tvPost;
     @BindView(R.id.roundedLoadingView)
     RoundedLoadingView roundedLoadingView;
     @BindView(R.id.root)
     BaseRelativeLayout root;
+    @BindView(R.id.webview)
+    WebView webview;
     private ShowContentItem showContentItem;
-
+    final String mimeType = "text/html";
+    final String encoding = "UTF-8";
 
     public ShowContentItemFragment() {
     }
@@ -75,7 +76,7 @@ public class ShowContentItemFragment extends Fragment implements BackPressedFrag
         GetShowContentItemService.getInstance().getShowItemContent(getResources(), String.valueOf(showContentItem.getID()), new ResponseListener<GetShowItemResponse>() {
             @Override
             public void onGetErrore(String error) {
-                if (tvPost == null){
+                if (root == null) {
                     return;
                 }
                 roundedLoadingView.setVisibility(View.GONE);
@@ -85,20 +86,20 @@ public class ShowContentItemFragment extends Fragment implements BackPressedFrag
 
             @Override
             public void onSuccess(GetShowItemResponse response) {
-                if (tvPost == null){
+                if (root == null) {
                     return;
                 }
                 roundedLoadingView.setVisibility(View.GONE);
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess() && response.getResult() != null) {
                     tvCenterTitle.setText(response.getResult().getPost_title());
-                    tvPost.setText(response.getResult().getPost_content());
+                    webview.loadDataWithBaseURL("", response.getResult().getPost_content(), mimeType, encoding, "");
                 }
             }
 
             @Override
             public void onUtorized() {
-                if (getActivity() == null){
+                if (getActivity() == null) {
                     return;
                 }
                 getActivity().finish();

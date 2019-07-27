@@ -120,7 +120,7 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
 
             @Override
             public void onUtorized() {
-                if (getActivity() == null){
+                if (getActivity() == null) {
                     return;
                 }
                 getActivity().finish();
@@ -197,13 +197,12 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
     public void onEdit() {
 
         if (getActivity() != null) {
-
-
             CreateProjectFragment createProjectFragment1 = new CreateProjectFragment();
             FragmentManager fragMgr = getActivity().getSupportFragmentManager();
             FragmentTransaction fragTrans = fragMgr.beginTransaction();
             Bundle bundle = new Bundle();
             bundle.putInt("itemId", list.getId());
+            bundle.putString("link", list.getLink());
             bundle.putParcelable("allResponseProject", allResponseProject);
             createProjectFragment1.setArguments(bundle);
             createProjectFragment1.isUpdate = true;
@@ -274,7 +273,7 @@ public class HomeFragment extends BaseFragment implements GetListProjectAdapter.
 
             @Override
             public void onUtorized() {
-                if (getActivity() == null){
+                if (getActivity() == null) {
                     return;
                 }
                 getActivity().finish();

@@ -45,11 +45,11 @@
                 android:layout_height="@dimen/size_item_create"
                 android:layout_below="@+id/gender_of_floor_layout"
                 android:layout_alignParentBottom="false"
-                app:edtIcon="@drawable/ic_person_gray"
+                app:edtIcon="@drawable/ic_range"
                 app:hint="@string/enter_metr"
                 android:background="@drawable/ripplewhite_no_radius"
                 app:isRequired="true"
-                app:inputType="PHONE"
+                app:inputType="NUMBER"
                 app:tvTitle="متراژ" />
 
             <View
@@ -65,9 +65,9 @@
                 android:layout_height="@dimen/size_item_create"
                 android:layout_alignParentBottom="false"
                 android:background="@drawable/ripplewhite_no_radius"
-                app:edtIcon="@drawable/ic_person_gray"
+                app:edtIcon="@drawable/ic_range"
                 app:hint="@string/enter_cold_area"
-                app:inputType="PHONE"
+                app:inputType="NUMBER"
                 app:isRequired="true"
                 app:tvTitle="متراژ سرد" />
 

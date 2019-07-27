@@ -27,15 +27,24 @@
             android:visibility="gone"
             app:srcCompat="@drawable/ic_add_white" />
 
+        <com.spg.sgpco.baseView.BaseImageView
+            android:id="@+id/btnEdit"
+            android:layout_width="@dimen/icon_24"
+            android:layout_height="@dimen/icon_24"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/margin_2"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_check_tick" />
         <com.spg.sgpco.baseView.BaseTextView
             android:id="@+id/tvCenterTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="گروه صنایع گیتی پسند"
+            android:text="نرم افزار برآورد اقلام سیستم گرمایش از کف"
             android:textColor="@color/toolbarFore"
-            android:textSize="@dimen/text_size_4"
+            android:textSize="@dimen/text_size_2"
             android:visibility="visible"
             app:fontType="Medium" />
 

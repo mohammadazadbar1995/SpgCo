@@ -12,7 +12,6 @@ import com.spg.sgpco.baseView.BaseEditText;
 import com.spg.sgpco.baseView.BaseImageView;
 import com.spg.sgpco.baseView.BaseTextView;
 import com.spg.sgpco.enums.InputTypeEnum;
-import com.spg.sgpco.enums.TypeEnum;
 import com.spg.sgpco.listener.OnEditTextChangeListener;
 import com.spg.sgpco.utils.Constants;
 
@@ -125,7 +124,7 @@ public class CustomMultiLineEditText extends LinearLayout implements OnEditTextC
             image.setImageDrawable(getResources().getDrawable(R.drawable.ic_asterisk));
         } else if (!"".equals(edtBody.getTrimedText())) {
             image.setVisibility(VISIBLE);
-            image.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+            image.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_tick));
         } else {
             image.setVisibility(GONE);
         }

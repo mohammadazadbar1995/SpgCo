@@ -83,7 +83,8 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
     BaseImageView addThermostatic;
     @BindView(R.id.rvThermostatic)
     RecyclerView rvThermostatic;
-    View.OnClickListener clickListener;
+    @BindView(R.id.btnEdit)
+    BaseImageView btnEdit;
 
     private ArrayList<ThermostaticSystemItem> thermostaticSystemItems = new ArrayList<>();
 
@@ -92,6 +93,7 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
     private String title;
     private int customerId;
     private int cityId;
+    private int stateId;
     private int projectTypeId;
     private int systemsTypeId;
     private int heatSourceId;
@@ -99,6 +101,8 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
     private ThermostaticSystemItem items = new ThermostaticSystemItem();
     private UpdateProjectResult updateSystemsThermostatic;
     private TermostaticItemAdapter adapter;
+    private int possition = 0;
+    private String link;
 
     public ThermostaticSystemFragment() {
     }
@@ -111,11 +115,11 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
         unbinder = ButterKnife.bind(this, view);
         tvCenterTitle.setText(getResources().getString(R.string.thermostatic_system));
 
-        genderOfFloorLayout.setImgInfo(R.drawable.ic_person_gray);
+        genderOfFloorLayout.setImgInfo(R.drawable.ic_gender);
         genderOfFloorLayout.setTxtTitle("");
         genderOfFloorLayout.setHint(getString(R.string.gendar_of_floor));
 
-        typeOfSpaceLayout.setImgInfo(R.drawable.ic_person_gray);
+        typeOfSpaceLayout.setImgInfo(R.drawable.ic_gender);
         typeOfSpaceLayout.setTxtTitle("");
         typeOfSpaceLayout.setHint(getString(R.string.type_of_space));
 
@@ -125,10 +129,12 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
             title = b.getString("title");
             customerId = b.getInt("customer_id");
             cityId = b.getInt("city_id");
+            stateId = b.getInt("state_id");
             projectTypeId = b.getInt("project_type_id");
             systemsTypeId = b.getInt("systems_type_id");
             heatSourceId = b.getInt("heat_source_id");
             descreption = b.getString("description");
+            link = b.getString("link");
             updateSystemsThermostatic = b.getParcelable("updateSystemsThermostatic");
 
         }
@@ -148,6 +154,8 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
             items.setType_of_space_id(ther.getType_of_space().getId());//TODO
             items.setFloor_type_title(ther.getFloor_type().getTitle());
             items.setType_of_space_title(ther.getType_of_space().getTitle());
+            items.setFloor_type(ther.getFloor_type());
+            items.setType_of_space(ther.getType_of_space());
             items.setMetr(ther.getMetr());
             items.setCold_area(ther.getCold_area());
             thermostaticSystemItems.add(items);
@@ -165,7 +173,7 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
     }
 
 
-    @OnClick({R.id.gender_of_floor_layout, R.id.btnCreate, R.id.addThermostatic, R.id.type_of_space})
+    @OnClick({R.id.gender_of_floor_layout, R.id.btnCreate, R.id.addThermostatic, R.id.type_of_space, R.id.btnEdit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.gender_of_floor_layout:
@@ -196,13 +204,29 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
                 }
                 break;
             case R.id.addThermostatic:
-
                 createThermostaticList();
-
+                break;
+            case R.id.btnEdit:
+                if (isValideData(1)) {
+                    items = new ThermostaticSystemItem();
+                    items.setCold_area(edtColdArea.getValueInt());
+                    items.setMetr(edtMetr.getValueInt());
+                    items.setFloor_type_id(genderFloor.getId());
+                    items.setType_of_space_id(typeSpaceItem.getId());
+                    items.setFloor_type_title(genderFloor.getTitle());
+                    items.setType_of_space_title(typeSpaceItem.getTitle());
+                    items.setType_of_space(typeSpaceItem);
+                    items.setFloor_type(genderFloor);
+                    thermostaticSystemItems.set(possition, items);
+                    setAdapter(thermostaticSystemItems, false);
+                    resetView();
+                    hideShowBtnEdit();
+                }
                 break;
         }
 
     }
+
 
     private void updateSystemRequest() {
         roundedLoadingView.setVisibility(View.VISIBLE);
@@ -213,6 +237,7 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
         req.setTitle(title);
         req.setCustomer_id(customerId);
         req.setCity_id(cityId);
+        req.setState_id(stateId);
         req.setProject_type_id(projectTypeId);
         req.setSystems_type_id(systemsTypeId);
         req.setHeat_source_id(heatSourceId);
@@ -233,7 +258,17 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
                 enableDisableViewGroup(root, true);
                 if (response.isSuccess()) {
                     if (getActivity() != null) {
-                        getActivity().finish();
+                        ShowProjectWebViewFragment showProjectWebViewFragment = new ShowProjectWebViewFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("link", link);
+                        showProjectWebViewFragment.setArguments(bundle);
+                        FragmentManager fragMgr = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragTrans = fragMgr.beginTransaction();
+//                        fragTrans.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+                        fragTrans.add(R.id.frameLayout, showProjectWebViewFragment, ShowProjectWebViewFragment.class.getName());
+                        fragTrans.addToBackStack(ShowProjectWebViewFragment.class.getName());
+                        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                        fragTrans.commit();
                         Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
@@ -242,13 +277,12 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
 
             @Override
             public void onUtorized() {
-                if (getActivity() == null){
+                if (getActivity() == null) {
                     return;
                 }
                 getActivity().finish();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 PreferencesData.isLogin(getActivity(), false);
-
                 startActivity(intent);
             }
         });
@@ -264,15 +298,13 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
             items.setType_of_space_id(typeSpaceItem.getId());
             items.setFloor_type_title(genderFloor.getTitle());
             items.setType_of_space_title(typeSpaceItem.getTitle());
+            items.setFloor_type(genderFloor);
+            items.setType_of_space(typeSpaceItem);
             thermostaticSystemItems.add(items);
             setAdapter(thermostaticSystemItems, false);
-            genderOfFloorLayout.reset();
-            genderOfFloorLayout.setHint(getString(R.string.gendar_of_floor));
-            typeOfSpaceLayout.reset();
-            typeOfSpaceLayout.setHint(getString(R.string.type_of_space));
-            edtMetr.setBody("");
-            edtColdArea.setBody("");
+            resetView();
         }
+
 
     }
 
@@ -295,11 +327,13 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
         req.setName(title);
         req.setCustomer_id(customerId);
         req.setCity_id(cityId);
+        req.setState_id(stateId);
         req.setProject_type_id(projectTypeId);
         req.setSystems_type_id(systemsTypeId);
         req.setHeat_source_id(heatSourceId);
         req.setContent(descreption);
         req.setThermostatic_system(thermostaticSystemItems);
+        PreferencesData.isShowPdf(getActivity(), false);
 
         ThermostaticProjectService.getInstance().createThemostaticProject(getResources(), req, new ResponseListener<CreateOrdinaryProjectResponse>() {
             @Override
@@ -325,25 +359,15 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
                         fragTrans.add(R.id.frameLayout, showProjectWebViewFragment, ShowProjectWebViewFragment.class.getName());
                         fragTrans.addToBackStack(ShowProjectWebViewFragment.class.getName());
                         fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-
+                        Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         fragTrans.commit();
-//                        HomeFragment homeFragment = new HomeFragment();
-//                        FragmentManager fragMgr = getActivity().getSupportFragmentManager();
-//                        FragmentTransaction fragTrans = fragMgr.beginTransaction();
-//                        fragTrans.add(R.id.frameLayout, homeFragment, HomeFragment.class.getName());
-//                        fragTrans.addToBackStack(HomeFragment.class.getName());
-//                        fragTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//                        fragTrans.commit();
-//                        Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
-//                        if (getActivity() instanceof MainActivitySecond)
-//                            ((MainActivitySecond) getActivity()).getNavigation().setSelectedItemId(R.id.tab_home);
                     }
                 }
             }
 
             @Override
             public void onUtorized() {
-                if (getActivity() == null){
+                if (getActivity() == null) {
                     return;
                 }
                 getActivity().finish();
@@ -371,7 +395,7 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
             errorMsgList.add(message);
         }
 
-        if (typeOfSpaceLayout == null) {
+        if (typeSpaceItem == null) {
             String message = getResources().getString(R.string.select_type_space);
             typeOfSpaceLayout.setError(message);
             errorMsgList.add(message);
@@ -423,9 +447,18 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
         typeSpaceItem = type_space;
         if (typeOfSpaceLayout != null) {
             typeOfSpaceLayout.setValue(typeSpaceItem.getTitle());
+            if (typeSpaceItem.isZero()) {
+                edtColdArea.setBody("0");
+                edtColdArea.clickable();
+                Toast.makeText(getActivity(), "نوع فضای انتخابی شما دارای متراژ سرد ۰ می باشد", Toast.LENGTH_SHORT).show();
+            } else {
+                edtColdArea.setTextHint(getString(R.string.enter_cold_area));
+                edtColdArea.setBody("");
+                edtColdArea.notClickable();
+
+            }
         } else {
             typeOfSpaceLayout.setHint("انتخاب کنید");
-
         }
     }
 
@@ -483,9 +516,43 @@ public class ThermostaticSystemFragment extends BaseFragment implements BackPres
 
     @Override
     public void onItemClick(int position, ThermostaticSystemItem item) {
+        hideShowBtnEdit();
+        resetView();
         thermostaticSystemItems.remove(thermostaticSystemItems.get(position));
         adapter.notifyDataSetChanged();
 
+    }
+
+    @Override
+    public void onRowClick(int position, ThermostaticSystemItem item) {
+        showBtnEdit();
+        genderOfFloorLayout.setValue(item.getFloor_type_title());
+        typeOfSpaceLayout.setValue(item.getType_of_space_title());
+        edtMetr.setBody(String.valueOf(item.getMetr()));
+        edtColdArea.setBody(String.valueOf(item.getCold_area()));
+        genderFloor = item.getFloor_type();
+        typeSpaceItem = item.getType_of_space();
+        this.possition = position;
+
+    }
+
+    private void showBtnEdit() {
+        addThermostatic.setVisibility(View.GONE);
+        btnEdit.setVisibility(View.VISIBLE);
+    }
+
+    private void hideShowBtnEdit() {
+        btnEdit.setVisibility(View.GONE);
+        addThermostatic.setVisibility(View.VISIBLE);
+    }
+
+    private void resetView() {
+        genderOfFloorLayout.reset();
+        genderOfFloorLayout.setHint(getString(R.string.gendar_of_floor));
+        typeOfSpaceLayout.reset();
+        typeOfSpaceLayout.setHint(getString(R.string.type_of_space));
+        edtMetr.setBody("");
+        edtColdArea.setBody("");
     }
 
 

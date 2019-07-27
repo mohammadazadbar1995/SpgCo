@@ -31,19 +31,20 @@
     <color name="transparentLoding">#30000000</color>
     <color name="secondaryBack1">#46B6CD</color>
 
-    <color name="one">#89bfff</color>
-    <color name="two">#fed018</color>
-    <color name="three">#58595b</color>
-    <color name="four">#662e91</color>
-    <color name="five">#58595b</color>
-    <color name="six">#ee2b7a</color>
-    <color name="seven">#f27529</color>
-    <color name="eight">#ff0000</color>
-    <color name="nine">#ff0000</color>
-    <color name="ten">#ee2b7a</color>
-    <color name="eleven">#8dc73f</color>
-    <color name="twelve">#060b74</color>
+    <color name="one">#f27529</color>
+    <color name="two">#00a1df</color>
+    <color name="three">#248149</color>
+    <color name="four">#590b6c</color>
+    <color name="five">#f8ae24</color>
+    <color name="six">#3fafc7</color>
+    <color name="seven">#f26722</color>
+    <color name="eight">#2e9189</color>
+    <color name="nine">#a3a3a3</color>
+    <color name="ten">#1b2192</color>
+    <color name="eleven">#ff0060</color>
+    <color name="twelve">#ff0000</color>
     <color name="backgrorundListLight">#EFEFF4</color>
+    <color name="thirteen">#ee2b7a</color>
 
 
 </resources>

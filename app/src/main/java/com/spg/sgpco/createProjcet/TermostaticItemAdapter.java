@@ -2,6 +2,7 @@ package com.spg.sgpco.createProjcet;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ public class TermostaticItemAdapter extends RecyclerView.Adapter<TermostaticItem
     private final ArrayList<ThermostaticSystemItem> list;
     private final boolean isUpdate;
 
+
     private OnItemClickListener listener;
 
 
@@ -55,10 +57,20 @@ public class TermostaticItemAdapter extends RecyclerView.Adapter<TermostaticItem
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+        Resources res = holder.itemView.getResources();
         ThermostaticSystemItem object = list.get(position);
 
-        holder.tvTitle.setText(object.getFloor_type_title() + "_" + object.getType_of_space_title() + "_" + object.getMetr()
-                + "_" + object.getCold_area());
+        holder.typeSpaceId.setText(res.getString(R.string.type_space) + ": " +
+                object.getType_of_space_title());
+
+        holder.genderFloorId.setText(res.getString(R.string.gender_floor) + ": " +
+                object.getFloor_type_title());
+
+        holder.meter.setText(res.getString(R.string.meter) + ": " +
+                object.getMetr());
+
+        holder.meterCold.setText(res.getString(R.string.cold_area) + ": " +
+                object.getCold_area());
 
         holder.bind(position, object, listener);
 
@@ -72,14 +84,22 @@ public class TermostaticItemAdapter extends RecyclerView.Adapter<TermostaticItem
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.tvTitle)
-        BaseTextView tvTitle;
+        @BindView(R.id.typeSpaceId)
+        BaseTextView typeSpaceId;
+        @BindView(R.id.genderFloorId)
+        BaseTextView genderFloorId;
+        @BindView(R.id.meter)
+        BaseTextView meter;
+        @BindView(R.id.meterCold)
+        BaseTextView meterCold;
+        @BindView(R.id.imgDelete)
+        BaseImageView imgDelete;
+        @BindView(R.id.imgEdit)
+        BaseImageView imgEdit;
         @BindView(R.id.rlItem)
         BaseRelativeLayout rlItem;
         @BindView(R.id.row)
         BaseRelativeLayout row;
-        @BindView(R.id.imgDelete)
-        BaseImageView imgDelete;
 
         ViewHolder(View view) {
             super(view);
@@ -88,11 +108,13 @@ public class TermostaticItemAdapter extends RecyclerView.Adapter<TermostaticItem
 
         public void bind(int position, ThermostaticSystemItem item, final OnItemClickListener listener) {
             imgDelete.setOnClickListener(v -> listener.onItemClick(position, item));
+            row.setOnClickListener(v -> listener.onRowClick(position, item));
         }
 
     }
 
     public interface OnItemClickListener {
         void onItemClick(int position, ThermostaticSystemItem item);
+        void onRowClick(int position, ThermostaticSystemItem item);
     }
 }

@@ -13,6 +13,15 @@ public class CreateThermostaticReq {
     private ArrayList<ThermostaticSystemItem> thermostatic_system;
     private int customer_id;
     private int city_id;
+    private int state_id;
+
+    public int getState_id() {
+        return state_id;
+    }
+
+    public void setState_id(int state_id) {
+        this.state_id = state_id;
+    }
 
     public int getProject_id() {
         return project_id;
